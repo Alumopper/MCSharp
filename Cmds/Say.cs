@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCsharp.Commands
+namespace MCSharp.Cmds
 {
-    internal class Say
+    public class Say : Command
     {
         private string text;
 
@@ -17,7 +17,7 @@ namespace MCsharp.Commands
 
         public override string ToString()
         {
-            return "say " + text; 
+            return "say " + text;
         }
     }
 }

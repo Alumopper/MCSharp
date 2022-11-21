@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCsharp.Type
+namespace MCSharp.Type
 {
     public class SbValue
     {
         /// <summary>
         /// 值
         /// </summary>
-        public String playerName;
+        public string playerName;
         /// <summary>
         /// 计分板名字
         /// </summary>
-        public String objectName;
+        public string objectName;
 
-        public SbValue(String playerName, String objectName)
+        public SbValue(string playerName, string objectName)
         {
             this.playerName = playerName;
             this.objectName = objectName;

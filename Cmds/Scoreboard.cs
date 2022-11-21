@@ -1,15 +1,15 @@
-﻿using MCsharp.Type;
+﻿using MCSharp.Type;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCsharp.Commands
+namespace MCSharp.Cmds
 {
-    public class Scoreboard
+    public class Scoreboard : Command
     {
-        public static String playersOperation(SbValue sbValue1,SbValue sbValue2,String operation)
+        public static string playersOperation(SbValue sbValue1, SbValue sbValue2, string operation)
         {
             return "scoreboard players operation ";
         }

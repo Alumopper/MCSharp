@@ -62,18 +62,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Commands.cs" />
-    <Compile Include="Commands\Say.cs" />
-    <Compile Include="Commands\Scoreboard.cs" />
+    <Compile Include="Cmds\Command.cs" />
+    <Compile Include="Cmds\Commands.cs" />
+    <Compile Include="Cmds\Function.cs" />
+    <Compile Include="Cmds\Say.cs" />
+    <Compile Include="Cmds\Scoreboard.cs" />
     <Compile Include="Datapack.cs" />
-    <Compile Include="FuncHolder.cs" />
-    <Compile Include="Exception\NoSuchDirectoryOrFunctionException.cs" />
+    <Compile Include="Exception\IllegalFunctionNameException.cs" />
+    <Compile Include="Exception\FunctionNotRegistryException.cs" />
     <Compile Include="Function.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FunctionTag.cs" />
+    <Compile Include="StackManager.cs" />
     <Compile Include="Test\Test.cs" />
     <Compile Include="Type\JsonText.cs" />
     <Compile Include="Type\MCInt.cs" />
     <Compile Include="Type\SbValue.cs" />
+    <Compile Include="Util\U.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

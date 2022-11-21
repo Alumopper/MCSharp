@@ -5,13 +5,13 @@ using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace MCsharp.Type
+namespace MCSharp.Type
 {
     public class JsonText
     {
         public JsonObject root = new JsonObject();
 
-        public JsonText(String text)
+        public JsonText(string text)
         {
             root["text"] = text;
         }
