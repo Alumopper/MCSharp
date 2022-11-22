@@ -29,7 +29,7 @@ namespace MCSharp
         
         /// <summary>
         /// <para>函数在栈中的名字</para>
-        /// <para>格式：命名空间.类名$tag命名空间_tag名_函数名</para>
+        /// <para>格式：命名空间$类名$tag命名空间_tag名_函数名</para>
         /// </summary>
         public string stackName;
         
@@ -51,7 +51,12 @@ namespace MCSharp
         {
             return commands;
         }
-        
+
+        /// <summary>
+        /// 函数相对于functions文件夹的路径
+        /// </summary>
+        public string path;
+
         public static Function lastFunc = null;
 
         public static List<string> currStack = new List<string>{""};
@@ -59,8 +64,9 @@ namespace MCSharp
         public Function(string stackName)
         {
             this.stackName = stackName;
-            //去除类名
-            stackName = stackName.Split('$')[1];
+            string[] funcinfos = stackName.Split('$');
+            //名字：类名_函数名
+            stackName = funcinfos[2];
             //未转换的名字，如果含有下划线则切割
             if (stackName.Contains('_'))
             {
@@ -82,12 +88,13 @@ namespace MCSharp
             {
                 this.name = stackName.ToLower();
             }
-            //todo:把设置函数命名空间写上。现在默认是default
-            @namespace = "default";
-            if(!Regex.IsMatch(stackName, @"^[a-zA-Z0-9_]+$"))
+            //根据类名补上函数的路径
+            path = funcinfos[1].Replace('.', '_').ToLower() + "/" + name;
+            @namespace = funcinfos[0].Replace('.', '_').ToLower();
+            if(!Regex.IsMatch(name, @"^[a-zA-Z0-9_/]+$"))
             {
                 //非法命名
-                throw new FunctionNotRegistryException("函数名只能包含字母数字或下划线:" + stackName);
+                throw new FunctionNotRegistryException("函数路径只能包含字母数字或下划线:" + path);
             }
         }
 
@@ -97,7 +104,7 @@ namespace MCSharp
         /// <returns>函数的命名空间id</returns>
         public override string ToString()
         {
-            return @namespace + ":" + name;
+            return @namespace + ":" + path;
         }
 
         public void AddCommand(Command c)

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace MCSharp
@@ -15,7 +16,7 @@ namespace MCSharp
     public class Datapack
     {
         /// <summary>
-        /// 数据包输出路径
+        /// 数据包输出路径，应该是一个datapack文件夹下
         /// </summary>
         public static string outputPath = "./";
 
@@ -57,11 +58,17 @@ namespace MCSharp
                 old.Delete(true);
             }
             //生成数据包
-            DirectoryInfo func = Directory.CreateDirectory(outputPath + "\\" + name + "\\data\\qwq\\functions");
+            DirectoryInfo func = Directory.CreateDirectory(outputPath + "\\" + name);
             foreach (KeyValuePair<string, Function> function in functions)
             {
+                //生成函数文件的路径
+                DirectoryInfo di = new DirectoryInfo(func.FullName + "\\data\\"+ function.Value.@namespace +"\\functions\\" + function.Value.path.Substring(0, function.Value.path.LastIndexOf('/')));
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
                 //生成函数文件
-                StreamWriter fs = new StreamWriter(File.Create(func.FullName + "\\" + function.Value.name + ".mcfunction"));
+                StreamWriter fs = new StreamWriter(File.Create(di.FullName + "\\" + function.Value.name + ".mcfunction"));
                 StringBuilder builder = new StringBuilder();
                 foreach (var commands in function.Value.GetCommands())
                 {
@@ -71,7 +78,7 @@ namespace MCSharp
                 fs.Flush();
                 fs.Close();
             }
-            File.WriteAllText(outputPath + "\\" + name + "\\pack.mcmeta", "{\r\n    \"pack\": {\r\n        \"description\":\"" + discription + "\",\r\n        \"pack_format\": 10\r\n    }\r\n}");
+            File.WriteAllText(outputPath + "\\" + name + "\\pack.mcmeta", "{\r\n    \"pack\": {\r\n        \"description\":\"" + discription + "\",\r\n        \"pack_format\": " + version + "\r\n    }\r\n}");
         }
 
         /// <summary>
@@ -101,7 +108,7 @@ namespace MCSharp
         public static void RegistryFunction()
         {
             StackFrame sf = new StackTrace().GetFrame(1);
-            string funcname = sf.GetMethod().DeclaringType.FullName + "$" + sf.GetMethod().Name;
+            string funcname = sf.GetMethod().DeclaringType.Namespace + "$" + sf.GetMethod().DeclaringType.Name + "$" + sf.GetMethod().Name;
             Function n = new Function(funcname);
             //若函数没用被注册，则注册此函数
             if (!functions.ContainsKey(funcname))
@@ -136,6 +143,20 @@ namespace MCSharp
                 stringBuilder.Append(function).AppendLine();
             }
             Console.Write(stringBuilder.ToString());
-        } 
+        }
+
+        /// <summary>
+        /// 此命令函数是否被注册
+        /// </summary>
+        /// <returns>如果命令函数被注册，返回true</returns>
+        public static bool FunctionHasRegistry()
+        {
+            StackFrame s = new StackFrame(2);
+            if (Datapack.functions.ContainsKey(s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

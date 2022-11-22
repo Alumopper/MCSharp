@@ -82,7 +82,7 @@ namespace MCSharp
             List<string> re = new List<string>();
             foreach (StackFrame s in sfs)
             {
-                string methodName = s.GetMethod().DeclaringType.FullName + "$" + s.GetMethod().Name;
+                string methodName = s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name;
                 if (Datapack.functions.ContainsKey(methodName))
                 {
                     re.Add(methodName);
