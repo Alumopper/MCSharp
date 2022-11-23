@@ -8,6 +8,12 @@ namespace MCSharp.Cmds
 {
     public class Command
     {
-
+        /// <summary>
+        /// 返回此命令对象的命令函数文本形式
+        /// </summary>
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

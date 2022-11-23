@@ -9,7 +9,7 @@ namespace MCSharp.Type
     public class MCInt : SbValue
     {
         int value;
-        public MCInt(int value) : base(Datapack.name + ".intvar." + "", "MCS_intvar") { }
-        public MCInt(string name, int value) : base(Datapack.name + ".intvar." + name, "MCS_intvar") { }
+        public MCInt(int value) : base(DatapackInfo.name + ".intvar." + "", "MCS_intvar") { }
+        public MCInt(string name, int value) : base(DatapackInfo.name + ".intvar." + name, "MCS_intvar") { }
     }
 }

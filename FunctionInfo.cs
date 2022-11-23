@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MCSharp
 {
-    public class Function
+    public class FunctionInfo
     {
         /// <summary>
         /// 是否是功能根函数
@@ -57,11 +57,11 @@ namespace MCSharp
         /// </summary>
         public string path;
 
-        public static Function lastFunc = null;
+        public static FunctionInfo lastFunc = null;
 
         public static List<string> currStack = new List<string>{""};
 
-        public Function(string stackName)
+        public FunctionInfo(string stackName)
         {
             this.stackName = stackName;
             string[] funcinfos = stackName.Split('$');

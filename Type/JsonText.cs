@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
+    /// <summary>
+    /// 一段Json原始文本
+    /// </summary>
     public class JsonText
     {
         public JsonObject root = new JsonObject();

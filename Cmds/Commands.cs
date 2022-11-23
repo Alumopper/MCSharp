@@ -15,12 +15,12 @@ namespace MCSharp.Cmds
 
         public static Function Function(string functionID)
         {
-            if (!Datapack.FunctionHasRegistry())
+            if (!DatapackInfo.FunctionHasRegistry())
             {
                 throw new FunctionNotRegistryException("未注册的函数:"+ new StackFrame(1).GetMethod().Name);
             }
             Function function = new Function(functionID);
-            Datapack.functions[StackManager.GetStack()[0]].AddCommand(function);
+            DatapackInfo.functions[StackManager.GetStack()[0]].AddCommand(function);
             return function;
         }
 
@@ -30,12 +30,12 @@ namespace MCSharp.Cmds
         /// <param name="text">要发送的文本</param>
         public static Say Say(string text)
         {
-            if (!Datapack.FunctionHasRegistry())
+            if (!DatapackInfo.FunctionHasRegistry())
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
             Say say = new Say(text);
-            Datapack.functions[StackManager.GetStack()[0]].AddCommand(say);
+            DatapackInfo.functions[StackManager.GetStack()[0]].AddCommand(say);
             return say;
         }
     }

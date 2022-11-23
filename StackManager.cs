@@ -18,7 +18,7 @@ namespace MCSharp
             set
             {
                 //栈的底部始终都会是根函数
-                Datapack.functions[value.Last()].isRoot = true;
+                DatapackInfo.functions[value.Last()].isRoot = true;
                 if (!U.ListEqualBySort(value,stack)) {
                     //栈发生了变化，说明发生了函数调用
                     //函数栈发生了变化，可能存在出栈和入栈
@@ -45,7 +45,7 @@ namespace MCSharp
                     //原栈出栈，即函数完成了调用，函数中的所有命令已经被注入到数据包对应的命令函数中，已经不再需要注入命令
                     foreach (string f in stackddd)
                     {
-                        Datapack.functions[f].end = true;
+                        DatapackInfo.functions[f].end = true;
                     }
                     //现栈进栈，即此函数在上一个函数中被调用了，需要在上一个函数中添加一个funtion命令表示函数调用
                     //注意，在这样的列表中，索引越靠前，代表是栈的顶层，即[0]代表正在被执行的函数，[1]代表调用正在被执行的函数的函数
@@ -55,12 +55,12 @@ namespace MCSharp
                         string w = qwq[0];
                         qwq.RemoveAt(0);
                         //但是需要注意的是，如果"被调用"的函数为根函数，那么实际上这个函数不会存在父函数被调用，因此需要忽略
-                        if (Datapack.functions[w].isRoot)
+                        if (DatapackInfo.functions[w].isRoot)
                         {
                             continue;
                         }
                         //添加函数调用语句
-                        Datapack.functions[qwq[0]].GetCommands().Add(new Cmds.Function(Datapack.functions[w].ToString()));
+                        DatapackInfo.functions[qwq[0]].GetCommands().Add(new Cmds.Function(DatapackInfo.functions[w].ToString()));
                     }
                 }
                 stack = value;
@@ -83,7 +83,7 @@ namespace MCSharp
             foreach (StackFrame s in sfs)
             {
                 string methodName = s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name;
-                if (Datapack.functions.ContainsKey(methodName))
+                if (DatapackInfo.functions.ContainsKey(methodName))
                 {
                     re.Add(methodName);
                 }
