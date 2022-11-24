@@ -16,7 +16,7 @@ struct DummyCommand : public Command {
 	virtual std::string apply() override { return "Hello World! - DummyCommand"; }
 
 	struct Builder : public CommandBuilder {
-		virtual Command* build() { return new DummyCommand(); }
+		virtual Command* build() override { return new DummyCommand(); }
 	};
 
 private:
@@ -27,7 +27,7 @@ struct ExceptCommand : public Command {
 	virtual std::string apply() override { return "Hello World! - ExceptCommand"; }
 
 	struct Builder : public CommandBuilder {
-		virtual Command* build() {
+		virtual Command* build() override {
 			throw std::runtime_error("ExceptCommand throw an ERROR!");
 			return new ExceptCommand();
 		}
@@ -42,7 +42,7 @@ struct CommonCommand : public Command {
 	struct Builder : public CommandBuilder {
 		Builder() { cmd_.reset(new CommonCommand()); }
 
-		virtual Command* build() {
+		virtual Command* build() override {
 			if (cmd_->msg_.find("abort") != -1)
 				throw std::runtime_error("CommonCommand caught unexpected `abort' string");
 			return cmd_.release();
