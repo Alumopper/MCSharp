@@ -4,6 +4,7 @@
 #include <mcsc/command/builderbase.h>
 #include <mcsc/builtin/errdump.h>
 
+#include <glog/logging.h>
 #include <memory>
 #include <exception>
 #include <type_traits>
@@ -67,6 +68,8 @@ private:
 		try {
 			return builder_->build();
 		} catch (const std::exception& e) {
+			LOG(ERROR) << "mcsc::command::ProxyBuilder: caught exception from `"
+					   << typeid(BuilderType).name() << "', with `" << e.what() << "' thrown";
 			auto err = ProxyBuilder<ErrDump>::require();
 			err->setErrorMsg(e.what());
 			return err.build();
