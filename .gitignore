@@ -1,0 +1,8 @@
+build/*
+*.exe
+*.lib
+*.so
+*.a
+*.dll
+*.out
+.cache/*
