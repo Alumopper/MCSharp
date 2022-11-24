@@ -18,11 +18,16 @@ public:
 
 	class Builder : public CommandBuilder {
 	public:
-		virtual Command build() override;
+		virtual Command* build() override;
 
 		Builder();
-		Builder& setErrorMsg(const std::string& err);
+		Builder* setErrorMsg(const std::string& err) noexcept;
+	private:
+		std::unique_ptr<ErrDump> cmd_;
 	};
+
+private:
+	std::string errmsg_;
 };
 
 };	 // namespace mcsc::builtin

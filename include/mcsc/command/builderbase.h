@@ -6,7 +6,7 @@ namespace mcsc::command {
 
 class Builder {
 public:
-	virtual Command build() = 0;
+	virtual Command* build() = 0;
 };
 
 };	 // namespace mcsc::command

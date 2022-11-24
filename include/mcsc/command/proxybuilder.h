@@ -8,24 +8,24 @@
 #include <exception>
 #include <type_traits>
 
-namespace mcsc::builtin {
+namespace mcsc::command {
 
-using CommandBuilder = mcsc::command::Builder;
+using CommandBuilder = Builder;
 
 namespace detail {
 
 using ProxyBuilderFlag = struct {};
 
 template <typename T>
-concept CommandBuilderType = std::is_base_of_v<T, CommandBuilder> && !
-std::is_base_of_v<T, ProxyBuilderFlag>;
+concept CommandBuilderType = std::is_base_of_v<CommandBuilder, typename T::Builder> && !
+std::is_base_of_v<ProxyBuilderFlag, T>;
 
 };	 // namespace detail
 
 template <detail::CommandBuilderType T>
 class ProxyBuilder final : public CommandBuilder, private detail::ProxyBuilderFlag {
 private:
-	using BuilderType = typename T::builder;
+	using BuilderType = typename T::Builder;
 
 	ProxyBuilder(BuilderType* ptr)
 		: builder_(ptr) {}
@@ -34,7 +34,11 @@ private:
 
 	ProxyBuilder(ProxyBuilder&& rhs) = delete;
 
+#ifdef NDEBUG
 private:
+#else
+public:
+#endif
 	template <typename G>
 		requires std::is_same_v<G, BuilderType>
 	class Wrapper {
@@ -50,28 +54,32 @@ private:
 	public:
 		G* operator->() { return builder_.get(); }
 
-		Command build() { return ProxyBuilder(builder_.release()).build(); }
+		Command* build() { return ProxyBuilder(builder_.release()).build(); }
 
 	private:
 		std::unique_ptr<G> builder_;
 	};
+
+private:
+	Command* build() override {
+		using builtin::ErrDump;
+
+		try {
+			return builder_->build();
+		} catch (const std::exception& e) {
+			auto err = ProxyBuilder<ErrDump>::require();
+			err->setErrorMsg(e.what());
+			return err.build();
+		}
+	}
 
 public:
 	template <typename... Args> static Wrapper<BuilderType> require(Args... args) {
 		return new BuilderType(std::forward<Args>(args)...);
 	}
 
-	Command build() override {
-		try {
-			return builder_->build();
-		} catch (const std::exception& e) {
-			auto err = ProxyBuilder::require<ErrDump>()->setErrorMsg(e.what());
-			return err.build();
-		}
-	}
-
 private:
 	std::unique_ptr<BuilderType> builder_;
 };
 
-};	 // namespace mcsc::builtin
+};	 // namespace mcsc::command
