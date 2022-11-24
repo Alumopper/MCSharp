@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cmds\Advancement.cs" />
-    <Compile Include="Cmds\Atrribute.cs" />
+    <Compile Include="Cmds\Attribute.cs" />
     <Compile Include="Cmds\Ban.cs" />
     <Compile Include="Cmds\Banlist.cs" />
     <Compile Include="Cmds\Ban_ip.cs" />
@@ -145,6 +145,7 @@
     <Compile Include="Exception\ArgumentNotMatchException.cs" />
     <Compile Include="Exception\IllegalFunctionNameException.cs" />
     <Compile Include="Exception\FunctionNotRegistryException.cs" />
+    <Compile Include="Exception\IllegalUUIDException.cs" />
     <Compile Include="FunctionInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FunctionTag.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Type\MCInt.cs" />
     <Compile Include="Type\NBT.cs" />
     <Compile Include="Type\SbValue.cs" />
+    <Compile Include="Type\UUID.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\U.cs" />
   </ItemGroup>
