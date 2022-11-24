@@ -1,0 +1,9 @@
+[submodule "share/3rdparty/glog"]
+	path = share/3rdparty/glog
+	url = git@github.com:google/glog.git
+[submodule "share/3rdparty/gtest"]
+	path = share/3rdparty/gtest
+	url = git@github.com:google/googletest.git
+[submodule "share/3rdparty/json"]
+	path = share/3rdparty/json
+	url = git@github.com:nlohmann/json
