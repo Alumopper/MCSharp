@@ -25,7 +25,6 @@ namespace MCSharp.Cmds
         #region 变量
         Entity target;
         string attribute;
-        string get_set;
         double scale;
         int type;
         double value;
@@ -58,7 +57,6 @@ namespace MCSharp.Cmds
             {
                 throw new ArgumentNotMatchException("参数错误:" + get_set + "。应当为\"get\", \"set\"。");
             }
-            this.get_set = get_set;
             if (get_set.Equals("get"))
             {
                 this.scale = scale_value;
@@ -118,10 +116,6 @@ namespace MCSharp.Cmds
             {
                 DatapackInfo.log.AddLog(Util.Log.Level.WARN, "未知属性" + attribute);
             }
-            if (!Regex.IsMatch(uuid, "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + uuid + "。期待一个UUID");
-            }
             this.uuid = uuid;
             this.type = 5;
         }
@@ -141,10 +135,6 @@ namespace MCSharp.Cmds
             else
             {
                 DatapackInfo.log.AddLog(Util.Log.Level.WARN, "未知属性" + attribute);
-            }
-            if (!Regex.IsMatch(uuid, "[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}"))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + uuid + "。期待一个UUID");
             }
             this.uuid = uuid;
             this.scale = scale;

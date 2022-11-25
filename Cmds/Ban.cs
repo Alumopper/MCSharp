@@ -14,7 +14,7 @@ namespace MCSharp.Cmds
     /// ban &lt;playerid or uuid&gt; [&lt;reason…&gt;]
     /// </code>
     /// </summary>
-    public class Ban
+    public class Ban : Command
     {
         string id;
         UUID uuid = null;

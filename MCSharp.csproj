@@ -67,7 +67,7 @@
     <Compile Include="Cmds\Ban.cs" />
     <Compile Include="Cmds\Banlist.cs" />
     <Compile Include="Cmds\Ban_ip.cs" />
-    <Compile Include="Cmds\BossBar.cs" />
+    <Compile Include="Cmds\Bossbar.cs" />
     <Compile Include="Cmds\Clear.cs" />
     <Compile Include="Cmds\Clone.cs" />
     <Compile Include="Cmds\Command.cs" />
@@ -151,13 +151,16 @@
     <Compile Include="FunctionTag.cs" />
     <Compile Include="StackManager.cs" />
     <Compile Include="Test\Test.cs" />
+    <Compile Include="Type\Bossbar.cs" />
     <Compile Include="Type\Entity.cs" />
     <Compile Include="Type\ID.cs" />
     <Compile Include="Type\JsonText.cs" />
     <Compile Include="Type\MCInt.cs" />
     <Compile Include="Type\NBT.cs" />
+    <Compile Include="Type\Pos.cs" />
     <Compile Include="Type\SbValue.cs" />
     <Compile Include="Type\UUID.cs" />
+    <Compile Include="Type\Vector3.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\U.cs" />
   </ItemGroup>

@@ -18,5 +18,10 @@ namespace MCSharp.Type
         {
             root["text"] = text;
         }
+
+        public override string ToString()
+        {
+            return root.ToJsonString();
+        }
     }
 }
