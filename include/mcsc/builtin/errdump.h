@@ -3,6 +3,8 @@
 #include <mcsc/command/cmdbase.h>
 #include <mcsc/command/builderbase.h>
 
+#include <memory>
+
 namespace mcsc::builtin {
 
 using mcsc::command::Command;

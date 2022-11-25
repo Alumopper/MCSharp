@@ -2,7 +2,7 @@
 
 #include <mcsc/version.h>
 
-#include <stdint.h>
+#include <stddef.h>
 #include <tuple>
 #include <array>
 

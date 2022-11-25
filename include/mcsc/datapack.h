@@ -1,4 +1,3 @@
-#include <mcsc/datapack/meta.h>
 #include <mcsc/datapack/packformat.h>
 #include <mcsc/command/proxybuilder.h>
 
