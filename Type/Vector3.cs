@@ -42,7 +42,6 @@ namespace MCSharp.Type
                 }
                 return Double.MaxValue;
             }
-
             set
             {
                 if (i > 2)
