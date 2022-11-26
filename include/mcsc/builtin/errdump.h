@@ -24,6 +24,7 @@ public:
 
 		Builder();
 		Builder* setErrorMsg(const std::string& err) noexcept;
+
 	private:
 		std::unique_ptr<ErrDump> cmd_;
 	};

@@ -14,7 +14,7 @@ public:
 	~DatapackBuilder();
 
 public:
-	int					   getPackFormat() const;
+	int				   getPackFormat() const;
 	const std::string& getPackName() const;
 	const std::string& getDescription() const;
 

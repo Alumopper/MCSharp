@@ -16,7 +16,7 @@ Command* ErrDump::Builder::build() {
 	return cmd_.release();
 }
 
-ErrDump::Builder* ErrDump::Builder::setErrorMsg(const std::string &err) noexcept {
+ErrDump::Builder* ErrDump::Builder::setErrorMsg(const std::string& err) noexcept {
 	cmd_->errmsg_ = err;
 	return this;
 }
