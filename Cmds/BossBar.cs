@@ -41,8 +41,8 @@ namespace MCSharp.Cmds
         string style;
         bool visible;
 
-        private string[] mpvv = new string[] { "max", "players", "value", "visible" };
-        private string[] mv = new string[] { "max", "value" };
+        private static string[] mpvv = new string[] { "max", "players", "value", "visible" };
+        private static string[] mv = new string[] { "max", "value" };
 
         /// <summary>
         /// bossbar add &lt;id> &gt;name>

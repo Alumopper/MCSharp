@@ -18,7 +18,7 @@ namespace MCSharp.Cmds
     {
         string a;
 
-        private string[] ip = new string[] { "ips", "players" };
+        private static string[] ip = new string[] { "ips", "players" };
 
         /// <summary>
         /// banlist (ips|players)

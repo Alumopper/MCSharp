@@ -32,8 +32,8 @@ namespace MCSharp.Cmds
         string name;
         string add_multiply_multiply_base;
 
-        private string[] amb = new string[] { "add", "multiply", "multiply_base" };
-        private string[] gs = new string[] { "get", "set" };
+        private static string[] amb = new string[] { "add", "multiply", "multiply_base" };
+        private static string[] gs = new string[] { "get", "set" };
         #endregion
 
         #region 构造方法

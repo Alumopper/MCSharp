@@ -38,7 +38,7 @@ namespace MCSharp.Cmds
     ///     删除指定NBT。
     /// </code>
     /// </summary>
-    public class Data
+    public class Data : Command
     {
         #region 参数
         Pos targetpos;
@@ -58,7 +58,7 @@ namespace MCSharp.Cmds
         int type;
         #endregion
 
-        private string[] amps = new string[] { "append", "merge", "prepend", "set" };
+        private static string[] amps = new string[] { "append", "merge", "prepend", "set" };
 
         #region get
         /// <summary>

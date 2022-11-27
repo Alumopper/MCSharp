@@ -24,8 +24,8 @@ namespace MCSharp.Cmds
         string force_move_normal;
         ID filter;
 
-        private string[] rm = new string[] { "replace", "masked" };
-        private string[] fmn = new string[] { "force", "move", "normal" };
+        private static string[] rm = new string[] { "replace", "masked" };
+        private static string[] fmn = new string[] { "force", "move", "normal" };
 
         public Clone(Pos begin, Pos end, Pos destination, string replace_masked, string force_move_normal)
         {
