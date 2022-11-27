@@ -1,6 +1,9 @@
 set(Targets
 	ProxyBuilder
-	DatapackBuilder)
+	DatapackBuilder
+	PathSeq
+	# ItemTree
+	)
 
 set(dep-libs
 	GTest::gtest
