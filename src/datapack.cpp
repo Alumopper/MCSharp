@@ -7,8 +7,11 @@
 
 namespace mcsc {
 
+using datapack::Namespace;
+
 DatapackBuilder::DatapackBuilder(const std::string& pack_name, const std::string& req_ver)
-	: pack_name_(pack_name) {
+	: pack_name_(pack_name)
+	, current_ns_(Namespace::NS_Unused) {
 	startLogger(pack_name);
 
 	enum class cmpmode { EQ, GT, GE } mode = cmpmode::EQ;
@@ -101,5 +104,15 @@ void DatapackBuilder::shutdownLogger() {
 	google::ShutdownGoogleLogging();
 }
 
+void DatapackBuilder::end() {
+	LOG(WARNING) << "mcsc::DatapackBuilder: end() called without begin()";
+	current_ns_ = datapack::Namespace::NS_Unused;
+}
+
+template <> bool DatapackBuilder::begin<datapack::Namespace::NS_Func>() {
+	if (current_ns_ != datapack::Namespace::NS_Unused) return false;
+	current_ns_ = datapack::Namespace::NS_Func;
+	return true;
+}
 
 };	 // namespace mcsc
