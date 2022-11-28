@@ -10,6 +10,11 @@ namespace MCSharp.Type
     public class NBT
     {
 
+        public NBT(string nbt)
+        {
+
+        }
+
         public static string[] attributes = new string[]
         {
             "generic.max_health",

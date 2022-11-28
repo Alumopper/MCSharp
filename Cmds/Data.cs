@@ -799,7 +799,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            string re = "#喵喵喵？这里应该是一个attribute命令，如果你看到了这个注释，说明MC#出现了一些问题！";
+            string re = "#喵喵喵？这里应该是一个data命令，如果你看到了这个注释，说明MC#出现了一些问题！";
             switch (type)
             {
                 #region get

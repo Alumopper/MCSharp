@@ -6,26 +6,24 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
-    public class Vector3<T>
+    public class Vector2<T>
     {
         public T x;
         public T y;
-        public T z;
 
-        public Vector3(T x, T y, T z)
+        public Vector2(T x, T y)
         {
             this.x = x;
             this.y = y;
-            this.z = z;
         }
 
         public T this[int i]
         {
             get
             {
-                if(i > 2)
+                if (i > 1)
                 {
-                    throw new IndexOutOfRangeException("索引过大: " + i + "。只含有三个元素");
+                    throw new IndexOutOfRangeException("索引过大: " + i + "。只含有两个元素");
                 }
                 if (i < 0)
                 {
@@ -37,14 +35,12 @@ namespace MCSharp.Type
                         return x;
                     case 1:
                         return y;
-                    case 2:
-                        return z;
                 }
                 return default;
             }
             set
             {
-                if (i > 2)
+                if (i > 1)
                 {
                     throw new IndexOutOfRangeException("索引过大: " + i + "。只含有三个元素");
                 }
@@ -59,9 +55,6 @@ namespace MCSharp.Type
                         break;
                     case 1:
                         y = value;
-                        break;
-                    case 2:
-                        z = value;
                         break;
                 }
             }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
-    public class Pos : Vector3<double>
+    public class Pos2D : Vector2<double>
     {
-        public Pos(double x,double y,double z) : base(x,y,z) {}
+        public Pos2D(int x,int y) : base(x, y) { }
     }
 }

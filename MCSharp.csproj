@@ -143,6 +143,7 @@
     <Compile Include="Cmds\Xp.cs" />
     <Compile Include="DatapackInfo.cs" />
     <Compile Include="Exception\ArgumentNotMatchException.cs" />
+    <Compile Include="Exception\IllegalFormatException.cs" />
     <Compile Include="Exception\IllegalFunctionNameException.cs" />
     <Compile Include="Exception\FunctionNotRegistryException.cs" />
     <Compile Include="Exception\IllegalUUIDException.cs" />
@@ -152,14 +153,22 @@
     <Compile Include="StackManager.cs" />
     <Compile Include="Test\Test.cs" />
     <Compile Include="Type\Bossbar.cs" />
+    <Compile Include="Type\Color.cs" />
+    <Compile Include="Type\CommandArg\BlockState.cs" />
+    <Compile Include="Type\CommandArg\BlockPredicate.cs" />
+    <Compile Include="Type\CommandArg\FloatRange.cs" />
+    <Compile Include="Type\CommandArg\IntRange.cs" />
+    <Compile Include="Type\CommandArg\ItemPredicate.cs" />
     <Compile Include="Type\Entity.cs" />
-    <Compile Include="Type\ID.cs" />
+    <Compile Include="Type\CommandArg\ID.cs" />
     <Compile Include="Type\JsonText.cs" />
     <Compile Include="Type\MCInt.cs" />
     <Compile Include="Type\NBT.cs" />
     <Compile Include="Type\Pos.cs" />
+    <Compile Include="Type\Pos2D.cs" />
     <Compile Include="Type\SbValue.cs" />
     <Compile Include="Type\UUID.cs" />
+    <Compile Include="Type\Vector2.cs" />
     <Compile Include="Type\Vector3.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\U.cs" />
@@ -179,5 +188,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

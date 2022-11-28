@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCSharp.Type
+namespace MCSharp.Type.CommandArg
 {
-    public class Pos : Vector3<double>
+    public class FloatRange
     {
-        public Pos(double x,double y,double z) : base(x,y,z) {}
+        
     }
 }
