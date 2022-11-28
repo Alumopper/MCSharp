@@ -15,4 +15,4 @@ add_library(mcsc-builtin STATIC ${BUILTIN_SOURCE_FILES})
 target_link_libraries(mcsc-builtin PRIVATE glog::glog)
 
 add_library(mcsc-core STATIC ${CORE_SOURCE_FILES})
-target_link_libraries(mcsc-core PRIVATE glog::glog)
+target_link_libraries(mcsc-core PRIVATE glog::glog nlohmann_json::nlohmann_json)

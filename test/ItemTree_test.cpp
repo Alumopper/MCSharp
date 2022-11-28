@@ -106,3 +106,30 @@ TEST(ItemTree, get) {
 	ASSERT_TRUE(tree.get(Namespace::NS_Func, ".minecraft/echo/echo").has_value());
 	ASSERT_STREQ(tree.get(Namespace::NS_Func, ".minecraft/echo/echo")->get().c_str(), R"(say 4)");
 }
+
+TEST(ItemTree, toJson) {
+	ItemTree tree;
+
+	ASSERT_TRUE(tree.add(Namespace::NS_Func, ".minecraft/echo", R"(say Hello World!)"));
+	ASSERT_STREQ(nlohmann::to_string(tree.toJson()).c_str(),
+				 R"({"functions":{".minecraft":{"echo":"say Hello World!"}}})");
+
+	ASSERT_TRUE(tree.add(Namespace::NS_Tag, ".minecraft/newmob", R"({"damage":3})"));
+	ASSERT_STREQ(nlohmann::to_string(tree.toJson()).c_str(),
+				 R"({"functions":{".minecraft":{"echo":"say Hello World!"}},)"
+				 R"("tags":{".minecraft":{"newmob":"{\"damage\":3}"}}})");
+
+	ASSERT_TRUE(tree.add(Namespace::NS_Func, ".minecraft/echo/a", R"(say !dlroW olleH)"));
+	ASSERT_ANY_THROW(tree.toJson());
+	ASSERT_TRUE(tree.remove(Namespace::NS_Func, ".minecraft/echo/a"));
+
+	ASSERT_TRUE(tree.remove(Namespace::NS_Func, ".minecraft/echo"));
+	ASSERT_TRUE(tree.add(Namespace::NS_Func, ".minecraft/echo.mcfunction", R"(say Hello World!)"));
+	ASSERT_TRUE(
+		tree.add(Namespace::NS_Func, ".minecraft/echo/a.mcfunction", R"(say !dlroW olleH)"));
+
+	ASSERT_STREQ(nlohmann::to_string(tree.toJson()).c_str(),
+				 R"({"functions":{".minecraft":{"echo":{"a.mcfunction":"say !dlroW olleH"},)"
+				 R"("echo.mcfunction":"say Hello World!"}},)"
+				 R"("tags":{".minecraft":{"newmob":"{\"damage\":3}"}}})");
+}

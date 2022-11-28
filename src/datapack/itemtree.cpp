@@ -1,6 +1,7 @@
 #include <mcsc/datapack/itemtree.h>
 
 #include <stddef.h>
+#include <iostream>
 #include <memory>
 #include <variant>
 
@@ -161,6 +162,26 @@ auto ItemTree::get(Namespace ns, const std::string& path)
 	}
 
 	return std::nullopt;
+}
+
+nlohmann::json ItemTree::toJson() const {
+	nlohmann::json j;
+	for (auto node : roots_) {
+		if (node == nullptr) continue;
+		buildJsonR(j, node);
+	}
+	return j;
+}
+
+void ItemTree::buildJsonR(nlohmann::json& j, const internal_type* node) {
+	if (auto succs = std::get_if<0>(&node->value); succs) {
+		auto& jj = j[node->arc];
+		for (auto& node : *succs) {
+			buildJsonR(jj, &node);
+		}
+	} else {
+		j[node->arc] = std::get<std::string>(node->value);
+	}
 }
 
 };	 // namespace mcsc::datapack
