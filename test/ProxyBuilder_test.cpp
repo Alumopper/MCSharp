@@ -1,9 +1,3 @@
-#ifdef NDEBUG
-#	undef NDEBUG
-#endif
-
-#include <mcsc/command/cmdbase.h>
-#include <mcsc/command/builderbase.h>
 #include <mcsc/command/proxybuilder.h>
 
 #include <gtest/gtest.h>
@@ -11,63 +5,61 @@
 #include <algorithm>
 
 using namespace mcsc::command;
+using namespace mcsc::builtin;
+
+TEST(ProxyBuilder, test) {
+	ProxyBuilder<ErrDump>::require()->setErrorMsg("Hello World!").build()->apply();
+}
 
 struct DummyCommand : public Command {
 	virtual std::string apply() override { return "Hello World! - DummyCommand"; }
 
 	struct Builder : public CommandBuilder {
-		virtual Command* build() override { return new DummyCommand(); }
+		MCSC_CMD_BUILDER(DummyCommand);
+		Builder() = default;
+		virtual Command* build() override {
+			ptr.reset(new DummyCommand);
+			return ptr.get();
+		}
+		std::unique_ptr<DummyCommand> ptr;
 	};
-
-private:
-	DummyCommand() = default;
 };
 
 struct ExceptCommand : public Command {
 	virtual std::string apply() override { return "Hello World! - ExceptCommand"; }
 
 	struct Builder : public CommandBuilder {
+		MCSC_CMD_BUILDER(ExceptCommand);
+		Builder() = default;
 		virtual Command* build() override {
 			throw std::runtime_error("ExceptCommand throw an ERROR!");
-			return new ExceptCommand();
+			ptr.reset(new ExceptCommand);
+			return ptr.get();
 		}
+		std::unique_ptr<ExceptCommand> ptr;
 	};
-
-private:
-	ExceptCommand() = default;
 };
 
 struct CommonCommand : public Command {
-	virtual std::string apply() override { return msg_; }
+	virtual std::string apply() override { return msg; }
+	std::string			msg;
+
 	struct Builder : public CommandBuilder {
-		Builder() { cmd_.reset(new CommonCommand()); }
-
+		MCSC_CMD_BUILDER(CommonCommand);
+		Builder()
+			: ptr(new CommonCommand) {}
 		virtual Command* build() override {
-			if (cmd_->msg_.find("abort") != -1)
+			if (ptr->msg.find("abort") != -1)
 				throw std::runtime_error("CommonCommand caught unexpected `abort' string");
-			return cmd_.release();
+			return ptr.get();
 		}
-
-		Builder* appendString(const std::string& s) noexcept {
-			cmd_->msg_ += s;
-			return this;
+		ProxyRef appendString(const std::string& s) noexcept {
+			ptr->msg += s;
+			return proxy();
 		}
-
-	private:
-		std::unique_ptr<CommonCommand> cmd_;
+		std::unique_ptr<CommonCommand> ptr;
 	};
-
-private:
-	CommonCommand() = default;
-
-private:
-	std::string msg_;
 };
-
-TEST(ProxyBuilder, TypeCheck) {
-	ASSERT_TRUE((std::is_same_v<decltype(ProxyBuilder<DummyCommand>::require()),
-								ProxyBuilder<DummyCommand>::Wrapper<DummyCommand::Builder>>));
-}
 
 TEST(ProxyBuilder, RetvalCheck) {
 	ASSERT_STREQ(ProxyBuilder<DummyCommand>::require().build()->apply().c_str(),
@@ -77,18 +69,39 @@ TEST(ProxyBuilder, RetvalCheck) {
 }
 
 TEST(ProxyBuilder, BuildCheck) {
-	{
-		auto o = ProxyBuilder<CommonCommand>::require();
-		ASSERT_STREQ(o.build()->apply().c_str(), "");
-	}
-	{
-		auto o = ProxyBuilder<CommonCommand>::require();
-		o->appendString("echo")->appendString(" ")->appendString("\"Hello World!\"");
-		ASSERT_STREQ(o.build()->apply().c_str(), "echo \"Hello World!\"");
-	}
-	{
-		auto o = ProxyBuilder<CommonCommand>::require();
-		o->appendString("echo")->appendString(" ")->appendString("abort");
-		ASSERT_STREQ(o.build()->apply().c_str(), "CommonCommand caught unexpected `abort' string");
-	}
+	ASSERT_STREQ(ProxyBuilder<CommonCommand>::require().build()->apply().c_str(), "");
+	ASSERT_STREQ(ProxyBuilder<CommonCommand>::require()
+					 ->appendString("echo")
+					 ->appendString(" ")
+					 ->appendString("\"Hello World!\"")
+					 .build()
+					 ->apply()
+					 .c_str(),
+				 "echo \"Hello World!\"");
+	ASSERT_STREQ(ProxyBuilder<CommonCommand>::require()
+					 ->appendString("echo")
+					 ->appendString(" ")
+					 ->appendString("abort")
+					 .build()
+					 ->apply()
+					 .c_str(),
+				 "CommonCommand caught unexpected `abort' string");
+}
+
+TEST(ProxyBuilder, ExceptCheck) {
+	ASSERT_ANY_THROW(
+		ProxyBuilder<CommonCommand>::require()->appendString("abort").unwrap().build()->apply().c_str());
+	ASSERT_ANY_THROW(
+		ProxyBuilder<CommonCommand>::require()->appendString("abort")->build()->apply().c_str());
+}
+
+TEST(ProxyBuilder, MultiLineCheck) {
+	auto e = ProxyBuilder<CommonCommand>::require();
+	e->appendString("Hello")->appendString(" ")->appendString("World")->appendString("!");
+	ASSERT_STREQ(e.build()->apply().c_str(), "Hello World!");
+	e->appendString("(abort)");
+	ASSERT_ANY_THROW(e->build());
+	ASSERT_ANY_THROW(e.unwrap().build());
+	ASSERT_NO_THROW(e.build());
+	ASSERT_STREQ(e.build()->apply().c_str(), "CommonCommand caught unexpected `abort' string");
 }

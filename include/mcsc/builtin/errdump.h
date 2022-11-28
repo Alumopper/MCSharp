@@ -1,7 +1,7 @@
 #pragma once
 
 #include <mcsc/command/cmdbase.h>
-#include <mcsc/command/builderbase.h>
+#include <mcsc/command/proxybase.h>
 
 #include <memory>
 
@@ -19,11 +19,13 @@ public:
 	virtual std::string apply() override;
 
 	class Builder : public CommandBuilder {
+		MCSC_CMD_BUILDER(ErrDump);
+
 	public:
 		virtual Command* build() override;
 
 		Builder();
-		Builder* setErrorMsg(const std::string& err) noexcept;
+		ProxyRef setErrorMsg(const std::string& err) noexcept;
 
 	private:
 		std::unique_ptr<ErrDump> cmd_;

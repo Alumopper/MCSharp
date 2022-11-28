@@ -4,9 +4,12 @@
 
 namespace mcsc::command {
 
-class Command {
-public:
+struct Command {
 	virtual std::string apply() = 0;
+};
+
+struct Builder {
+	virtual Command* build()	= 0;
 };
 
 };	 // namespace mcsc::command
