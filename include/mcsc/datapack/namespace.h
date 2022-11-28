@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string_view>
-#include <array>
 
 namespace mcsc::datapack {
 
@@ -33,5 +32,11 @@ constexpr std::array<std::string_view, NS_Number> NamespaceKeys{
 	"tags",				//! Namespace::NS_Tag
 	"worldgen",			//! Namespace::NS_Worldgen
 };
+
+inline std::string_view getNamespaceKey(Namespace ns) {
+	if (ns == Namespace::NS_Unused) return "";
+	const size_t index = static_cast<size_t>(ns);
+	return NamespaceKeys[index];
+}
 
 };	 // namespace mcsc::datapack

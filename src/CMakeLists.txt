@@ -8,6 +8,7 @@ macro(GetSourceFiles target)
 endmacro()
 
 GetSourceFiles(BUILTIN_SOURCE_FILES builtin)
+
 GetSourceFiles(CORE_SOURCE_FILES . datapack)
 
 add_library(mcsc-builtin STATIC ${BUILTIN_SOURCE_FILES})

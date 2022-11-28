@@ -2,7 +2,7 @@ set(Targets
 	ProxyBuilder
 	DatapackBuilder
 	PathSeq
-	# ItemTree
+	ItemTree
 	)
 
 set(dep-libs
@@ -18,4 +18,5 @@ set(mcsc-libs
 foreach (target ${Targets})
 	add_executable(t_${target} ${target}_test.cpp)
 	target_link_libraries(t_${target} PRIVATE ${dep-libs} ${mcsc-libs})
+	target_compile_options(t_${target} PRIVATE)
 endforeach()
