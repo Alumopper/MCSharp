@@ -6,6 +6,7 @@ namespace mcsc::command {
 
 struct Command {
 	virtual std::string apply() = 0;
+	virtual ~Command() = default;
 };
 
 struct Builder {
