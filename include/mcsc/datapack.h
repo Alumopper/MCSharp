@@ -3,6 +3,7 @@
 #include <mcsc/command/proxybuilder.h>
 
 #include <string>
+#include <queue>
 #include <string_view>
 #include <filesystem>
 #include <glog/logging.h>
@@ -27,6 +28,10 @@ public:
 		return true;
 	}
 	void end();
+	void commit(command::Command* cmd);
+
+	void save(const std::string& loc = ".") const;
+	void save_as(const std::string& name, const std::string& loc = ".") const;
 
 protected:
 	void startLogger(const std::string& id);
@@ -37,7 +42,8 @@ private:
 	std::string pack_name_;
 	std::string description_;
 
-	datapack::Namespace current_ns_;
+	std::queue<command::Command*> cmd_queue_;
+	datapack::Namespace			  current_ns_;
 };
 
 template <> bool DatapackBuilder::begin<datapack::Namespace::NS_Func>();

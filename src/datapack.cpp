@@ -106,13 +106,34 @@ void DatapackBuilder::shutdownLogger() {
 
 void DatapackBuilder::end() {
 	LOG(WARNING) << "mcsc::DatapackBuilder: end() called without begin()";
+	// TODO
+	while (!cmd_queue_.empty()) {
+		auto& cmd	  = cmd_queue_.front();
+		auto  discard = cmd->apply();
+		delete cmd;
+		cmd_queue_.pop();
+	}
 	current_ns_ = datapack::Namespace::NS_Unused;
 }
 
+void DatapackBuilder::commit(command::Command* cmd) {
+	// TODO
+	cmd_queue_.push(cmd);
+}
+
 template <> bool DatapackBuilder::begin<datapack::Namespace::NS_Func>() {
+	// TODO
 	if (current_ns_ != datapack::Namespace::NS_Unused) return false;
 	current_ns_ = datapack::Namespace::NS_Func;
 	return true;
+}
+
+void DatapackBuilder::save(const std::string& loc) const {
+	save_as(getPackName(), loc);
+}
+
+void DatapackBuilder::save_as(const std::string& name, const std::string& loc) const {
+	// TODO
 }
 
 };	 // namespace mcsc

@@ -89,8 +89,12 @@ TEST(ProxyBuilder, BuildCheck) {
 }
 
 TEST(ProxyBuilder, ExceptCheck) {
-	ASSERT_ANY_THROW(
-		ProxyBuilder<CommonCommand>::require()->appendString("abort").unwrap().build()->apply().c_str());
+	ASSERT_ANY_THROW(ProxyBuilder<CommonCommand>::require()
+						 ->appendString("abort")
+						 .unwrap()
+						 .build()
+						 ->apply()
+						 .c_str());
 	ASSERT_ANY_THROW(
 		ProxyBuilder<CommonCommand>::require()->appendString("abort")->build()->apply().c_str());
 }
