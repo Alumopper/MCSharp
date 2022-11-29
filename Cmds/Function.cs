@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCSharp.Type;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,9 @@ namespace MCSharp.Cmds
         /// <summary>
         /// 函数命名空间id
         /// </summary>
-        string functionID;
+        ID functionID;
 
-        public Function(string functionID)
+        public Function(ID functionID)
         {
             this.functionID = functionID;
         }

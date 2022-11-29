@@ -25,7 +25,7 @@ namespace MCSharp.Cmds
         /// <exception cref="ArgumentNotMatchException"></exception>
         public Defaultgamemode(string survival_creative_adventure_spectator)
         {
-            if (!scap.Contains(arg))
+            if (!scap.Contains(survival_creative_adventure_spectator))
             {
                 throw new ArgumentNotMatchException("参数错误:" + survival_creative_adventure_spectator + "。应当为\"survival\", \"creative\", \"adventure\"或\"spectator\"");
             }

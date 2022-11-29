@@ -198,6 +198,15 @@ namespace MCSharp.Cmds
 
         List<ExecuteChildCommand> childcommands = new List<ExecuteChildCommand>();
 
+        public void Append(ExecuteChildCommand childCommand)
+        {
+            if(childcommands.Last() is Run)
+            {
+                throw new ExecuteCommandListEndException("不可在execute的run子命令后添加更多子命令");
+            }
+            childcommands.Add(childCommand);
+        }
+
         public override string ToString()
         {
             StringBuilder exe = new StringBuilder("execute ");

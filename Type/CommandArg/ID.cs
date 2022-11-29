@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCSharp.Exception;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,10 @@ namespace MCSharp.Type
                 this.@namespace = id.Split(':')[0];
                 this.name = id.Split(':')[1];
             }
+            else
+            {
+                throw new IllegalFunctionNameException("错误的函数命名空间id:" + id);
+            }
         }
 
         public ID(string @namespace, string name)
@@ -36,7 +41,7 @@ namespace MCSharp.Type
 
         public static bool IsLegal(string str)
         {
-            return Regex.IsMatch(str, "[a-z0-9_]*[:]?[a-z0-9_]*");
+            return Regex.IsMatch(str, "[a-z0-9_]+[:]?[a-z0-9_]+([/][a-z0-p_]+)*");
         }
 
         public override string ToString()

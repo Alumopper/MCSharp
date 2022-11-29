@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Cmds
 {
-    internal class Item
+    public class Item
     {
     }
 }

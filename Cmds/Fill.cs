@@ -25,6 +25,9 @@ namespace MCSharp.Cmds
 
         private static string[] dhkor = new string[] { "destory", "hollow", "keep", "outline", "replace", "Dest0ry" };
 
+        /// <summary>
+        /// fill &lt;from> &lt;to> &lt;block> [destroy|hollow|keep|outline|replace]
+        /// </summary>
         public Fill(Pos from, Pos to, BlockState block, string destroy_hollow_keep_outline_replace)
         {
             this.from = from;
@@ -33,6 +36,9 @@ namespace MCSharp.Cmds
             this.destroy_hollow_keep_outline_replace = destroy_hollow_keep_outline_replace;
         }
 
+        /// <summary>
+        /// fill &lt;from> &lt;to> &lt;block> replace [&lt;fliter>]
+        /// </summary>
         public Fill(Pos from, Pos to, BlockState block, BlockPredicate fliter)
         {
             this.from = from;

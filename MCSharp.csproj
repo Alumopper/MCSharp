@@ -143,6 +143,7 @@
     <Compile Include="Cmds\Xp.cs" />
     <Compile Include="DatapackInfo.cs" />
     <Compile Include="Exception\ArgumentNotMatchException.cs" />
+    <Compile Include="Exception\ExecuteCommandListEndException.cs" />
     <Compile Include="Exception\IllegalFormatException.cs" />
     <Compile Include="Exception\IllegalFunctionNameException.cs" />
     <Compile Include="Exception\FunctionNotRegistryException.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Type\NBT.cs" />
     <Compile Include="Type\Pos.cs" />
     <Compile Include="Type\Pos2D.cs" />
+    <Compile Include="Type\Rotation.cs" />
     <Compile Include="Type\SbValue.cs" />
     <Compile Include="Type\UUID.cs" />
     <Compile Include="Type\Vector2.cs" />
