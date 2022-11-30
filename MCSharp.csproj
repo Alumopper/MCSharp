@@ -162,6 +162,7 @@
     <Compile Include="Type\CommandArg\ItemPredicate.cs" />
     <Compile Include="Type\Entity.cs" />
     <Compile Include="Type\CommandArg\ID.cs" />
+    <Compile Include="Type\ItemStack.cs" />
     <Compile Include="Type\JsonText.cs" />
     <Compile Include="Type\MCInt.cs" />
     <Compile Include="Type\NBT.cs" />

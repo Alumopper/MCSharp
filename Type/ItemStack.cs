@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
+    /// <summary>
+    /// 一个物品堆，包含了一个物品的id，nbt标签以及这个物品的数量
+    /// </summary>
     public class ItemStack
     {
         /// <summary>
