@@ -105,7 +105,7 @@
     <Compile Include="Cmds\Particle.cs" />
     <Compile Include="Cmds\Place.cs" />
     <Compile Include="Cmds\Playsound.cs" />
-    <Compile Include="Cmds\Pref.cs" />
+    <Compile Include="Cmds\Perf.cs" />
     <Compile Include="Cmds\Publish.cs" />
     <Compile Include="Cmds\Recipe.cs" />
     <Compile Include="Cmds\Reload.cs" />
@@ -170,6 +170,7 @@
     <Compile Include="Type\Pos2D.cs" />
     <Compile Include="Type\Rotation.cs" />
     <Compile Include="Type\SbValue.cs" />
+    <Compile Include="Type\Slot.cs" />
     <Compile Include="Type\UUID.cs" />
     <Compile Include="Type\Vector2.cs" />
     <Compile Include="Type\Vector3.cs" />

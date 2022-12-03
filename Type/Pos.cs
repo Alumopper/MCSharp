@@ -9,6 +9,12 @@ namespace MCSharp.Type
 {
     public class Pos : Vector3<double>
     {
-        public Pos(double x,double y,double z) : base(x,y,z) {}
+        bool related;
+
+        public Pos(double x = 0,double y = 0,double z = 0, bool related = false) : base(x,y,z)
+        {
+            this.related = related;
+        }
+
     }
 }

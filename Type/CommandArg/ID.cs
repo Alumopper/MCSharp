@@ -8,13 +8,36 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
+    /// <summary>
+    /// 一个命名空间id。也可以是标签。
+    /// </summary>
     public class ID
     {
+        /// <summary>
+        /// 命名空间id全称。不包含标签符"#"
+        /// </summary>
         public string id;
+
+        /// <summary>
+        /// 命名空间id的id部分
+        /// </summary>
         public string name;
+        
+        /// <summary>
+        /// 命名空间id的命名空间部分
+        /// </summary>
         public string @namespace;
+
+        /// <summary>
+        /// 是否是标签。如果是标签，在调用ToString方法时会在前面加上"#"
+        /// </summary>
         public bool isTag;
 
+        /// <summary>
+        /// 根据一个命名空间的字符串创建一个命名空间id。字符串的标准格式为xxx:xxx或#xxx:xxx。若未执行命名空间，则默认命名空间为minecraft
+        /// </summary>
+        /// <param name="id"></param>
+        /// <exception cref="IllegalFunctionNameException"></exception>
         public ID(string id)
         {
             if (IsLegal(id))
@@ -24,9 +47,18 @@ namespace MCSharp.Type
                     isTag = true;
                     id.Substring(1);
                 }
-                this.id = id;
-                this.@namespace = id.Split(':')[0];
-                this.name = id.Split(':')[1];
+                if (id.Contains(":"))
+                {
+                    this.id = id;
+                    this.@namespace = id.Split(':')[0];
+                    this.name = id.Split(':')[1];
+                }
+                else
+                {
+                    this.@namespace = "minecraft";
+                    this.name = id;
+                    this.id = @namespace + ":" + name;
+                }
             }
             else
             {
@@ -34,6 +66,11 @@ namespace MCSharp.Type
             }
         }
 
+        /// <summary>
+        /// 根据指定的命名空间和名称创建新的命名空间id
+        /// </summary>
+        /// <param name="namespace"></param>
+        /// <param name="name"></param>
         public ID(string @namespace, string name)
         {
             this.@namespace = @namespace;
@@ -43,7 +80,7 @@ namespace MCSharp.Type
 
         public static bool IsLegal(string str)
         {
-            return Regex.IsMatch(str, "[#]?[a-z0-9_]+[:]?[a-z0-9_]+([/][a-z0-p_]+)*");
+            return Regex.IsMatch(str, "(^[#]?[a-z0-9_]+[:][a-z0-9_]+([/][a-z0-p_]+)*$)|(^[a-z0-9_]+$)");
         }
 
         public override string ToString()
