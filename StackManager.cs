@@ -19,7 +19,7 @@ namespace MCSharp
             {
                 //栈的底部始终都会是根函数
                 DatapackInfo.functions[value.Last()].isRoot = true;
-                if (!U.ListEqualBySort(value,stack)) {
+                if (!Tools.ListEqualBySort(value,stack)) {
                     //栈发生了变化，说明发生了函数调用
                     //函数栈发生了变化，可能存在出栈和入栈
                     //求交集，从最后一个元素往前数，直到遇到不一样的元素，即为交集
@@ -50,7 +50,7 @@ namespace MCSharp
                     //现栈进栈，即此函数在上一个函数中被调用了，需要在上一个函数中添加一个funtion命令表示函数调用
                     //注意，在这样的列表中，索引越靠前，代表是栈的顶层，即[0]代表正在被执行的函数，[1]代表调用正在被执行的函数的函数
                     List<string> qwq = new List<string>(value);
-                    while (!U.ListEqualBySort(qwq,intersect))
+                    while (!Tools.ListEqualBySort(qwq,intersect))
                     {
                         string w = qwq[0];
                         qwq.RemoveAt(0);

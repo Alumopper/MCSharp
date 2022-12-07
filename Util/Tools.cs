@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Util
 {
-    public class U
+    public class Tools
     {
         public static bool ListEqualBySort<T>(List<T> a,List<T> b)
         {
@@ -23,6 +23,11 @@ namespace MCSharp.Util
                 return true;
             }
             return false;
+        }
+
+        public static string getEnumString(Enum qwq)
+        {
+            return Enum.GetName(qwq.GetType(), qwq);
         }
     }
 }

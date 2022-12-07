@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Cmds
 {
-    internal class Reload
+    public class Reload : Command
     {
+        public Reload() {}
+        public override string ToString()
+        {
+            return "reload";
+        }
     }
 }

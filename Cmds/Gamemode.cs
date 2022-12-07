@@ -1,5 +1,7 @@
 ﻿using MCSharp.Exception;
 using MCSharp.Type;
+using MCSharp.Type.CommandArg;
+using MCSharp.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,28 +16,22 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Gamemode : Command
     {
-        string mode;
+        Gamemodes mode;
         Entity target;
-
-        private static string[] scap = new string[] { "survival", "creative", "adventure", "spectator" };
 
         /// <summary>
         /// gamemode (adventure|creative|spectator|survival) [&lt;target>]
         /// </summary
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Gamemode(string survival_creative_adventure_spectator, Entity target)
+        public Gamemode(Gamemodes gamemode, Entity target)
         {
-            if (!scap.Contains(survival_creative_adventure_spectator))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + survival_creative_adventure_spectator + "。应当为\"survival\", \"creative\", \"adventure\"或\"spectator\"");
-            }
-            mode = survival_creative_adventure_spectator;
+            mode = gamemode;
             this.target = target;
         }
 
         public override string ToString()
         {
-            return "gamemode " + mode + (target == null ? "" : " " + target ) ;
+            return "gamemode " + Tools.getEnumString(mode) + (target == null ? "" : " " + target ) ;
         }
     }
 }

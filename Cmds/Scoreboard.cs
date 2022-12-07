@@ -9,9 +9,6 @@ namespace MCSharp.Cmds
 {
     public class Scoreboard : Command
     {
-        public static string playersOperation(SbValue sbValue1, SbValue sbValue2, string operation)
-        {
-            return "scoreboard players operation ";
-        }
+        
     }
 }

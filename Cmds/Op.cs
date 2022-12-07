@@ -13,7 +13,7 @@ namespace MCSharp.Cmds
     /// op &lt;player>
     /// </code>
     /// </summary>
-    public class Op
+    public class Op : Command
     {
         Entity player;
 

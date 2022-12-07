@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Cmds
 {
-    internal class Save_on
+    /// <summary>
+    /// 启用服务器的自动保存。
+    /// <code>
+    /// save-on
+    /// </code>
+    /// </summary>
+    public class Save_on : Command
     {
+        public Save_on() { }
+
+        public override string ToString()
+        {
+            return "save-on";
+        }
     }
 }
