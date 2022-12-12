@@ -13,6 +13,11 @@ namespace MCSharp.Type
     /// </summary>
     public class Color
     {
+        public enum Colors
+        {
+            black, dark_blue, dark_green, dark_aqua, dark_red, dark_purple, gold, gray, dark_gray, blue, green, aqua, red, light_purple, yellow, white 
+        }
+        
         public static Color black = new Color(0, 0, 0);
         public static Color dark_blue = new Color(0, 0, 170);
         public static Color dark_green = new Color(0, 170, 0);

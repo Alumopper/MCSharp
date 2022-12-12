@@ -170,6 +170,7 @@
     <Compile Include="Type\Pos.cs" />
     <Compile Include="Type\Pos2D.cs" />
     <Compile Include="Type\Rotation.cs" />
+    <Compile Include="Type\SbObject.cs" />
     <Compile Include="Type\SbValue.cs" />
     <Compile Include="Type\Slot.cs" />
     <Compile Include="Type\UUID.cs" />

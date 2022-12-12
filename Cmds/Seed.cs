@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Cmds
 {
-    internal class Seed
+    /// <summary>
+    /// 显示世界种子。
+    /// <code>
+    /// seed
+    /// </code>
+    /// </summary>
+    public class Seed
     {
+        /// <summary>
+        /// seed
+        /// </summary>
+        public Seed() {}
+
+        public override string ToString()
+        {
+            return "seed";
+        }
     }
 }
