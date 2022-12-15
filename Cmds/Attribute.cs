@@ -38,6 +38,20 @@ namespace MCSharp.Cmds
 
         #region 构造方法
         /// <summary>
+        /// attribute &lt;target&gt; &lt;attribute&gt; base get [&lt;scale];
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="attribute"></param>
+        /// <param name="scale"></param>
+        public Attribute(Entity target, string attribute, double scale = 1.0)
+        {
+            this.target = target;
+            this.attribute = attribute;
+            this.scale = scale;
+            type = -1;
+        }
+
+        /// <summary>
         /// attribute &lt;target&gt; &lt;attribute&gt; base (get|set) &lt;scale/value&gt;
         /// </summary>
         /// type - 0
@@ -148,6 +162,12 @@ namespace MCSharp.Cmds
             string re = "#喵喵喵？这里应该是一个attribute命令，如果你看到了这个注释，说明MC#出现了一些问题！";
             switch (type)
             {
+                case -1:
+                    {
+                        //attribute <target> <attribute> get [<scale>]
+                        re = "attribute " + target + " " + attribute + " get " + scale;
+                        break;
+                    }
                 case 0:
                     {
                         //attribute <target> <attribute> [base] get [<scale>]

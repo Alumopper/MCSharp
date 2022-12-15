@@ -52,7 +52,7 @@ namespace MCSharp.Cmds
         }
 
         /// <summary>
-        /// worldborder center <pos>
+        /// worldborder center &lt;pos>
         /// </summary>
         /// <param name="pos"></param>
         public Worldborder(Pos pos)

@@ -9,10 +9,33 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type.CommandArg
 {
+    /// <summary>
+    /// 代表世界中某类方块的判据。
+    /// 检查方块状态属性和（方块实体）NBT数据。允许用方块标签筛选方块类型。
+    /// <para>
+    /// 一些例子:
+    /// <list type="bullet">
+    /// <item>stone</item>
+    /// <item>minecraft:stone</item>
+    /// <item>stone[foo=bar]</item>
+    /// <item>#stone</item>
+    /// <item>#stone[foo=bar]{baz:nbt}</item>
+    /// </list>
+    /// </para>
+    /// <seealso cref="BlockState"/>
+    /// </summary>
     public class BlockPredicate
     {
+        /// <summary>
+        /// 能直接被Minecraft解析的方块判据。
+        /// </summary>
         public string pre;
 
+        /// <summary>
+        /// 创建一个方块判据。
+        /// </summary>
+        /// <param name="pre"></param>
+        /// <exception cref="IllegalFormatException"></exception>
         public BlockPredicate(string pre)
         {
             if (pre.Contains('{'))

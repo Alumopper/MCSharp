@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Util
 {
+    /// <summary>
+    /// 日志
+    /// </summary>
     public class Log
     {
         private struct L
@@ -29,6 +32,9 @@ namespace MCSharp.Util
             }
         }
 
+        /// <summary>
+        /// 日志等级
+        /// </summary>
         public enum Level
         {
             DEBUG,
@@ -38,6 +44,9 @@ namespace MCSharp.Util
         }
 
         private Level outputLevel;
+        /// <summary>
+        /// 日志输出的时候最低会输出的日志等级
+        /// </summary>
         public Level Outputlevel
         {
             get
@@ -58,18 +67,28 @@ namespace MCSharp.Util
 
         private ArrayList ls;
 
+        /// <summary>
+        /// 新建一个日志对象
+        /// </summary>
         public Log()
         {
             ls = new ArrayList();
         }
 
+        /// <summary>
+        /// 向此日志对象中添加一行日志
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="msg"></param>
         public void AddLog(Level level,string msg)
         {
-            //TODO：判断日志产生文件的地方有误
-            StackFrame sf = new StackFrame(1);
+            StackFrame sf = StackManager.GetStack().Last();
             ls.Insert(0,new L(level, msg , sf.GetFileName(), sf.GetFileColumnNumber()));
         }
 
+        /// <summary>
+        /// 将此日志对象中的日志输出到控制台
+        /// </summary>
         public void Print()
         {
             foreach(L l in ls)

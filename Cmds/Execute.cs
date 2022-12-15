@@ -373,7 +373,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) biome <pos> <biome> -> [execute]
+            /// (if|unless) biome &lt;pos> &lt;biome> -> [execute]
             /// </summary>
             /// <param name="pos"></param>
             /// <param name="biome"></param>
@@ -385,7 +385,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) block <pos> <block> -> [execute]
+            /// (if|unless) block &lt;pos> &lt;block> -> [execute]
             /// </summary>
             /// <param name="pos"></param>
             /// <param name="block"></param>
@@ -397,7 +397,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) blocks <start> <end> <destination> <scan mode> -> [execute]
+            /// (if|unless) blocks &lt;start> &lt;end> &lt;destination> &lt;scan mode> -> [execute]
             /// </summary>
             /// <param name="start"></param>
             /// <param name="end"></param>
@@ -413,7 +413,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) data block <pos> <path> -> [execute]
+            /// (if|unless) data block &lt;pos> &lt;path> -> [execute]
             /// </summary>
             /// <param name="pos"></param>
             /// <param name="path"></param>
@@ -430,7 +430,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) data entity <target> <path> -> [execute]
+            /// (if|unless) data entity &lt;target> &lt;path> -> [execute]
             /// </summary>
             /// <param name="target"></param>
             /// <param name="path"></param>
@@ -447,7 +447,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) data storage <source> <path> -> [execute]
+            /// (if|unless) data storage &lt;source> &lt;path> -> [execute]
             /// </summary>
             /// <param name="source"></param>
             /// <param name="path"></param>
@@ -464,7 +464,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) entity <targets> -> [execute]
+            /// (if|unless) entity &lt;targets> -> [execute]
             /// </summary>
             /// <param name="target"></param>
             public If(Entity target)
@@ -474,7 +474,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) predicate <predicate> -> [execute]
+            /// (if|unless) predicate &lt;predicate> -> [execute]
             /// </summary>
             /// <param name="predicate"></param>
             public If(ID predicate)
@@ -484,7 +484,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) score <target> <targetObjective> (<|<=|=|>=|>) <source> <sourceObjective> -> [execute]
+            /// (if|unless) score &lt;target> &lt;targetObjective> (&lt;|&lt;=|=|&gt;=|&gt;) &lt;source> &lt;sourceObjective> -> [execute]
             /// </summary>
             /// <param name="target"></param>
             /// <param name="targetObjective"></param>
@@ -502,7 +502,7 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// (if|unless) score <target> <targetObjective> matches <range> -> [execute]
+            /// (if|unless) score &lt;target> &lt;targetObjective> matches &lt;range> -> [execute]
             /// </summary>
             /// <param name="target"></param>
             /// <param name="targetObjective"></param>

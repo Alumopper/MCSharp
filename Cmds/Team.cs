@@ -100,7 +100,7 @@ namespace MCSharp.Cmds
         }
 
         /// <summary>
-        /// team leave <members>
+        /// team leave &lt;members>
         /// </summary>
         /// <param name="members"></param>
         public Team(Entity members)
@@ -140,9 +140,6 @@ namespace MCSharp.Cmds
         /// <summary>
         /// team modify &lt;team> &lt;option> &lt;value>
         /// </summary>
-        /// <param name="team"></param>
-        /// <param name="option"></param>
-        /// <param name="value"></param>
         public Team(string team, OptionJSON option, JsonText jsonText)
         {
             this.team = team;

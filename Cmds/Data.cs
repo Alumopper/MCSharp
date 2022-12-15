@@ -415,7 +415,7 @@ namespace MCSharp.Cmds
         }
 
         /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
+        /// data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value &lt;value>
         /// </summary>
         /// type - 15
         /// <exception cref="ArgumentNotMatchException"></exception>
@@ -437,7 +437,7 @@ namespace MCSharp.Cmds
         }
 
         /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> (append|merge|prepend|set) value <value>
+        /// data modify entity &lt;target> &lt;targetPath> (append|merge|prepend|set) value &lt;value>
         /// </summary>
         /// type - 16
         /// <exception cref="ArgumentNotMatchException"></exception>
@@ -459,7 +459,7 @@ namespace MCSharp.Cmds
         }
 
         /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> (append|merge|prepend|set) value <value>
+        /// data modify storage &lt;target> &lt;targetPath> (append|merge|prepend|set) value &lt;value>
         /// </summary>
         /// type - 17
         /// <exception cref="ArgumentNotMatchException"></exception>

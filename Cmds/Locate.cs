@@ -24,12 +24,11 @@ namespace MCSharp.Cmds
         /// <summary>
         /// locate (biome|poi|structure) &lt;id>
         /// </summary>
-        /// <param name="id"></param>
         public Locate(string biome_poi_structure, ID id)
         {
             if (!bps.Contains(biome_poi_structure))
             {
-                throw new ArgumentNotMatchException("参数错误:" + biome_poi_structure + "。应当为\"biome\", \"poi\"或\"structure\"")
+                throw new ArgumentNotMatchException("参数错误:" + biome_poi_structure + "。应当为\"biome\", \"poi\"或\"structure\"");
             }
             this.biome_poi_structure = biome_poi_structure;
             this.id = id;

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
+    /// <summary>
+    /// NBT标签
+    /// </summary>
     public class NBT
     {
 
@@ -15,6 +18,9 @@ namespace MCSharp.Type
 
         }
 
+        /// <summary>
+        /// 属性的穷尽字符串数组
+        /// </summary>
         public static string[] attributes = new string[]
         {
             "generic.max_health",

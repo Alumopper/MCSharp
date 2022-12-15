@@ -12,7 +12,7 @@ namespace MCSharp.Cmds
     /// 此命令用于管理服务器中白名单。
     /// 服务器的管理员永远能够登录开启白名单验证的服务器，无论他们的名字是不是在白名单上。
     /// <code>
-    /// whitelist (add|remove) <targets>
+    /// whitelist (add|remove) &lt;targets>
     /// whitelist (list|off|on|reload)
     /// </code>
     /// </summary>

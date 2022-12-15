@@ -17,7 +17,7 @@ namespace MCSharp.Cmds
 
         /// <summary>
         /// jfr (start|stop)
-        /// </summary
+        /// </summary>
         /// <exception cref="ArgumentNotMatchException"></exception>
         public Jfr(string start_stop)
         {

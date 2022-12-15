@@ -11,7 +11,7 @@ namespace MCSharp.Cmds
     /// <summary>
     /// 停止声音播放。
     /// <code>
-    /// stopsound <targets> [<source>] [<sound>]
+    /// stopsound &lt;targets> [&lt;source>] [&lt;sound>]
     /// </code>
     /// </summary>
     public class Stopsound : Command
@@ -20,13 +20,16 @@ namespace MCSharp.Cmds
         Source? source;
         ID sound;
 
+        /// <summary>
+        /// 声音来源的枚举。用于命令参数
+        /// </summary>
         public enum Source
         {
             master, music, record, weather, block, hostile, neutral, player, ambient, voice, all
         }
 
         /// <summary>
-        /// stopsound <targets> [<source>] [<sound>]]]
+        /// stopsound &lt;targets> [&lt;source>] [&lt;sound>]]]
         /// </summary>
         /// <param name="targets">指定目标。</param>
         /// <param name="source">指定声音来源。</param>

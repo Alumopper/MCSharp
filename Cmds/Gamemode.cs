@@ -21,7 +21,7 @@ namespace MCSharp.Cmds
 
         /// <summary>
         /// gamemode (adventure|creative|spectator|survival) [&lt;target>]
-        /// </summary
+        /// </summary>
         /// <exception cref="ArgumentNotMatchException"></exception>
         public Gamemode(Gamemodes gamemode, Entity target)
         {

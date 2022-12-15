@@ -1,4 +1,5 @@
-﻿using MCSharp.Util;
+﻿using MCSharp.Type;
+using MCSharp.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace MCSharp
 {
-    internal class StackManager
+    /// <summary>
+    /// 一个静态类。用于处理栈相关的逻辑
+    /// </summary>
+    internal static class StackManager
     {
         private static List<string> stack = new List<string>();
 
@@ -60,7 +64,7 @@ namespace MCSharp
                             continue;
                         }
                         //添加函数调用语句
-                        DatapackInfo.functions[qwq[0]].GetCommands().Add(new Cmds.Function(DatapackInfo.functions[w].ToString()));
+                        DatapackInfo.functions[qwq[0]].GetCommands().Add(new Cmds.Function(new ID(DatapackInfo.functions[w].ToString())));
                     }
                 }
                 stack = value;
@@ -72,11 +76,11 @@ namespace MCSharp
         }
         
         /// <summary>
-        /// 获取当前的命令函数栈
+        /// 获取当前的命令函数栈的函数名字的列表。
         /// <para>注意并不是实际的函数栈，而是命令函数栈，即返回的列表中只会有<b>已经注册在数据包中的</b>函数</para>
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetStack()
+        public static List<string> GetStackName()
         {
             StackFrame[] sfs = new StackTrace().GetFrames();
             List<string> re = new List<string>();
@@ -86,6 +90,26 @@ namespace MCSharp
                 if (DatapackInfo.functions.ContainsKey(methodName))
                 {
                     re.Add(methodName);
+                }
+            }
+            return re;
+        }
+
+        /// <summary>
+        /// 获取当前的命令函数栈。
+        /// <para>注意并不是实际的函数栈，而是命令函数栈，即返回的列表中只会有<b>已经注册在数据包中的</b>函数</para>
+        /// </summary>
+        /// <returns></returns>
+        public static List<StackFrame> GetStack()
+        {
+            StackFrame[] sfs = new StackTrace().GetFrames();
+            List<StackFrame> re = new List<StackFrame>();
+            foreach (StackFrame s in sfs)
+            {
+                string methodName = s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name;
+                if (DatapackInfo.functions.ContainsKey(methodName))
+                {
+                    re.Add(s);
                 }
             }
             return re;
