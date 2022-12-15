@@ -1,7 +1,10 @@
 ﻿using MCSharp.Exception;
 using MCSharp.Type;
+using MCSharp.Type.CommandArg;
+using MCSharp.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Configuration;
 using System.Text;
@@ -194,6 +197,364 @@ namespace MCSharp.Cmds
                 return cmd.ToString();
             }
         }
+
+        public class Store : ExecuteChildCommand
+        {
+            rs result_success;
+            Pos targetPos;
+            string path;
+            Type type;
+            double scale;
+            int qwq;
+            ID id;
+            vm value_max;
+            Entity target;
+            SbObject objective;
+            ID storage;
+
+            public enum rs
+            {
+                result, success
+            }
+            public enum Type
+            {
+                _byte, _short, _int, _long, _float, _double
+            }
+            public enum vm
+            {
+                value, max
+            }
+
+            /// <summary>
+            /// store (result|success) block &lt;targetPos> &lt;path> &lt;type> &lt;scale> -> execute
+            /// </summary>
+            /// <param name="result_success"></param>
+            /// <param name="targetPos">需要将数据存储到的目标方块的坐标。   </param>
+            /// <param name="path">需要持有结果的NBT标签的位置。</param>
+            /// <param name="type">被存储的数据的类型。</param>
+            /// <param name="scale">存储值的倍率。</param>
+            /// <exception cref="ArgumentNotMatchException"></exception>
+            public Store(rs result_success, Pos targetPos, string path, Type type, double scale)
+            {
+                this.result_success = result_success;
+                this.targetPos = targetPos;
+                if (!NBT.IsLegalPath(path))
+                {
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                }
+                this.path = path;
+                this.type = type;
+                this.scale = scale;
+                this.qwq = 0;
+            }
+
+            /// <summary>
+            /// store (result|success) bossbar &lt;id> (value|max) -> execute
+            /// </summary>
+            /// <param name="result_success"></param>
+            /// <param name="id">需要储存在的boss栏的命名空间ID</param>
+            /// <param name="value_max">存储为boss栏的当前值（value）还是最大值（max）</param>
+            public Store(rs result_success, ID id, vm value_max)
+            {
+                this.result_success = result_success;
+                this.id = id;
+                this.value_max = value_max;
+                this.qwq = 1;
+            }
+
+            /// <summary>
+            /// store (result|success) entity &lt;target> &lt;path> &lt;type> &lt;scale> -> execute
+            /// </summary>
+            /// <param name="result_success"></param>
+            /// <param name="target">目标实体。可以为玩家ID，UUID，或选择器。</param>
+            /// <param name="path">实体NBT数据的路径。</param>
+            /// <param name="type">被存储的数据的类型。</param>
+            /// <param name="scale">存储值的倍率。</param>
+            /// <exception cref="ArgumentNotMatchException"></exception>
+            public Store(rs result_success, Entity target, string path, Type type, double scale)
+            {
+                this.result_success = result_success;
+                this.target = target;
+                if (!NBT.IsLegalPath(path))
+                {
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                }
+                this.path = path;
+                this.type = type;
+                this.scale = scale;
+                qwq = 2;
+            }
+
+            /// <summary>
+            /// store (result|success) score &lt;targets> &lt;objective> -> execute
+            /// </summary>
+            /// <param name="result_success"></param>
+            /// <param name="target">修改此分数持有者（可以是实体、选择器甚至不存在的玩家）的分数</param>
+            /// <param name="objective">记分项。</param>
+            public Store(rs result_success, Entity target, SbObject objective)
+            {
+                this.result_success = result_success;
+                this.target = target;
+                this.objective = objective;
+                qwq = 3;
+            }
+
+            /// <summary>
+            /// store (result|success) storage &lt;target> &lt;path> &lt;type> &lt;scale> -> execute
+            /// </summary>
+            /// <param name="result_success"></param>
+            /// <param name="target">目标存储容器的命名空间ID。</param>
+            /// <param name="path">需要持有结果的NBT标签的位置。</param>
+            /// <param name="type">需要存储为的数据的类型。</param>
+            /// <param name="scale">存储值前先乘以一定的倍率。</param>
+            /// <exception cref="ArgumentNotMatchException"></exception>
+            public Store(rs result_success, ID target, string path, Type type, double scale)
+            {
+                this.result_success = result_success;
+                this.storage = target;
+                if (!NBT.IsLegalPath(path))
+                {
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                }
+                this.path = path;
+                this.type = type;
+                this.scale = scale;
+                qwq = 4;
+            }
+
+            public override string ToString()
+            {
+                string re = "store " + Tools.getEnumString(result_success);
+                switch (qwq)
+                {
+                    case 0:
+                        re += " block " + targetPos + " " + path + " " + Tools.getEnumString(type) + " " + scale;
+                        break;
+                    case 1:
+                        re += " bossbar " + id + " " + Tools.getEnumString(value_max);
+                        break;
+                    case 2:
+                        re += " entity " + target + " " + path + " " + Tools.getEnumString(type) + " " + scale;
+                        break;
+                    case 3:
+                        re += " score " + target + " " + objective;
+                        break;
+                    case 4:
+                        re += " storage " + storage + " " + path + " " + Tools.getEnumString(type) + " " + scale;
+                        break;
+                }
+                return re;
+            }
+        }
+        
+        public class If : ExecuteChildCommand
+        {
+            Pos pos;
+            ID biome;
+            BlockPredicate block;
+            Pos start;
+            Pos end;
+            Pos destination;
+            Mode all_masked;
+            string path;
+            Entity target;
+            ID source;
+            ID predicate;
+            SbObject targetObjective;
+            string operation;
+            Entity sourceScore;
+            SbObject sourceObjective;
+            IntRange range;
+            int type;
+
+            public enum Mode
+            {
+                all,masked
+            }
+
+            /// <summary>
+            /// (if|unless) biome <pos> <biome> -> [execute]
+            /// </summary>
+            /// <param name="pos"></param>
+            /// <param name="biome"></param>
+            public If(Pos pos, ID biome)
+            {
+                this.pos = pos;
+                this.biome = biome;
+                type = 0;
+            }
+
+            /// <summary>
+            /// (if|unless) block <pos> <block> -> [execute]
+            /// </summary>
+            /// <param name="pos"></param>
+            /// <param name="block"></param>
+            public If(Pos pos, BlockPredicate block)
+            {
+                this.pos = pos;
+                this.block = block;
+                type = 1;
+            }
+
+            /// <summary>
+            /// (if|unless) blocks <start> <end> <destination> <scan mode> -> [execute]
+            /// </summary>
+            /// <param name="start"></param>
+            /// <param name="end"></param>
+            /// <param name="destination"></param>
+            /// <param name="all_masked"></param>
+            public If(Pos start, Pos end, Pos destination, Mode all_masked)
+            {
+                this.start = start;
+                this.end = end;
+                this.destination = destination;
+                this.all_masked = all_masked;
+                type = 2;
+            }
+
+            /// <summary>
+            /// (if|unless) data block <pos> <path> -> [execute]
+            /// </summary>
+            /// <param name="pos"></param>
+            /// <param name="path"></param>
+            /// <exception cref="ArgumentNotMatchException"></exception>
+            public If(Pos pos, string path)
+            {
+                this.pos = pos;
+                if (!NBT.IsLegalPath(path))
+                {
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                }
+                this.path = path;
+                type = 3;
+            }
+
+            /// <summary>
+            /// (if|unless) data entity <target> <path> -> [execute]
+            /// </summary>
+            /// <param name="target"></param>
+            /// <param name="path"></param>
+            /// <exception cref="ArgumentNotMatchException"></exception>
+            public If(Entity target, string path)
+            {
+                this.target = target;
+                if (!NBT.IsLegalPath(path))
+                {
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                }
+                this.path = path;
+                type = 4;
+            }
+
+            /// <summary>
+            /// (if|unless) data storage <source> <path> -> [execute]
+            /// </summary>
+            /// <param name="source"></param>
+            /// <param name="path"></param>
+            /// <exception cref="ArgumentNotMatchException"></exception>
+            public If(ID source, string path)
+            {
+                this.source = source;
+                if (!NBT.IsLegalPath(path))
+                {
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                }
+                this.path = path;
+                type = 5;
+            }
+
+            /// <summary>
+            /// (if|unless) entity <targets> -> [execute]
+            /// </summary>
+            /// <param name="target"></param>
+            public If(Entity target)
+            {
+                this.target = target;
+                type = 6;
+            }
+
+            /// <summary>
+            /// (if|unless) predicate <predicate> -> [execute]
+            /// </summary>
+            /// <param name="predicate"></param>
+            public If(ID predicate)
+            {
+                this.predicate = predicate;
+                type = 7;
+            }
+
+            /// <summary>
+            /// (if|unless) score <target> <targetObjective> (<|<=|=|>=|>) <source> <sourceObjective> -> [execute]
+            /// </summary>
+            /// <param name="target"></param>
+            /// <param name="targetObjective"></param>
+            /// <param name="operation"></param>
+            /// <param name="source"></param>
+            /// <param name="sourceObjective"></param>
+            public If(Entity target, SbObject targetObjective, string operation, Entity source, SbObject sourceObjective)
+            {
+                this.target = target;
+                this.targetObjective = targetObjective;
+                this.operation = operation;
+                this.sourceScore = source;
+                this.sourceObjective = sourceObjective;
+                type = 8;
+            }
+
+            /// <summary>
+            /// (if|unless) score <target> <targetObjective> matches <range> -> [execute]
+            /// </summary>
+            /// <param name="target"></param>
+            /// <param name="targetObjective"></param>
+            /// <param name="range"></param>
+            public If(Entity target, SbObject targetObjective, IntRange range)
+            {
+                this.target = target;
+                this.targetObjective = targetObjective;
+                this.range = range;
+                type = 9;
+            }
+
+            public override string ToString()
+            {
+                string re = "";
+                switch (type)
+                {
+                    case 0:
+                        re = "if biome " + pos + " " + biome;
+                        break;
+                    case 1:
+                        re = "if block " + pos + block;
+                        break;
+                    case 2:
+                        re = "if blocks " + start + " " + end + " " + destination + " " + Tools.getEnumString(all_masked);
+                        break;
+                    case 3:
+                        re = "if data block " + pos + " " + path;
+                        break;
+                    case 4:
+                        re = "if data entity " + target + " " + path;
+                        break;
+                    case 5:
+                        re = "if data storage " + source + " " + path;
+                        break;
+                    case 6:
+                        re = "if entity " + target;
+                        break;
+                    case 7:
+                        re = "if predicate " + predicate;
+                        break;
+                    case 8:
+                        re = "if score " + target + " " + targetObjective + " " + operation + " " + sourceScore + " " + sourceObjective;
+                        break;
+                    case 9:
+                        re = "if score " + target + " " + targetObjective + " matches " + range;
+                        break;
+                }
+                return re;
+            }
+        }
+
         #endregion
 
         List<ExecuteChildCommand> childcommands = new List<ExecuteChildCommand>();

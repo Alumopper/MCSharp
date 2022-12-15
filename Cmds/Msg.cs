@@ -10,7 +10,7 @@ namespace MCSharp.Cmds
     /// <summary>
     /// 将一条私聊消息发送给一个或多个玩家。
     /// <code>
-    /// tell &lt;target> &lt;message>
+    /// msg &lt;target> &lt;message>
     /// </code>
     /// </summary>
     public class Msg : Command
@@ -19,7 +19,7 @@ namespace MCSharp.Cmds
         string message;
 
         /// <summary>
-        /// tell &lt;target> &lt;message>
+        /// msg &lt;target> &lt;message>
         /// </summary>
         public Msg(Entity targets, string message)
         {
