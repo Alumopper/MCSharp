@@ -85,7 +85,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// <param name="set">任意字符串，反正没有用，只是用于区分方法用的</param>
         /// type - 3
-        public Bossbar(ID id, string set, Type.Bossbar.Color color)
+        public Bossbar(ID id, Type.Bossbar.Color color)
         {
             this.id = id;
             switch (color)
@@ -120,7 +120,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// <param name="set">任意字符串，反正没有用，只是用于区分方法用的</param>
         /// type - 4
-        public Bossbar(ID id, string set, string max_value, int x)
+        public Bossbar(ID id, string max_value, int x)
         {
             this.id = id;
             if (!mv.Contains(max_value))
@@ -149,7 +149,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 6
         /// <param name="targets">若为null，即此参数为无</param>
-        public Bossbar(ID id, string set, Entity targets)
+        public Bossbar(ID id, string set, Entity targets = null)
         {
             this.id = id;
             this.targets = targets;
@@ -160,7 +160,7 @@ namespace MCSharp.Cmds
         /// bossbar set &lt;id> style (notched_6|notched_10|notched_12|notched_20|progress)
         /// </summary>
         /// type - 7
-        public Bossbar(ID id, string set, Type.Bossbar.Style style)
+        public Bossbar(ID id, Type.Bossbar.Style style)
         {
             this.id = id;
             switch (style)
@@ -188,13 +188,23 @@ namespace MCSharp.Cmds
         /// bossbar set &lt;id> visible &lt;visible>
         /// </summary>
         /// type - 8
-        public Bossbar(ID id, string set, bool visible)
+        public Bossbar(ID id, bool visible)
         {
             this.id = id;
             this.visible = visible;
             this.type = 8;
         }
 
+        /// <summary>
+        /// bossbar remove &lt;id>
+        /// </summary>
+        /// <param name="id"></param>
+        public Bossbar(ID id)
+        {
+            this.id = id;
+            type = 9;
+        }
+        
         public override string ToString()
         {
             string re = "#喵喵喵？这里应该是一个bossbar命令，如果你看到了这个注释，说明MC#出现了一些问题！";
@@ -252,6 +262,12 @@ namespace MCSharp.Cmds
                     {
                         //bossbar set <id> visible <visible>
                         re = "bossbar set " + id + " visible " + (visible ? "true" : "false");
+                        break;
+                    }
+                case 9:
+                    {
+                        //bossbar remove <id>
+                        re = "bossbar remove " + id;
                         break;
                     }
             }

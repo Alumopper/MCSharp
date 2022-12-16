@@ -36,6 +36,7 @@ namespace MCSharp.Type
         /// 通过一个物品堆创建一个物品对象
         /// </summary>
         /// <param name="item_stack"></param>
+        /// <param name="count">这个物品堆的物品数量</param>
         /// <exception cref="IllegalFormatException"></exception>
         public ItemStack(string item_stack, int count = 1)
         {
@@ -81,10 +82,19 @@ namespace MCSharp.Type
             this.nbt = nbt;
             this.count = count;
         }
-
+        
         public override string ToString()
         {
             return item_stack + " " + count;
+        }
+
+        /// <summary>
+        /// 将一个物品id转换为一个物品堆
+        /// </summary>
+        /// <param name="item_id"></param>
+        public static implicit operator ItemStack(ID item_id)
+        {
+            return new ItemStack(item_id.id);
         }
     }
 }

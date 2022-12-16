@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
-    public class Pos : Vector3<double>
+    public class Pos : Vector3<double> , DataArg
     {
         bool related;
 

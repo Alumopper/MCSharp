@@ -23,7 +23,7 @@ namespace MCSharp.Cmds
         Pos destination;
         string replace_masked;
         string force_move_normal;
-        BlockState filter;
+        BlockPredicate filter;
 
         private static string[] rm = new string[] { "replace", "masked" };
         private static string[] fmn = new string[] { "force", "move", "normal" };
@@ -58,7 +58,7 @@ namespace MCSharp.Cmds
             }
         }
 
-        public Clone(Pos begin, Pos end, Pos destination, BlockState filter , string force_move_normal)
+        public Clone(Pos begin, Pos end, Pos destination, BlockPredicate filter , string force_move_normal)
         {
             this.begin = begin;
             this.destination = destination;

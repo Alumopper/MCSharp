@@ -1,4 +1,5 @@
 ﻿using MCSharp.Exception;
+using MCSharp.Type.CommandArg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace MCSharp.Type
     /// <summary>
     /// 一个命名空间id。也可以是标签。
     /// </summary>
-    public class ID
+    public class ID : DataArg
     {
         /// <summary>
         /// 命名空间id全称。不包含标签符"#"

@@ -1,8 +1,11 @@
 ﻿using MCSharp.Exception;
 using MCSharp.Type;
+using MCSharp.Type.CommandArg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,11 +44,12 @@ namespace MCSharp.Cmds
     public class Data : Command
     {
         #region 参数
+        DataArg dara;
         Pos targetpos;
         Entity targetentity;
         ID targetid;
         string path;
-        double scale;
+        double? scale;
         NBT nbt;
         string targetPath;
         string append_merge_prepend_set;
@@ -62,25 +66,14 @@ namespace MCSharp.Cmds
 
         #region get
         /// <summary>
-        /// data get block &lt;:targetPos> [&lt;path>] [&lt;scale>]
+        /// data get block &lt;targetPos> [&lt;path>] [&lt;scale>]
         /// </summary>
         /// type - 0
-        public Data(Pos targetpos,string path,params double[] scale)
+        public Data(Pos targetpos,string path = null, double? scale = null)
         {
             this.targetpos = targetpos;
             this.path = path;
-            if(scale.Length != 0)
-            {
-                this.scale = scale[0];
-                if(scale.Length != 1)
-                {
-                    DatapackInfo.log.AddLog(Util.Log.Level.WARN, "过多的参数:" + scale[1] + "等");
-                }
-            }
-            else
-            {
-                this.scale = 1.0;
-            }
+            this.scale = scale;
             this.type = 0;
         }
 
@@ -89,22 +82,11 @@ namespace MCSharp.Cmds
         /// data get entity &lt;target> [&lt;path>] [&lt;scale>]
         /// </summary>
         /// type - 1
-        public Data(Entity target, string path, params double[] scale)
+        public Data(Entity target, string path = null, double? scale = null)
         {
             this.targetentity = target;
             this.path = path;
-            if (scale.Length != 0)
-            {
-                this.scale = scale[0];
-                if (scale.Length != 1)
-                {
-                    DatapackInfo.log.AddLog(Util.Log.Level.WARN, "过多的参数:" + scale[1] + "等");
-                }
-            }
-            else
-            {
-                this.scale = 1.0;
-            }
+            this.scale = scale;
             type = 1;
         }
 
@@ -113,22 +95,11 @@ namespace MCSharp.Cmds
         /// data get storage &lt;targetPos> [&lt;path>] [&lt;scale>]
         /// </summary>
         /// type - 2
-        public Data(ID target, string path, params double[] scale)
+        public Data(ID target, string path = null, double? scale = null)
         {
             this.targetid = target;
             this.path = path;
-            if (scale.Length != 0)
-            {
-                this.scale = scale[0];
-                if (scale.Length != 1)
-                {
-                    DatapackInfo.log.AddLog(Util.Log.Level.WARN, "过多的参数:" + scale[1] + "等");
-                }
-            }
-            else
-            {
-                this.scale = 1.0;
-            }
+            this.scale = scale;
             type = 2;
         }
 
@@ -806,19 +777,19 @@ namespace MCSharp.Cmds
                 case 0:
                     {
                         //data get block &lt;:targetPos> [&lt;path>] [&lt;scale>]
-                        re = "data get block " + targetpos + " " + path == null ? "" : (path + " ") + scale;
+                        re = "data get block " + targetpos + " " + (path == null ? "" : (path + " ")) + (scale == null ? "" : (scale + " "));
                         break;
                     }
                 case 1:
                     {
                         //data get block &lt;:targetPos> [&lt;path>] [&lt;scale>]
-                        re = "data get entity " + targetentity + " " + path == null ? "" : (path + " ") + scale;
+                        re = "data get entity " + targetentity + " " + path == null ? "" : (path + " ") + (scale == null ? "" : (scale + " ")); ;
                         break;
                     }
                 case 2:
                     {
                         //data get block &lt;:targetPos> [&lt;path>] [&lt;scale>]
-                        re = "data get storage " + targetid + " " + path == null ? "" : (path + " ") + scale;
+                        re = "data get storage " + targetid + " " + path == null ? "" : (path + " ") + (scale == null ? "" : (scale + " ")); ;
                         break;
                     }
                 #endregion

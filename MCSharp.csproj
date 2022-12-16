@@ -161,6 +161,7 @@
     <Compile Include="Type\Color.cs" />
     <Compile Include="Type\CommandArg\BlockState.cs" />
     <Compile Include="Type\CommandArg\BlockPredicate.cs" />
+    <Compile Include="Type\CommandArg\DataArg.cs" />
     <Compile Include="Type\CommandArg\FloatRange.cs" />
     <Compile Include="Type\CommandArg\Gamemodes.cs" />
     <Compile Include="Type\CommandArg\IntRange.cs" />
