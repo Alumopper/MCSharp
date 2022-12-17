@@ -22,7 +22,7 @@ namespace MCSharp.Cmds
         /// <summary>
         /// enchant &lt;target> &lt;id> [&lt;level>]
         /// </summary>
-        public Enchant(Entity target, ID id,int level)
+        public Enchant(Entity target, ID id,int level = 1)
         {
             this.target = target;
             this.id = id;
@@ -32,15 +32,6 @@ namespace MCSharp.Cmds
                 DatapackInfo.log.AddLog(Util.Log.Level.WARN, "level应当至少为1，但是传入了" + level);
             }
             this.level = level;
-        }
-
-        /// <summary>
-        /// enchant &lt;target> &lt;id>
-        /// </summary>
-        public Enchant(Entity target, ID id)
-        {
-            this.target = target;
-            this.id = id;
         }
 
         public override string ToString()

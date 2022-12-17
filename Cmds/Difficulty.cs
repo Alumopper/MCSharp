@@ -15,7 +15,7 @@ namespace MCSharp.Cmds
     /// difficulty [easy|hard|normal|peaceful]
     /// </code>
     /// </summary>
-    public class Difficulty
+    public class Difficulty : Command
     {
         Difficulties? difficulties;
 

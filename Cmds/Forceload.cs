@@ -46,7 +46,7 @@ namespace MCSharp.Cmds
         /// <summary>
         /// forceload query [&lt;pos>]
         /// </summary>
-        public Forceload(Pos pos)
+        public Forceload(string query, Pos pos = null)
         {
             this.pos = pos;
         }

@@ -11,6 +11,7 @@ using MCSharp;
 using MCSharp.Exception;
 using MCSharp.Type;
 using MCSharp.Type.CommandArg;
+using static System.Net.Mime.MediaTypeNames;
 using static MCSharp.Type.Bossbar;
 
 namespace MCSharp.Cmds
@@ -1489,7 +1490,209 @@ namespace MCSharp.Cmds
 
         #endregion
 
+        #region effect
+        public static Effect GiveEffect(Entity player, ID effect, int seconds = 30, int amplifier = 0, bool hideParticles = false)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Effect effect1 = new Effect(player, effect, seconds, amplifier, hideParticles);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(effect1);
+            return effect1;
+        }
 
+        public static Effect ClearEffect(Entity player = null, ID effect = null)
+        {
+            {
+                if (!DatapackInfo.FunctionHasRegistry())
+                {
+                    throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+                }
+                Effect effect1 = new Effect("clear", player, effect);
+                DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(effect1);
+                return effect1;
+            }
+        }
+        #endregion
+
+        #region enchant
+        public static Enchant Enchant(Entity player, ID enchantment, int level = 1)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Enchant enchant = new Enchant(player, enchantment, level);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(enchant);
+            return enchant;
+        }
+        #endregion
+
+        #region experience
+        public static Experience AddExperience(Entity player, int amount, bool levels = false)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Experience experience = new Experience("add", player, amount, levels ? "levels" : "points");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(experience);
+            return experience;
+        }
+
+        public static Experience SetExperience(Entity player, int amount, bool levels = false)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Experience experience = new Experience("set", player, amount, levels ? "levels" : "points");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(experience);
+            return experience;
+        }
+
+        public static Experience QueryExperience(Entity player, bool levels = false)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Experience experience = new Experience(player, levels ? "levels" : "points");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(experience);
+            return experience;
+        }
+        #endregion
+
+        #region fill
+        public static Fill FillDestory(Pos from, Pos to, BlockState block)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Fill fill = new Fill(from, to, block,"destroy");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fill);
+            return fill;
+        }
+
+        public static Fill FillHollow(Pos from, Pos to, BlockState block)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Fill fill = new Fill(from, to, block, "hollow");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fill);
+            return fill;
+        }
+
+        public static Fill FillKeep(Pos from, Pos to, BlockState block)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Fill fill = new Fill(from, to, block, "keep");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fill);
+            return fill;
+        }
+
+        public static Fill FillOutline (Pos from, Pos to, BlockState block)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Fill fill = new Fill(from, to, block, "outline");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fill);
+            return fill;
+        }
+        
+        public static Fill FillReplace(Pos from, Pos to, BlockState block, BlockPredicate filter = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Fill fill = new Fill(from, to, block, filter);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fill);
+            return fill;
+        }
+        #endregion
+
+        #region fillbiome
+        public static Fillbiome Fillbiome(Pos from = null, Pos to = null, ID biome = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Fillbiome fillbiome = new Fillbiome(from, to, biome);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fillbiome);
+            return fillbiome;
+        }
+
+        public static Fillbiome ReplaceBiome(Pos from = null, Pos to = null, ID biome = null, ID filter = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Fillbiome fillbiome = new Fillbiome("" , from, to, biome, filter);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fillbiome);
+            return fillbiome;
+        }
+        #endregion
+
+        #region forceload
+        public static Forceload AddForceload(Pos from, Pos to)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Forceload forceload = new Forceload("add", from, to);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(forceload);
+            return forceload;
+        }
+
+        public static Forceload RemoveForceload(Pos from, Pos to)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Forceload forceload = new Forceload("remove", from, to);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(forceload);
+            return forceload;
+        }
+        
+        public static Forceload RemoveAllForceLoad()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Forceload forceload = new Forceload();
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(forceload);
+            return forceload;
+        }
+
+        public static Forceload QueryForceLoad(Pos pos)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Forceload forceload = new Forceload("query", pos);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(forceload);
+            return forceload;
+        }
+
+        #endregion
+
+        #region function
         public static Function Function(ID functionID)
         {
             if (!DatapackInfo.FunctionHasRegistry())
@@ -1500,7 +1703,63 @@ namespace MCSharp.Cmds
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(function);
             return function;
         }
+        #endregion
 
+        #region gamemode
+        public static Gamemode SetGamemode(Gamemodes gamemode, Entity target = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Gamemode gamemode1 = new Gamemode(gamemode, target);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(gamemode1);
+            return gamemode1;
+            {
+            }
+        }
+        #endregion
+
+        #region gamerule
+        public static Gamerule Gamerule(string rule, string value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Gamerule gamerule = new Gamerule(rule, value);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(gamerule);
+            return gamerule;
+        }
+        #endregion
+
+        #region give 
+        public static Give Give(Entity target, ItemStack item)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Give give = new Give(target, item);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(give);
+            return give;
+        }
+        #endregion
+
+        #region help
+        public static Help Help(string command = "")
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Help help = new Help(command);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(help);
+            return help;
+        }
+        #endregion
+
+        
         /// <summary>
         /// /say
         /// </summary>

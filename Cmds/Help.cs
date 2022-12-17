@@ -20,7 +20,7 @@ namespace MCSharp.Cmds
         /// <summary>
         /// help [&lt;command>]
         /// </summary>
-        public Help(string command)
+        public Help(string command = "")
         {
             this.command = command;
         }

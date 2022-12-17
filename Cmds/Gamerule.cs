@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCSharp.Exception;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -186,6 +187,47 @@ namespace MCSharp.Cmds
         public static string waterSourceConversion = "waterSourceConversion";
         #endregion
 
+        string[] rules = new string[]
+        {
+            "announceAdvancements",
+            "commandBlockOutput",
+            "disableElytraMovementCheck",
+            "disableRaids",
+            "doDaylightCycle",
+            "doEntityDrops",
+            "doFireTick",
+            "doLimitedCrafting",
+            "doMobLoot",
+            "doMobSpawning",
+            "doPatrolSpawning",
+            "doTileDrops",
+            "doTraderSpawning",
+            "doWeatherCycle",
+            "drowningDamage",
+            "fallDamage",
+            "fireDamage",
+            "forgiveDeadPlayers",
+            "keepInventory",
+            "logAdminCommands",
+            "maxCommandChainLength",
+            "maxEntityCramming",
+            "mobGriefing",
+            "naturalRegeneration",
+            "randomTickSpeed",
+            "reducedDebugInfo",
+            "sendCommandFeedback",
+            "showDeathMessages",
+            "spectatorsGenerateChunks",
+            "universalAnger",
+            "blockExplosionDropDecay",
+            "globalSoundEvents",
+            "lavaSourceConversion",
+            "mobExplosionDropDecay",
+            "snowAccumulationHeight",
+            "tntExplosionDropDecay",
+            "waterSourceConversion",
+        };
+
         string gamerule;
         object value;
 
@@ -194,6 +236,10 @@ namespace MCSharp.Cmds
         /// </summary>
         public Gamerule(string gamerule, object value)
         {
+            if (!rules.Contains(gamerule))
+            {
+                throw new ArgumentNotMatchException("参数错误: " + gamerule + "不存在的游戏规则");
+            }
             this.gamerule = gamerule;
             this.value = value;
         }
