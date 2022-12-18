@@ -111,5 +111,10 @@ namespace MCSharp.Type
         {
             return "#" + hex[0] + hex[1] + hex[2];
         }
+
+        public string ToParticleRGBString()
+        {
+            return r / 255.0 + " " + g / 255.0 + " " + b / 255.0;
+        }
     }
 }

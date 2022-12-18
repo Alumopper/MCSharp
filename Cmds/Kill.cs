@@ -13,7 +13,7 @@ namespace MCSharp.Cmds
     /// kill [&lt;targets>]
     /// </code>
     /// </summary>
-    public class Kill
+    public class Kill : Command
     {
         Entity targets;
 

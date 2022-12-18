@@ -15,7 +15,7 @@ namespace MCSharp.Cmds
     /// setblock &lt;pos> &lt;block> [destroy|keep|replace]
     /// </code>
     /// </summary>
-    public class SetBlock
+    public class Setblock : Command
     {
         Pos pos;
         BlockState block;
@@ -31,7 +31,7 @@ namespace MCSharp.Cmds
         /// <param name="pos">指定要被更改方块的位置。</param>
         /// <param name="block">指定更改后的新方块。</param>
         /// <param name="destroy_keep_replace">指定方块更改的处理方式，必须为以下其中之一：destroy — 原方块正常掉落物品（类似于被一个玩家破坏），并播放方块被破坏的音效。keep — 仅当原方块是空气方块时才进行更改。replace — 原方块不掉落物品，且不播放方块被破坏的音效。</param>
-        public SetBlock(Pos pos, BlockState block, dkr destroy_keep_replace = dkr.replace)
+        public Setblock(Pos pos, BlockState block, dkr destroy_keep_replace = dkr.replace)
         {
             this.pos = pos;
             this.block = block;

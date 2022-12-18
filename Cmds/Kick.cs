@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCSharp.Type;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +13,14 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Kick : Command
     {
-        string player;
+        Entity player;
         string reason;
         /// <summary>
         /// <code>
         /// kick &lt;player> [reason]
         /// </code>
         /// </summary>
-        public Kick(string player, string reason = "")
+        public Kick(Entity player, string reason = "")
         {
             this.player = player;
             this.reason = reason;

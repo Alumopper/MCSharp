@@ -88,5 +88,10 @@ namespace MCSharp.Type
         {
             return (isTag ? "#" : "") + id;
         }
+
+        public static implicit operator ID(string id)
+        {
+            return new ID(id);
+        }
     }
 }

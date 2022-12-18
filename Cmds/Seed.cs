@@ -12,7 +12,7 @@ namespace MCSharp.Cmds
     /// seed
     /// </code>
     /// </summary>
-    public class Seed
+    public class Seed : Command
     {
         /// <summary>
         /// seed

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization.Advanced;
 
 namespace MCSharp.Cmds
 {
@@ -20,7 +21,7 @@ namespace MCSharp.Cmds
     {
         ID name;
         Pos pos;
-        Vector3<int> delta;
+        Vector3<float> delta;
         float speed;
         int count;
         string force_normal;
@@ -53,7 +54,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 1
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(ID name, Pos pos, Vector3<int> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(ID name, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
         {
             this.name = name;
             this.pos = pos;
@@ -70,26 +71,28 @@ namespace MCSharp.Cmds
         }
 
         /// <summary>
-        /// particle &lt;name> &lt;vec3:color> [&lt;pos>]
+        /// particle &lt;name> &lt;vec3:color> &lt;size> [&lt;pos>]
         /// </summary>
         /// type 2
-        public Particle(Color dust, Pos pos = null)
+        public Particle(Color dust, float size, Pos pos = null)
         {
             this.name = new ID("minecraft:dust");
             this.pos = pos;
+            this.size = size;
             this.dust = dust;
             type = 2;
         }
 
         /// <summary>
-        /// particle &lt;name> &lt;vec3:color> &lt;pos> &lt;delta> &lt;speed> &lt;count> [force|normal] [&lt;viewers>]
+        /// particle &lt;name> &lt;size> &lt;vec3:color> &lt;pos> &lt;delta> &lt;speed> &lt;count> [force|normal] [&lt;viewers>]
         /// </summary>
         /// type 3
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(Color dust, Pos pos, Vector3<int> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(Color dust, float size, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
         {
             this.name = new ID("minecraft:dust");
             this.dust = dust;
+            this.size = size;
             this.pos = pos;
             this.delta = delta;
             this.speed = speed;
@@ -122,7 +125,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 5
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(Color dust, float size, Color trans, Pos pos, Vector3<int> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(Color dust, float size, Color trans, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
         {
             this.name = new ID("minecraft:dust_color_transition");
             this.dust = dust;
@@ -163,7 +166,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 7
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(ID name, BlockState block, Pos pos, Vector3<int> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(ID name, BlockState block, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
         {
             this.name = name;
             if (!(name.id.Equals("minecraft:block") || name.id.Equals("minecraft:falling_dust")))
@@ -201,7 +204,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 9
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(ItemStack item, Pos pos, Vector3<int> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(ItemStack item, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
         {
             this.name = new ID("minecraft:item");
             this.item = item;
@@ -216,6 +219,37 @@ namespace MCSharp.Cmds
             this.force_normal = force_normal;
             this.viewers = viewers;
             type = 9;
+        }
+
+        /// <summary>
+        /// particle &lt;name> &lt;second> [&lt;pos>]
+        /// </summary>
+        /// <param name="second"></param>
+        public Particle(int second, Pos pos = null)
+        {
+            this.name = new ID("minecraft:shriek");
+            this.second = second;
+            this.pos = pos;
+            type = 10;
+        }
+
+        public Particle(int second, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        {
+            this.name = new ID("minecraft:shriek");
+            this.second = second;
+            this.pos = pos;
+            this.delta = delta;
+            this.speed = speed;
+            this.count = count;
+            if (!fn.Contains(force_normal))
+            {
+                throw new ArgumentNotMatchException("参数错误:" + force_normal + "应当为\"normal\"或\"force\"");
+            }
+            this.force_normal = force_normal;
+            this.viewers = viewers;
+            type = 11;
+            {
+            }
         }
 
         public override string ToString()
@@ -235,27 +269,27 @@ namespace MCSharp.Cmds
                     }
                 case 2:
                     {
-                        re = "particle " + name + (pos == null ? "" : (" " + pos));
+                        re = "particle " + name + " " + dust.ToParticleRGBString() + " " + size + (pos == null ? "" : (" " + pos));
                         break;
                     }
                 case 3:
                     {
-                        re = "particle " + name + " " + dust + " " + pos + " " + delta + " " + speed + " " + count + " " + force_normal + (viewers == null ? "" : " " + viewers);
+                        re = "particle " + name + " " + dust.ToParticleRGBString() + " " + size + " " + pos + " " + delta + " " + speed + " " + count + " " + force_normal + (viewers == null ? "" : " " + viewers);
                         break;
                     }
                 case 4:
                     {
-                        re = "particle " + name + (pos == null ? "" : (" " + pos));
+                        re = "particle " + name + " " + dust.ToParticleRGBString() + " " + size + " " + trans.ToParticleRGBString() + (pos == null ? "" : (" " + pos));
                         break;
                     }
                 case 5:
                     {
-                        re = "particle " + name + " " + dust + " " + size + " " + trans + " " + pos + " " + delta + " " + speed + " " + count + " " + force_normal + (viewers == null ? "" : " " + viewers);
+                        re = "particle " + name + " " + dust.ToParticleRGBString() + " " + size + " " + trans.ToParticleRGBString() + " " + pos + " " + delta + " " + speed + " " + count + " " + force_normal + (viewers == null ? "" : " " + viewers);
                         break;
                     }
                 case 6:
                     {
-                        re = "particle " + name + (pos == null ? "" : (" " + pos));
+                        re = "particle " + name + " " + block + " "  + (pos == null ? "" : (" " + pos));
                         break;
                     }
                 case 7:
@@ -265,12 +299,22 @@ namespace MCSharp.Cmds
                     }
                 case 8:
                     {
-                        re = "particle " + name + (pos == null ? "" : (" " + pos));
+                        re = "particle " + name + " " + item + (pos == null ? "" : (" " + pos));
                         break;
                     }
                 case 9:
                     {
                         re = "particle " + name + " " + item + " " + pos + " " + delta + " " + speed + " " + count + " " + force_normal + (viewers == null ? "" : " " + viewers);
+                        break;
+                    }
+                case 10:
+                    {
+                        re = "particle " + name + " " + second + (pos == null ? "" : (" " + pos));
+                        break;
+                    }
+                case 11:
+                    {
+                        re = "particle " + name + " " + second + " " + pos + " " + delta + " " + speed + " " + count + " " + force_normal + (viewers == null ? "" : " " + viewers);
                         break;
                     }
             }

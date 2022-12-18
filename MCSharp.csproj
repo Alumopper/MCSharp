@@ -120,7 +120,7 @@
     <Compile Include="Cmds\Schedule.cs" />
     <Compile Include="Cmds\Scoreboard.cs" />
     <Compile Include="Cmds\Seed.cs" />
-    <Compile Include="Cmds\SetBlock.cs" />
+    <Compile Include="Cmds\Setblock.cs" />
     <Compile Include="Cmds\Setidletimeout.cs" />
     <Compile Include="Cmds\Setworldspawn.cs" />
     <Compile Include="Cmds\Spawnpoint.cs" />
