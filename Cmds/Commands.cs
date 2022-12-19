@@ -1,22 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Contexts;
-using System.Runtime.Serialization.Formatters;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using MCSharp;
+﻿using System.Diagnostics;
 using MCSharp.Exception;
 using MCSharp.Type;
 using MCSharp.Type.CommandArg;
-using static System.Net.Mime.MediaTypeNames;
-using static MCSharp.Cmds.Execute;
 using static MCSharp.Cmds.Loot;
 using static MCSharp.Cmds.Place;
 using static MCSharp.Cmds.Scoreboard;
@@ -177,7 +162,7 @@ namespace MCSharp.Cmds
             return attribute;
         }
 
-        public static Attribute GetBaseAttribute(Entity entity,string attribute, double scale = 1.0)
+        public static Attribute GetBaseAttribute(Entity entity, string attribute, double scale = 1.0)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -241,7 +226,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Ban ban = new Ban(player,reason);
+            Ban ban = new Ban(player, reason);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(ban);
             return ban;
         }
@@ -285,7 +270,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region bossbar
-        public static Bossbar AddBossBar(ID id,string name)
+        public static Bossbar AddBossBar(ID id, string name)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -423,7 +408,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Bossbar bossbar = new Bossbar(id,"set", selector);
+            Bossbar bossbar = new Bossbar(id, "set", selector);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(bossbar);
             return bossbar;
         }
@@ -1338,7 +1323,7 @@ namespace MCSharp.Cmds
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(datapack);
             return datapack;
         }
-        
+
         public static Datapack EnableDatapackAtFirst(string name)
         {
             if (!DatapackInfo.FunctionHasRegistry())
@@ -1371,7 +1356,7 @@ namespace MCSharp.Cmds
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(datapack);
             return datapack;
         }
-        
+
         public static Datapack EnableDatapackAfter(string name, string exist)
         {
             if (!DatapackInfo.FunctionHasRegistry())
@@ -1400,11 +1385,11 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Datapack datapack = new Datapack("list","available");
+            Datapack datapack = new Datapack("list", "available");
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(datapack);
             return datapack;
         }
-        
+
         public static Datapack ListEnabledDatapack()
         {
             if (!DatapackInfo.FunctionHasRegistry())
@@ -1419,7 +1404,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region debug
-        
+
         public static Debug StartDebug()
         {
             if (!DatapackInfo.FunctionHasRegistry())
@@ -1579,7 +1564,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Fill fill = new Fill(from, to, block,"destroy");
+            Fill fill = new Fill(from, to, block, "destroy");
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fill);
             return fill;
         }
@@ -1606,7 +1591,7 @@ namespace MCSharp.Cmds
             return fill;
         }
 
-        public static Fill FillOutline (Pos from, Pos to, BlockState block)
+        public static Fill FillOutline(Pos from, Pos to, BlockState block)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1616,7 +1601,7 @@ namespace MCSharp.Cmds
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fill);
             return fill;
         }
-        
+
         public static Fill FillReplace(Pos from, Pos to, BlockState block, BlockPredicate filter = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
@@ -1647,7 +1632,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Fillbiome fillbiome = new Fillbiome("" , from, to, biome, filter);
+            Fillbiome fillbiome = new Fillbiome("", from, to, biome, filter);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(fillbiome);
             return fillbiome;
         }
@@ -1675,7 +1660,7 @@ namespace MCSharp.Cmds
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(forceload);
             return forceload;
         }
-        
+
         public static Forceload RemoveAllForceLoad()
         {
             if (!DatapackInfo.FunctionHasRegistry())
@@ -1888,7 +1873,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Kick kick = new Kick(target,reason);
+            Kick kick = new Kick(target, reason);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(kick);
             return kick;
         }
@@ -1939,7 +1924,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Locate locate = new Locate("biome",biome);
+            Locate locate = new Locate("biome", biome);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(locate);
             return locate;
         }
@@ -2055,7 +2040,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle(ID particle, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers= null)
+        public static Particle Particle(ID particle, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2241,7 +2226,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Place place = new Place(pool, target , max_depth, pos);
+            Place place = new Place(pool, target, max_depth, pos);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(place);
             return place;
         }
@@ -2276,7 +2261,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Playsound playsound = new Playsound(sound , source, targets, pos, volume, pitch, minvolumn);
+            Playsound playsound = new Playsound(sound, source, targets, pos, volume, pitch, minvolumn);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(playsound);
             return playsound;
         }
@@ -2298,13 +2283,13 @@ namespace MCSharp.Cmds
         #endregion
 
         #region recipe
-        public static Recipe RecipeGive(Entity targets,ID recipe = null)
+        public static Recipe RecipeGive(Entity targets, ID recipe = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Recipe recipe1 = new Recipe(Recipe.gt.give,targets, recipe);
+            Recipe recipe1 = new Recipe(Recipe.gt.give, targets, recipe);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(recipe1);
             return recipe1;
         }
@@ -2499,7 +2484,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Scoreboard scoreboard = new Scoreboard(Scoreboard.ars.add , target, objective, value);
+            Scoreboard scoreboard = new Scoreboard(Scoreboard.ars.add, target, objective, value);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(scoreboard);
             return scoreboard;
         }
@@ -2521,7 +2506,7 @@ namespace MCSharp.Cmds
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Scoreboard scoreboard = new Scoreboard(Scoreboard.eg.get,target, objective);
+            Scoreboard scoreboard = new Scoreboard(Scoreboard.eg.get, target, objective);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(scoreboard);
             return scoreboard;
         }
@@ -2605,6 +2590,887 @@ namespace MCSharp.Cmds
             Setblock setblock = new Setblock(pos, state, mode);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(setblock);
             return setblock;
+        }
+        #endregion
+
+        #region setidletimeout
+        public static Setidletimeout Setidletimeout(int time)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Setidletimeout setidletimeout = new Setidletimeout(time);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(setidletimeout);
+            return setidletimeout;
+        }
+        #endregion
+
+        #region setworldspawn
+        public static Setworldspawn Setworldspawn(Pos pos = null, Rotation angle = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Setworldspawn setworldspawn = new Setworldspawn(pos, angle);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(setworldspawn);
+            return setworldspawn;
+        }
+        #endregion
+
+        #region spawnpoint
+        public static Spawnpoint Spawnpoint(Entity target, Pos pos = null, Rotation angle = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Spawnpoint spawnpoint = new Spawnpoint(target, pos, angle);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(spawnpoint);
+            return spawnpoint;
+        }
+        #endregion
+
+        #region spectate
+        public static Spectate Spectate(Entity target, Entity source = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Spectate spectate = new Spectate(target, source);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(spectate);
+            return spectate;
+        }
+
+        public static Spectate StopSpectate()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Spectate spectate = new Spectate();
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(spectate);
+            return spectate;
+        }
+        #endregion
+
+        #region spreadplayers
+        public static Spreadplayers SpreadPlayers(Pos2D pos, float spreadDistance, float maxRange, bool respectTeams, Entity targets)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Spreadplayers spreadplayers = new Spreadplayers(pos, spreadDistance, maxRange, respectTeams, targets);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(spreadplayers);
+            return spreadplayers;
+        }
+
+        public static Spreadplayers SpreadPlayers(Pos2D pos, float spreadDistance, float maxRange, float maxheight, bool respectTeams, Entity targets)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Spreadplayers spreadplayers = new Spreadplayers(pos, spreadDistance, maxRange, maxheight, respectTeams, targets);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(spreadplayers);
+            return spreadplayers;
+        }
+        #endregion
+
+        #region stop
+        public static Stop Stop()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Stop stop = new Stop();
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(stop);
+            return stop;
+        }
+        #endregion
+
+        #region stopsound
+        public static Stopsound Stopsound(Entity target, Stopsound.Source source = Cmds.Stopsound.Source.master, string sound = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Stopsound stopsound = new Stopsound(target, source, sound);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(stopsound);
+            return stopsound;
+        }
+        #endregion
+
+        #region summon
+        public static Summon Summon(ID entity, Pos pos = null, NBT nbt = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Summon summon = new Summon(entity, pos, nbt);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(summon);
+            return summon;
+        }
+        #endregion
+
+        #region tag
+        public static Tag TagAdd(Entity targets, string name)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tag tag = new Tag(targets, Tag.ar.add, name);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tag);
+            return tag;
+        }
+
+        public static Tag TagRemove(Entity targets, string name)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tag tag = new Tag(targets, Tag.ar.remove, name);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tag);
+            return tag;
+        }
+
+        public static Tag TagList(Entity targets)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tag tag = new Tag(targets);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tag);
+            return tag;
+        }
+        #endregion
+
+        #region team
+        public static Team TeamList(string team = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamAdd(string team, JsonText displayName = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, displayName);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamRemove(string team)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(Team.re.remove, team);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamEmpty(string team)
+        {
+
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(Team.re.empty, team);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamJoin(string team, Entity members = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, members);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamLeave(Entity members)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(members);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifyDisplayName(string team, JsonText displayName)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionJSON.displayName, displayName);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifyColor(string team, Type.Color.Colors color)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionColor.color, color);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifyFriendlyFire(string team, bool allowed)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionBool.friendlyFire, allowed);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifySeeFriendlyInvisibles(string team, bool allowed)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionBool.seeFriendlyInvisibles, allowed);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifyNametagVisibility(string team, Team.ArgVisibility visibility)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionVisibility.nametagVisibility, visibility);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifyDeathMessageVisibility(string team, Team.ArgVisibility visibility)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionVisibility.deathMessageVisibility, visibility);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifyCollisionRule(string team, Team.ArgCollision rule)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionCollision.collisionRule, rule);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifyPrefix(string team, JsonText prefix)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionJSON.prefix, prefix);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+
+        public static Team TeamModifySuffix(string team, JsonText suffix)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Team teamcmd = new Team(team, Team.OptionJSON.suffix, suffix);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teamcmd);
+            return teamcmd;
+        }
+        #endregion
+
+        #region teammsg
+        public static Teammsg Teammsg(string msg)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Teammsg teammsg = new Teammsg(msg);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teammsg);
+            return teammsg;
+        }
+        #endregion
+
+        #region teleport
+        public static Teleport Teleport(Entity destination)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Teleport teleport = new Teleport(destination);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teleport);
+            return teleport;
+        }
+
+        public static Teleport Teleport(Entity target, Entity destination)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Teleport teleport = new Teleport(target, destination);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teleport);
+            return teleport;
+        }
+
+        public static Teleport Teleport(Entity targets, Pos location, Rotation rotation = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Teleport teleport = new Teleport(targets, location, rotation);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teleport);
+            return teleport;
+        }
+
+        public static Teleport Teleport(Entity targets, Pos location, Pos facingLocation)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Teleport teleport = new Teleport(targets, location, facingLocation);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teleport);
+            return teleport;
+        }
+
+        public static Teleport Teleport(Entity targets, Pos location, Entity facingEntity, Teleport.ef facingEntityAnchor = Cmds.Teleport.ef.feet)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Teleport teleport = new Teleport(targets, location, facingEntity, facingEntityAnchor);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(teleport);
+            return teleport;
+        }
+        #endregion
+
+        #region tell
+        public static Tell Tell(Entity target, string msg)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tell tell = new Tell(target, msg);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tell);
+            return tell;
+        }
+        #endregion
+
+        #region tellraw
+        public static Tellraw Tellraw(Entity target, JsonText message)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tellraw tellraw = new Tellraw(target, message);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tellraw);
+            return tellraw;
+        }
+        #endregion
+
+        #region time
+        public static Time TimeAddBySecond(int value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Time time = new Time(value + "s");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(time);
+            return time;
+        }
+        public static Time TimeAddByDay(int value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Time time = new Time(value + "d");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(time);
+            return time;
+        }
+        public static Time TimeAddByTick(int value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Time time = new Time(value + "t");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(time);
+            return time;
+        }
+        public static Time TimeSet(int value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Time time = new Time(value);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(time);
+            return time;
+        }
+        public static Time TimeSet(Time.TimeSpec value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Time time = new Time(value);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(time);
+            return time;
+        }
+        public static Time TimeQuery(Time.TimeType timeType)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Time time = new Time(timeType);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(time);
+            return time;
+        }
+        #endregion
+
+        #region title
+        public static Title TitleClear(Entity player)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Title title = new Title(player, Title.Option.clear);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(title);
+            return title;
+        }
+
+        public static Title TitleReset(Entity player)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Title title = new Title(player, Title.Option.reset);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(title);
+            return title;
+        }
+
+        public static Title TitleAtTitle(Entity player, JsonText title)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Title titleCmd = new Title(player, Title.TitleType.title, title);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(titleCmd);
+            return titleCmd;
+        }
+
+        public static Title TitleAtSubtitle(Entity player, JsonText subtitle)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Title title = new Title(player, Title.TitleType.subtitle, subtitle);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(title);
+            return title;
+        }
+
+        public static Title TitleAtActionbar(Entity player, JsonText actionbar)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Title title = new Title(player, Title.TitleType.actionbar, actionbar);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(title);
+            return title;
+        }
+
+        public static Title TitleWithFade(Entity player, int fadeIn, int stay, int fadeOut)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Title title = new Title(player, fadeIn, stay, fadeOut);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(title);
+            return title;
+        }
+        #endregion
+
+        #region tm
+        public static Tm Tm(string msg)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tm tm = new Tm(msg);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tm);
+            return tm;
+        }
+        #endregion
+
+        #region tp
+        public static Tp Tp(Entity destination)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tp tp = new Tp(destination);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tp);
+            return tp;
+        }
+
+        public static Tp Tp(Entity target, Entity destination)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tp tp = new Tp(target, destination);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tp);
+            return tp;
+        }
+
+        public static Tp Tp(Entity targets, Pos location, Rotation rotation = null)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tp tp = new Tp(targets, location, rotation);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tp);
+            return tp;
+        }
+
+        public static Tp Tp(Entity targets, Pos location, Pos facingLocation)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tp tp = new Tp(targets, location, facingLocation);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tp);
+            return tp;
+        }
+
+        public static Tp Tp(Entity targets, Pos location, Entity facingEntity, Tp.ef facingEntityAnchor = Cmds.Tp.ef.feet)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Tp tp = new Tp(targets, location, facingEntity, facingEntityAnchor);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(tp);
+            return tp;
+        }
+        #endregion
+
+        #region trigger
+        public static Trigger TriggerAdd(SbObject objective, int value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Trigger trigger = new Trigger(objective, Trigger.As.add, value);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(trigger);
+            return trigger;
+        }
+
+        public static Trigger TriggerSet(SbObject objective, int value)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Trigger trigger = new Trigger(objective, Trigger.As.set, value);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(trigger);
+            return trigger;
+        }
+
+        public static Trigger TriggerCheck(SbObject objective)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Trigger trigger = new Trigger(objective);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(trigger);
+            return trigger;
+        }
+        #endregion
+
+        #region w
+        public static W W(Entity target, string msg)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            W w = new W(target, msg);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(w);
+            return w;
+        }
+        #endregion
+
+        #region weather
+        public static Weather Weather(Weather.WeatherType weatherType, int duration = 300)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Weather weather = new Weather(weatherType, duration);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(weather);
+            return weather;
+        }
+        #endregion
+
+        #region whitelist
+        public static Whitelist WhitelistAdd(Entity player)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Whitelist whitelist = new Whitelist(player, Whitelist.ar.add);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(whitelist);
+            return whitelist;
+        }
+
+        public static Whitelist WhitelistRemove(Entity player)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Whitelist whitelist = new Whitelist(player, Whitelist.ar.remove);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(whitelist);
+            return whitelist;
+        }
+
+        public static Whitelist WhitelistList()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Whitelist whitelist = new Whitelist(Whitelist.loor.list);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(whitelist);
+            return whitelist;
+        }
+
+        public static Whitelist WhitelistOn()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Whitelist whitelist = new Whitelist(Whitelist.loor.on);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(whitelist);
+            return whitelist;
+        }
+
+        public static Whitelist WhitelistOff()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Whitelist whitelist = new Whitelist(Whitelist.loor.off);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(whitelist);
+            return whitelist;
+        }
+
+        public static Whitelist WhitelistReload()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Whitelist whitelist = new Whitelist(Whitelist.loor.reload);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(whitelist);
+            return whitelist;
+        }
+        #endregion
+        
+        #region worldborder
+        public static Worldborder WorldborderAdd(double distance, int time = 0)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder(Worldborder.As.add, distance, time);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+
+        public static Worldborder WorldborderCenter(Pos2D pos)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder(pos);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+
+        public static Worldborder WorldborderSetDamageAmount(float damagePerBlock)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder(damagePerBlock);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+
+        public static Worldborder WorldborderSetDamageBuffer(double distance)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder(distance);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+
+        public static Worldborder WorldborderGet()
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder();
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+
+        public static Worldborder WorldborderSet(double distance, int time = 0)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder(Worldborder.As.set, distance, time);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+
+        public static Worldborder WorldborderSetWarningDistance(int distance)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder(Worldborder.dt.distance, distance);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+        
+        public static Worldborder WorldborderSetWarningTime(int time)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Worldborder worldborder = new Worldborder(Worldborder.dt.time, time);
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(worldborder);
+            return worldborder;
+        }
+
+        #endregion
+
+        #region xp
+        public static Xp AddXp(Entity player, int amount, bool levels = false)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Xp xp = new Xp("add", player, amount, levels ? "levels" : "points");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(xp);
+            return xp;
+        }
+
+        public static Xp SetXp(Entity player, int amount, bool levels = false)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Xp xp = new Xp("set", player, amount, levels ? "levels" : "points");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(xp);
+            return xp;
+        }
+
+        public static Xp QueryXp(Entity player, bool levels = false)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            Xp xp = new Xp(player, levels ? "levels" : "points");
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(xp);
+            return xp;
         }
         #endregion
     }

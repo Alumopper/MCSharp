@@ -47,14 +47,14 @@ namespace MCSharp.Cmds
         /// <param name="pos2"></param>
         /// <param name="distance"></param>
         /// <param name="maxrange"></param>
-        /// <param name="considerteam"></param>
+        /// <param name="respectTeams"></param>
         /// <param name="target"></param>
-        public Spreadplayers(Pos2D pos2, float distance, float maxrange, bool considerteam, Entity target)
+        public Spreadplayers(Pos2D pos2, float distance, float maxrange, bool respectTeams, Entity target)
         {
             this.pos2 = pos2;
             this.distance = distance;
             this.maxrange = maxrange;
-            this.considerteam = considerteam;
+            this.considerteam = respectTeams;
             this.target = target;
         }
 

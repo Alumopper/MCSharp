@@ -31,9 +31,13 @@ namespace MCSharp.Cmds
         Entity members;
         OptionBool optionBool;
         bool valueBool;
-        Color valueColor;
+        Color.Colors valueColor;
         OptionColor optionColor;
         OptionJSON optionJSON;
+        OptionVisibility optionVisibility;
+        OptionCollision optionCollision;
+        ArgCollision argCollision;
+        ArgVisibility argVisibility;
         JsonText jsonText;
 
         public enum re
@@ -43,7 +47,7 @@ namespace MCSharp.Cmds
 
         public enum OptionBool
         {
-            friendlyFire, seeFriendlyInvisibles, nametagVisibility, deathMessageVisibility, collisionRule
+            friendlyFire, seeFriendlyInvisibles, collisionRule
         }      
         public enum OptionJSON
         {
@@ -53,6 +57,22 @@ namespace MCSharp.Cmds
         {
             color
         }
+        public enum OptionVisibility
+        {
+            nametagVisibility, deathMessageVisibility
+        }
+        public enum OptionCollision
+        {
+            collisionRule         
+        }
+        public enum ArgVisibility
+        {
+            never, hideForOtherTeams, hideForOwnTeam, always
+        }
+        public enum ArgCollision
+        {
+            always, pushOtherTeams, pushOwnTeam, never
+    }
         
         /// <summary>
         /// team list [&lt;team>]
@@ -129,7 +149,7 @@ namespace MCSharp.Cmds
         /// <param name="team"></param>
         /// <param name="option"></param>
         /// <param name="value"></param>
-        public Team(string team, OptionColor option, Color value)
+        public Team(string team, OptionColor option, Color.Colors value)
         {
             this.team = team;
             this.optionColor = option;
@@ -148,6 +168,28 @@ namespace MCSharp.Cmds
             type = 7;
         }
 
+        /// <summary>
+        /// team modify &lt;team> &lt;option> &lt;value>
+        /// </summary>
+        public Team(string team, OptionVisibility option, ArgVisibility value)
+        {
+            this.team = team;
+            this.optionVisibility = option;
+            this.argVisibility = value;
+            type = 8;
+        }
+
+        /// <summary>
+        /// team modify &lt;team> &lt;option> &lt;value>
+        /// </summary>
+        public Team(string name, OptionCollision option, ArgCollision value)
+        {
+            this.team = name;
+            this.optionCollision = option;
+            this.argCollision = value;
+            type = 9;
+        }
+        
         public override string ToString()
         {
             string re = "team ";
@@ -178,10 +220,16 @@ namespace MCSharp.Cmds
                     re += " modify " + team + " " + Tools.getEnumString(optionBool) + " " + valueBool;
                     break;
                 case 6:
-                    re += " modify " + team + " " + Tools.getEnumString(optionColor) + " " + valueColor;
+                    re += " modify " + team + " " + Tools.getEnumString(optionColor) + " " + Tools.getEnumString(valueColor);
                     break;
                 case 7:
                     re += " modify " + team + " " + Tools.getEnumString(optionJSON) + " " + jsonText;
+                    break;
+                case 8:
+                    re += " modify " + team + " " + Tools.getEnumString(optionCollision) + " " + Tools.getEnumString(argCollision);
+                    break;
+                case 9:
+                    re += " modify " + team + " " + Tools.getEnumString(optionVisibility) + " " + Tools.getEnumString(argVisibility);
                     break;
             }
             return re;

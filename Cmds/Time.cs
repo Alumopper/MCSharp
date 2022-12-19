@@ -56,7 +56,7 @@ namespace MCSharp.Cmds
         }
 
         /// <summary>
-        /// time add &lt;timeSpec>
+        /// time set &lt;timeSpec>
         /// </summary>
         /// <param name="timeSpec">day, night, noon, midnight</param>
         public Time(TimeSpec timeSpec)

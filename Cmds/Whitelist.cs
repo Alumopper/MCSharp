@@ -16,7 +16,7 @@ namespace MCSharp.Cmds
     /// whitelist (list|off|on|reload)
     /// </code>
     /// </summary>
-    public class Whitelist
+    public class Whitelist : Command
     {
         Entity targets;
         ar add_remove;

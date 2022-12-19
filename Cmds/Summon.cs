@@ -15,7 +15,7 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Summon : Command
     {
-        Entity entity;
+        ID entity;
         Pos pos;
         NBT nbt;
 
@@ -25,7 +25,7 @@ namespace MCSharp.Cmds
         /// <param name="entity">指定实体的名称。</param>
         /// <param name="pos">指定实体的位置。</param>
         /// <param name="nbt">指定实体的NBT数据。</param>
-        public Summon(Entity entity, Pos pos = null, NBT nbt = null)
+        public Summon(ID entity, Pos pos = null, NBT nbt = null)
         {
             this.entity = entity;
             this.pos = pos;

@@ -24,7 +24,7 @@ namespace MCSharp.Cmds
         As add_set;
         double distance;
         int time;
-        Pos pos;
+        Pos2D pos;
         float damagePerBlock;
         int type = 0;
 
@@ -55,7 +55,7 @@ namespace MCSharp.Cmds
         /// worldborder center &lt;pos>
         /// </summary>
         /// <param name="pos"></param>
-        public Worldborder(Pos pos)
+        public Worldborder(Pos2D pos)
         {
             this.pos = pos;
             type = 1;
