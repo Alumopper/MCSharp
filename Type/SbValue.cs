@@ -38,7 +38,7 @@ namespace MCSharp.Type
                 this.@object = @object;
             }
             //命令
-            Commands.SbPlayerSet(playerName, @object, value);
+            Commands.SbPlayerSet(this, value);
         }
 
         public SbValue(string playerName, SbObject @object = null)
@@ -53,7 +53,7 @@ namespace MCSharp.Type
                 this.@object = @object;
             }
             //命令
-            Commands.SbPlayerSet(playerName, @object, 0);
+            Commands.SbPlayerSet(this, 0);
         }
 
         /// <summary>
@@ -103,6 +103,76 @@ namespace MCSharp.Type
         {
             SbValue qwq = new SbValue(0, Guid.NewGuid().ToString("N"));
             Commands.SbPlayerOperation(qwq, "=", a);
+            Commands.SbPlayerOperation(qwq, "%=", b);
+            return qwq;
+        }
+        
+        public static SbValue operator +(SbValue a, int b)
+        {
+            SbValue qwq = new SbValue(b, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "+=", a);
+            return qwq;
+        }
+
+        public static SbValue operator -(SbValue a, int b)
+        {
+            SbValue qwq = new SbValue(b, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "-=", a);
+            return qwq;
+        }
+
+        public static SbValue operator *(SbValue a, int b)
+        {
+            SbValue qwq = new SbValue(b, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "*=", a);
+            return qwq;
+        }
+
+        public static SbValue operator /(SbValue a, int b)
+        {
+            SbValue qwq = new SbValue(b, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "/=", a);
+            return qwq;
+        }
+
+        public static SbValue operator %(SbValue a, int b)
+        {
+            SbValue qwq = new SbValue(b, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "%=", a);
+            return qwq;
+        }
+
+        public static SbValue operator +(int a, SbValue b)
+        {
+            SbValue qwq = new SbValue(a, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "+=", b);
+            return qwq;
+        }
+        
+        public static SbValue operator -(int a, SbValue b)
+        {
+            SbValue qwq = new SbValue(a, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "-=", b);
+            return qwq;
+        }
+        
+        public static SbValue operator *(int a, SbValue b)
+        {
+            SbValue qwq = new SbValue(a, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "*=", b);
+            return qwq;
+        }
+        
+        public static SbValue operator /(int a, SbValue b)
+        {
+            SbValue qwq = new SbValue(a, Guid.NewGuid().ToString("N"));
+            Commands.SbPlayerOperation(qwq, "/=", b);
+            return qwq;
+        }
+
+        public static SbValue operator %(int a, SbValue b)
+        {
+            SbValue qwq = new SbValue(a, Guid.NewGuid().ToString("N"));
             Commands.SbPlayerOperation(qwq, "%=", b);
             return qwq;
         }

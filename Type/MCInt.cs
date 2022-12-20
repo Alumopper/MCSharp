@@ -14,7 +14,7 @@ namespace MCSharp.Type
             this.playerName = DatapackInfo.name + ".intvar." + GetHashCode();
             this.@object = SbObject.MCS_intvar;
             this.value = value;
-            Commands.SbPlayerSet(playerName, SbObject.MCS_intvar, value);
+            Commands.SbPlayerSet(this, value);
         }
 
         public MCInt(string name, int value = 0) : base(value, DatapackInfo.name + ".intvar." + name, SbObject.MCS_intvar) { }
@@ -24,7 +24,7 @@ namespace MCSharp.Type
             this.@object = SbObject.MCS_intvar;
             this.playerName = name == null ? Guid.NewGuid().ToString("N") : name;
             this.value = x.value;
-            Commands.SbPlayerSet(playerName, SbObject.MCS_intvar, value == null ? 0 : value.Value);
+            Commands.SbPlayerSet(this, value == null ? 0 : value.Value);
             Commands.SbPlayerOperation(this, "=", x);
         }
 

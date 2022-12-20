@@ -1,7 +1,9 @@
-﻿using MCSharp.Cmds;
+﻿using MCSharp.Attribute;
+using MCSharp.Cmds;
 using MCSharp.Type;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -22,14 +24,22 @@ namespace MCSharp.Test
             //DatapackInfo.Create();      //生成数据包
         }
 
+        [MCFunction]
         public static void qwq()
         {
-            DatapackInfo.RegistryFunction();
-            MCInt a = 114514;
-            MCInt b = 1919;
-            MCInt c = 810;
-            MCInt p = 233;
-            MCInt qwq = new MCInt(a + b + c - p * a + (p / b),"qwq");
+            Commands.Say("qwq");
+            test();
+        }
+
+        public static void test()
+        {
+            awa();
+        }
+
+        [MCFunction]
+        public static void awa()
+        {
+            Commands.Say("awa");
         }
     }
 }

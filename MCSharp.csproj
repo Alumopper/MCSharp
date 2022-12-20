@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute\MCFunctionAttribute.cs" />
     <Compile Include="Cmds\Advancement.cs" />
     <Compile Include="Cmds\Attribute.cs" />
     <Compile Include="Cmds\Ban.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Type\ItemStack.cs" />
     <Compile Include="Type\JsonText.cs" />
     <Compile Include="Type\MCInt.cs" />
+    <Compile Include="Type\MCType.cs" />
     <Compile Include="Type\NBT.cs" />
     <Compile Include="Type\Pos.cs" />
     <Compile Include="Type\Pos2D.cs" />

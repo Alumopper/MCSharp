@@ -1,5 +1,6 @@
 ﻿#define DEBUG
 
+using MCSharp.Attribute;
 using MCSharp.Cmds;
 using MCSharp.Exception;
 using MCSharp.Type;
@@ -114,15 +115,29 @@ namespace MCSharp
             Clear();
         }
 
+        ///// <summary>
+        ///// 注册一个函数为命令函数到数据包中
+        ///// </summary>
+        //public static void registryfunction()
+        //{
+        //    stackframe sf = new stacktrace().getframe(1);
+        //    string funcname = sf.getmethod().declaringtype.namespace + "$" + sf.getmethod().declaringtype.name + "$" + sf.getmethod().name;
+        //    functioninfo n = new functioninfo(funcname);
+        //    //若函数没有被注册，则注册此函数
+        //    if (!functions.containskey(funcname))
+        //    {
+        //        functions.add(funcname, n);
+        //    }
+        //}
+        
         /// <summary>
         /// 注册一个函数为命令函数到数据包中
         /// </summary>
-        public static void RegistryFunction()
+        public static void RegistryFunction(MethodBase method)
         {
-            StackFrame sf = new StackTrace().GetFrame(1);
-            string funcname = sf.GetMethod().DeclaringType.Namespace + "$" + sf.GetMethod().DeclaringType.Name + "$" + sf.GetMethod().Name;
+            string funcname = method.DeclaringType.Namespace + "$" + method.DeclaringType.Name + "$" + method.Name;
             FunctionInfo n = new FunctionInfo(funcname);
-            //若函数没用被注册，则注册此函数
+            //若函数没有被注册，则注册此函数
             if (!functions.ContainsKey(funcname))
             {
                 functions.Add(funcname, n);
@@ -184,6 +199,9 @@ namespace MCSharp
                 if (DatapackInfo.functions.ContainsKey(s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name))
                 {
                     return true;
+                } else if (s.GetMethod().IsDefined(typeof(MCSharp.Attribute.MCFunctionAttribute))){
+                    RegistryFunction(s.GetMethod());
+                    return true;
                 }
             }
             return false;
@@ -192,6 +210,7 @@ namespace MCSharp
         /// <summary>
         /// 初始化数据包
         /// </summary>
+        [MCFunction]
         public static void Init(string outputPath, int version, string discription, string name)
         {
             DatapackInfo.outputPath = outputPath;
@@ -199,7 +218,6 @@ namespace MCSharp
             DatapackInfo.discription = discription;
             DatapackInfo.name = name;
             DatapackInfo.hasInited = true;
-            RegistryFunction();
             SbObject.MCS_intvar = new SbObject("mcs_intvar");
             SbObject.MCS_default = new SbObject("mcs_default");
         }

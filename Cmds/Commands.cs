@@ -2555,13 +2555,13 @@ namespace MCSharp.Cmds
             return scoreboard;
         }
 
-        public static Scoreboard SbPlayerSet(string target, SbObject objective, int value)
+        public static Scoreboard SbPlayerSet(SbValue a, int value)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Scoreboard scoreboard = new Scoreboard(ars.set, target, objective, value);
+            Scoreboard scoreboard = new Scoreboard(ars.set, a.playerName, a.@object, value);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(scoreboard);
             return scoreboard;
         }
