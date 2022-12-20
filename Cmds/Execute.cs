@@ -324,23 +324,23 @@ namespace MCSharp.Cmds
 
             public override string ToString()
             {
-                string re = "store " + Tools.getEnumString(result_success);
+                string re = "store " + Tools.GetEnumString(result_success);
                 switch (qwq)
                 {
                     case 0:
-                        re += " block " + targetPos + " " + path + " " + Tools.getEnumString(type) + " " + scale;
+                        re += " block " + targetPos + " " + path + " " + Tools.GetEnumString(type) + " " + scale;
                         break;
                     case 1:
-                        re += " bossbar " + id + " " + Tools.getEnumString(value_max);
+                        re += " bossbar " + id + " " + Tools.GetEnumString(value_max);
                         break;
                     case 2:
-                        re += " entity " + target + " " + path + " " + Tools.getEnumString(type) + " " + scale;
+                        re += " entity " + target + " " + path + " " + Tools.GetEnumString(type) + " " + scale;
                         break;
                     case 3:
                         re += " score " + target + " " + objective;
                         break;
                     case 4:
-                        re += " storage " + storage + " " + path + " " + Tools.getEnumString(type) + " " + scale;
+                        re += " storage " + storage + " " + path + " " + Tools.GetEnumString(type) + " " + scale;
                         break;
                 }
                 return re;
@@ -527,7 +527,7 @@ namespace MCSharp.Cmds
                         re = "if block " + pos + block;
                         break;
                     case 2:
-                        re = "if blocks " + start + " " + end + " " + destination + " " + Tools.getEnumString(all_masked);
+                        re = "if blocks " + start + " " + end + " " + destination + " " + Tools.GetEnumString(all_masked);
                         break;
                     case 3:
                         re = "if data block " + pos + " " + path;

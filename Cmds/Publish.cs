@@ -43,7 +43,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "publish " + allowCommands + " " + Tools.getEnumString(gamemode) + " " + (port == null ? "" : (" " + port));
+            return "publish " + allowCommands + " " + Tools.GetEnumString(gamemode) + " " + (port == null ? "" : (" " + port));
         }
     }
 }

@@ -40,7 +40,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "setblock " + pos + " " + block + " " + Tools.getEnumString(destroy_keep_replace);
+            return "setblock " + pos + " " + block + " " + Tools.GetEnumString(destroy_keep_replace);
         }
 
     }

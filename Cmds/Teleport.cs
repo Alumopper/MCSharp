@@ -125,7 +125,7 @@ namespace MCSharp.Cmds
                     }
                     else if (facingEntity != null)
                     {
-                        return "teleport " + targets + " " + location + " facing entity " + facingEntity + " " + Tools.getEnumString(facingAnchor);
+                        return "teleport " + targets + " " + location + " facing entity " + facingEntity + " " + Tools.GetEnumString(facingAnchor);
                     }
                     else
                     {

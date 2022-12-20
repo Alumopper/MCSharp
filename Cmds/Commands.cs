@@ -2489,7 +2489,7 @@ namespace MCSharp.Cmds
             return scoreboard;
         }
 
-        public static Scoreboard SbEnableTrigger(string target, SbObject trigger)
+        public static Scoreboard SbPlayerEnableTrigger(string target, SbObject trigger)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2500,7 +2500,7 @@ namespace MCSharp.Cmds
             return scoreboard;
         }
 
-        public static Scoreboard SbGet(string target, SbObject objective)
+        public static Scoreboard SbPlayerGet(string target, SbObject objective)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2511,7 +2511,7 @@ namespace MCSharp.Cmds
             return scoreboard;
         }
 
-        public static Scoreboard SbList(string target)
+        public static Scoreboard SbPlayerList(string target)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2522,18 +2522,18 @@ namespace MCSharp.Cmds
             return scoreboard;
         }
 
-        public static Scoreboard SbOperation(string target, SbObject targetObject, string operation, string source, SbObject sourceObject)
+        public static Scoreboard SbPlayerOperation(SbValue a, string operation, SbValue b)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
                 throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
             }
-            Scoreboard scoreboard = new Scoreboard(target, targetObject, operation, source, sourceObject);
+            Scoreboard scoreboard = new Scoreboard(a.playerName, a.@object, operation, b.playerName, b.@object);
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(scoreboard);
             return scoreboard;
         }
 
-        public static Scoreboard SbRemove(string target, SbObject objective, int value)
+        public static Scoreboard SbPlayerRemove(string target, SbObject objective, int value)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2544,7 +2544,7 @@ namespace MCSharp.Cmds
             return scoreboard;
         }
 
-        public static Scoreboard SbReset(string target, SbObject objective = null)
+        public static Scoreboard SbPlayerReset(string target, SbObject objective = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2555,7 +2555,7 @@ namespace MCSharp.Cmds
             return scoreboard;
         }
 
-        public static Scoreboard SbSet(string target, SbObject objective, int value)
+        public static Scoreboard SbPlayerSet(string target, SbObject objective, int value)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3473,5 +3473,14 @@ namespace MCSharp.Cmds
             return xp;
         }
         #endregion
+
+        public static void Comment(string comment)
+        {
+            if (!DatapackInfo.FunctionHasRegistry())
+            {
+                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
+            }
+            DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(new Comment(comment));
+        }
     }
 }

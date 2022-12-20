@@ -64,7 +64,7 @@ namespace MCSharp.Cmds
             }
             else
             {
-                return "schedule function " + function + " " + time + " " + Tools.getEnumString(append_replace);
+                return "schedule function " + function + " " + time + " " + Tools.GetEnumString(append_replace);
             }
         }
     }

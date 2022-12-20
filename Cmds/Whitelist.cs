@@ -56,11 +56,11 @@ namespace MCSharp.Cmds
         {
             if (targets != null)
             {
-                return "whitelist " + Tools.getEnumString(add_remove) + " " + targets;
+                return "whitelist " + Tools.GetEnumString(add_remove) + " " + targets;
             }
             else
             {
-                return "whitelist " + Tools.getEnumString(list_on_off_reload);
+                return "whitelist " + Tools.GetEnumString(list_on_off_reload);
             }
         }
     }

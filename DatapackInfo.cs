@@ -1,4 +1,6 @@
-﻿using MCSharp.Cmds;
+﻿#define DEBUG
+
+using MCSharp.Cmds;
 using MCSharp.Exception;
 using MCSharp.Type;
 using MCSharp.Util;
@@ -12,10 +14,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
+
 namespace MCSharp
 {
     public class DatapackInfo
-    {
+    { 
         /// <summary>
         /// 数据包输出路径，应该是一个datapack文件夹下
         /// </summary>
@@ -46,6 +49,8 @@ namespace MCSharp
         /// 数据包的编译日志
         /// </summary>
         public static Log log = new Log();
+
+        private static bool hasInited = false;
 
         public new static string ToString()
         {
@@ -141,6 +146,7 @@ namespace MCSharp
             return false;
         }
 
+#if DEBUG
         //TODO:debug用函数
         public static void PrintFunctionNames()
         {
@@ -152,18 +158,50 @@ namespace MCSharp
             Console.Write(stringBuilder.ToString());
         }
 
+        //TODO:debug用函数
+        public static void PrintDataPack()
+        {
+            //打印喵
+            foreach(FunctionInfo functionInfo in functions.Values)
+            {
+                Console.WriteLine(functionInfo.ToString());
+                foreach(Command command in functionInfo.GetCommands())
+                {
+                    Console.WriteLine("\t" + command);
+                }
+            }
+        }
+
+#endif
         /// <summary>
         /// 此命令函数是否被注册
         /// </summary>
         /// <returns>如果命令函数被注册，返回true</returns>
         public static bool FunctionHasRegistry()
         {
-            StackFrame s = new StackFrame(2);
-            if (DatapackInfo.functions.ContainsKey(s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name))
+            foreach(StackFrame s in new StackTrace().GetFrames())
             {
-                return true;
+                if (DatapackInfo.functions.ContainsKey(s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name))
+                {
+                    return true;
+                }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 初始化数据包
+        /// </summary>
+        public static void Init(string outputPath, int version, string discription, string name)
+        {
+            DatapackInfo.outputPath = outputPath;
+            DatapackInfo.version = version;
+            DatapackInfo.discription = discription;
+            DatapackInfo.name = name;
+            DatapackInfo.hasInited = true;
+            RegistryFunction();
+            SbObject.MCS_intvar = new SbObject("mcs_intvar");
+            SbObject.MCS_default = new SbObject("mcs_default");
         }
     }
 }

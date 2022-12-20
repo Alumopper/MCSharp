@@ -29,7 +29,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "difficulty" + (difficulties == null ? "" : (" " + Tools.getEnumString(difficulties)));
+            return "difficulty" + (difficulties == null ? "" : (" " + Tools.GetEnumString(difficulties)));
         }
     }
 }

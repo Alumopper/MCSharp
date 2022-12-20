@@ -53,7 +53,7 @@ namespace MCSharp.Cmds
         {
             if(name != null)
             {
-                return "tag " + targets + " " + Tools.getEnumString(add_remove) + " " + name;
+                return "tag " + targets + " " + Tools.GetEnumString(add_remove) + " " + name;
             }
             else
             {

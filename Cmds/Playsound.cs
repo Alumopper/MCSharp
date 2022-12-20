@@ -52,7 +52,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "playsound " + source + " " + Tools.getEnumString(source) + " " + targets + " " + pos + " " + volume + " " + pitch + " " + minVolume;
+            return "playsound " + source + " " + Tools.GetEnumString(source) + " " + targets + " " + pos + " " + volume + " " + pitch + " " + minVolume;
         }
     }
 }

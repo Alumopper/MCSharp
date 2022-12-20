@@ -76,6 +76,7 @@
     <Compile Include="Cmds\Clone.cs" />
     <Compile Include="Cmds\Command.cs" />
     <Compile Include="Cmds\Commands.cs" />
+    <Compile Include="Cmds\Comment.cs" />
     <Compile Include="Cmds\Data.cs" />
     <Compile Include="Cmds\Datapack.cs" />
     <Compile Include="Cmds\Debug.cs" />

@@ -114,7 +114,7 @@ namespace MCSharp.Cmds
                 {
                     throw new ArgumentNotMatchException("需要一个颜色");
                 }
-                this.slot = Tools.getEnumString(slot).Replace("_",".") + (slot.Equals("sidebar.team") ? ("." + Tools.getEnumString(color)) : "");
+                this.slot = Tools.GetEnumString(slot).Replace("_",".") + (slot.Equals("sidebar.team") ? ("." + Tools.GetEnumString(color)) : "");
             }
 
             public override string ToString()
@@ -287,7 +287,7 @@ namespace MCSharp.Cmds
                     }
                 case 3:
                     {
-                        re = "scoreboard objectives modify " + objective + " rendertype " + Tools.getEnumString(hearts_integer);
+                        re = "scoreboard objectives modify " + objective + " rendertype " + Tools.GetEnumString(hearts_integer);
                         break;
                     }
                 case 4:
@@ -302,12 +302,12 @@ namespace MCSharp.Cmds
                     }
                 case 6:
                     {
-                        re = "scoreboard players " + Tools.getEnumString(add_remove_set) + " " + target + " " + objective + " " + value;
+                        re = "scoreboard players " + Tools.GetEnumString(add_remove_set) + " " + target + " " + objective + " " + value;
                         break;
                     }
                 case 7:
                     {
-                        re = "scoreboard players " + Tools.getEnumString(enable_get) + " " + target + " " + objective;
+                        re = "scoreboard players " + Tools.GetEnumString(enable_get) + " " + target + " " + objective;
                         break;
                     }
                 case 8:

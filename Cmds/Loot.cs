@@ -93,7 +93,7 @@ namespace MCSharp.Cmds
             {
                 if(spawn_insert != null)
                 {
-                    return Tools.getEnumString(spawn_insert) + " " + pos;
+                    return Tools.GetEnumString(spawn_insert) + " " + pos;
                 }else if(slot != null)
                 {
                     if(pos != null)

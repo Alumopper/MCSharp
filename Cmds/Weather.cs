@@ -37,7 +37,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "weather " + Tools.getEnumString(type) + " " + duration;
+            return "weather " + Tools.GetEnumString(type) + " " + duration;
         }
     }
 }

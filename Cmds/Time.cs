@@ -80,10 +80,10 @@ namespace MCSharp.Cmds
                 return "time add " + time2;
             }else if(timeType != null)
             {
-                return "time query " + Tools.getEnumString(timeType);
+                return "time query " + Tools.GetEnumString(timeType);
             }else if(spec != null)
             {
-                return "time set " + Tools.getEnumString(spec);
+                return "time set " + Tools.GetEnumString(spec);
             }
             else
             {

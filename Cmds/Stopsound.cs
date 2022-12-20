@@ -43,7 +43,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "stopsound " + targets.ToString() + " " + (Tools.getEnumString(source).Equals("all") ? "*" : Tools.getEnumString(source)) + " " + (sound == null ? "" : sound.ToString());
+            return "stopsound " + targets.ToString() + " " + (Tools.GetEnumString(source).Equals("all") ? "*" : Tools.GetEnumString(source)) + " " + (sound == null ? "" : sound.ToString());
         }
     }
 }

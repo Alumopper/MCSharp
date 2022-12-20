@@ -206,7 +206,7 @@ namespace MCSharp.Cmds
                         re += " " + displayName;
                     break;
                 case 2:
-                    re += " " + Tools.getEnumString(remove_empty) + " " + team;
+                    re += " " + Tools.GetEnumString(remove_empty) + " " + team;
                     break;
                 case 3:
                     re += " join " + team;
@@ -217,19 +217,19 @@ namespace MCSharp.Cmds
                     re += " leave " + members;
                     break;
                 case 5:
-                    re += " modify " + team + " " + Tools.getEnumString(optionBool) + " " + valueBool;
+                    re += " modify " + team + " " + Tools.GetEnumString(optionBool) + " " + valueBool;
                     break;
                 case 6:
-                    re += " modify " + team + " " + Tools.getEnumString(optionColor) + " " + Tools.getEnumString(valueColor);
+                    re += " modify " + team + " " + Tools.GetEnumString(optionColor) + " " + Tools.GetEnumString(valueColor);
                     break;
                 case 7:
-                    re += " modify " + team + " " + Tools.getEnumString(optionJSON) + " " + jsonText;
+                    re += " modify " + team + " " + Tools.GetEnumString(optionJSON) + " " + jsonText;
                     break;
                 case 8:
-                    re += " modify " + team + " " + Tools.getEnumString(optionCollision) + " " + Tools.getEnumString(argCollision);
+                    re += " modify " + team + " " + Tools.GetEnumString(optionCollision) + " " + Tools.GetEnumString(argCollision);
                     break;
                 case 9:
-                    re += " modify " + team + " " + Tools.getEnumString(optionVisibility) + " " + Tools.getEnumString(argVisibility);
+                    re += " modify " + team + " " + Tools.GetEnumString(optionVisibility) + " " + Tools.GetEnumString(argVisibility);
                     break;
             }
             return re;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCSharp.Cmds;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,15 +14,30 @@ namespace MCSharp.Type
     {
         public string name;
         public string rule;
+        public JsonText display;
 
         /// <summary>
         /// MCSharp数学计算使用的计分板对象。
         /// </summary>
-        public static readonly SbObject MCS_intvar = new SbObject("MCS_intvar");
+        public static SbObject MCS_intvar;
 
-        public SbObject(string name)
+        /// <summary>
+        /// MCSharp默认的计分板变量
+        /// </summary>
+        public static SbObject MCS_default;
+
+        public SbObject(string name, string rule = "dummy", JsonText display = null)
         {
-            this.name = name;
+            this.name = name.ToLower();
+            this.rule = rule.ToLower();
+            this.display = display;
+            //命令执行
+            Commands.SbObjectAdd(this, this.rule, display);
+        }
+
+        public override string ToString()
+        {
+            return name;
         }
     }
 }

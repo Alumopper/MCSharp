@@ -31,7 +31,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "gamemode " + Tools.getEnumString(mode) + (target == null ? "" : " " + target ) ;
+            return "gamemode " + Tools.GetEnumString(mode) + (target == null ? "" : " " + target ) ;
         }
     }
 }

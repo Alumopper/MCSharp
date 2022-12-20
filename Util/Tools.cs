@@ -40,9 +40,20 @@ namespace MCSharp.Util
         /// </summary>
         /// <param name="qwq"></param>
         /// <returns></returns>
-        public static string getEnumString(Enum qwq)
+        public static string GetEnumString(Enum qwq)
         {
             return Enum.GetName(qwq.GetType(), qwq);
+        }
+        
+        /// <summary>
+        /// 获取变量的名字
+        /// </summary>
+        /// <typeparam name="T">变量的类型</typeparam>
+        /// <param name="exp">变量</param>
+        /// <returns>变量的名字</returns>
+        public static string GetVarName<T>(System.Linq.Expressions.Expression<Func<T, T>> exp)
+        {
+            return ((System.Linq.Expressions.MemberExpression)exp.Body).Member.Name;
         }
     }
 }

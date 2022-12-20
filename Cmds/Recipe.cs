@@ -45,7 +45,7 @@ namespace MCSharp.Cmds
 
         public override string ToString()
         {
-            return "recipe " + Tools.getEnumString(give_take) + " " + targets + " " + (recipe == null ? "*" : recipe.ToString());
+            return "recipe " + Tools.GetEnumString(give_take) + " " + targets + " " + (recipe == null ? "*" : recipe.ToString());
         }
     }
 }
