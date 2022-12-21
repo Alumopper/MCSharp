@@ -38,7 +38,6 @@ namespace MCSharp.Test
         [FunctionTag("qwq","owo")]
         public static void qwq()
         {
-            DatapackInfo.log.AddLog(Util.Log.Level.WARN, "嘤嘤嘤");
             Say("qwq");
             test();
         }
