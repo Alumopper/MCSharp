@@ -1,9 +1,12 @@
-﻿using MCSharp.Cmds;
+﻿using MCSharp.Attribute;
+using MCSharp.Cmds;
 using MCSharp.Exception;
+using MCSharp.Type;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -29,7 +32,7 @@ namespace MCSharp
         
         /// <summary>
         /// <para>函数在栈中的名字</para>
-        /// <para>格式：命名空间$类名$tag命名空间_tag名_函数名</para>
+        /// <para>格式：命名空间$类名$函数名</para>
         /// </summary>
         public string stackName;
         
@@ -39,7 +42,7 @@ namespace MCSharp
         public string @namespace;
         
         /// <summary>
-        /// 上一次注入命令的函数
+        /// 函数标签
         /// </summary>
         public FunctionTag tag;
 
@@ -61,40 +64,33 @@ namespace MCSharp
 
         public static List<string> currStack = new List<string>{""};
 
-        public FunctionInfo(string stackName)
+        public FunctionInfo(string stackName, FunctionTagAttribute tag)
         {
+            //栈名：命名空间$类名$函数名
+            //函数全称: 类的命名空间:类/函数名
+            //切割栈名
             this.stackName = stackName;
             string[] funcinfos = stackName.Split('$');
-            //名字：类名_函数名
-            stackName = funcinfos[2];
-            //未转换的名字，如果含有下划线则切割
-            if (stackName.Contains('_'))
-            {
-                this.tag = new FunctionTag();
-                string[] qwq = stackName.Split(new char[] {'_'},3);
-                //第一个为tag命名空间标记
-                if (qwq[0].Equals(""))
-                {
-                    tag.@namespace = "minecraft";
-                }
-                else
-                {
-                    tag.@namespace = qwq[0];
-                }
-                tag.name = qwq[1];
-                this.name = qwq[2].ToLower();
-            }
-            else
-            {
-                this.name = stackName.ToLower();
-            }
             //根据类名补上函数的路径
-            path = funcinfos[1].Replace('.', '_').ToLower() + "/" + name;
-            @namespace = funcinfos[0].Replace('.', '_').ToLower();
-            if(!Regex.IsMatch(name, @"^[a-zA-Z0-9_/]+$"))
+            @namespace = funcinfos[0].Replace('.', '_').ToLower();  //类的命名空间
+            name = funcinfos[2].ToLower(); //函数名
+            path = funcinfos[1].Replace('.', '_').ToLower() + "/" + name;   //类名
+            if (!Regex.IsMatch(name, @"^[a-zA-Z0-9_/]+$"))
             {
                 //非法命名
                 throw new FunctionNotRegistryException("函数路径只能包含字母数字或下划线:" + path);
+            }
+            //标签
+            this.tag = tag == null? null : new FunctionTag(tag.tag);
+            if (this.tag != null)
+            {
+                //注册标签
+                if (!DatapackInfo.functionTags.Keys.Contains(this.tag.ToString()))
+                {
+                    DatapackInfo.functionTags.Add(this.tag.ToString(), this.tag);
+                }
+                //向标签注入函数
+                DatapackInfo.functionTags[this.tag.ToString()].functionNames.Add(this.ToString());
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using MCSharp.Cmds;
+﻿using MCSharp.Attribute;
+using MCSharp.Cmds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace MCSharp.Type
     /// <summary>
     /// 一个计分板对象。
     /// </summary>
+    [Penetrate]
     public class SbObject
     {
         public string name;

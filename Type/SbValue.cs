@@ -5,9 +5,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using MCSharp.Attribute;
 
 namespace MCSharp.Type
 {
+
+    [Penetrate]
     public class SbValue : MCType
     {
         /// <summary>
@@ -66,7 +69,7 @@ namespace MCSharp.Type
             Commands.SbPlayerOperation(this, "=", sbValue);
             return this;
         }
-
+        
         public static SbValue operator+ (SbValue a, SbValue b)
         {
             SbValue qwq = new SbValue(0, Guid.NewGuid().ToString("N"));

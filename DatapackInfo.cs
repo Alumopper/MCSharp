@@ -47,6 +47,11 @@ namespace MCSharp
         public static Dictionary<string, FunctionInfo> functions = new Dictionary<string, FunctionInfo>();
 
         /// <summary>
+        /// 数据包中的所有函数标签
+        /// </summary>
+        public static Dictionary<string, FunctionTag> functionTags = new Dictionary<string, FunctionTag>();
+
+        /// <summary>
         /// 数据包的编译日志
         /// </summary>
         public static Log log = new Log();
@@ -69,7 +74,7 @@ namespace MCSharp
             {
                 old.Delete(true);
             }
-            //生成数据包
+            //生成数据包的函数文件
             DirectoryInfo func = Directory.CreateDirectory(outputPath + "\\" + name);
             foreach (KeyValuePair<string, FunctionInfo> function in functions)
             {
@@ -86,11 +91,25 @@ namespace MCSharp
                 {
                     builder.Append(commands.ToString()).AppendLine();
                 }
+                log.AddLog(Log.Level.DEBUG, "生成函数文件：" + di.FullName + "\\" + function.Value.name + ".mcfunction");
                 fs.Write(builder);
                 fs.Flush();
                 fs.Close();
             }
+            //生成数据包的函数标签文件
+            foreach (FunctionTag tag in functionTags.Values)
+            {
+                tag.CreateFunctionTag(outputPath);
+            }
+            //生成数据包的pack.mcmeta文件
+            log.AddLog(Log.Level.DEBUG, "生成数据包信息文件" + outputPath + "\\" + name + "\\pack.mcmeta");
             File.WriteAllText(outputPath + "\\" + name + "\\pack.mcmeta", "{\r\n    \"pack\": {\r\n        \"description\":\"" + discription + "\",\r\n        \"pack_format\": " + version + "\r\n    }\r\n}");
+            //日志
+            log.AddLog(Log.Level.INFO, "在\"" + outputPath + "\"下创建了数据包\"" + name + "\"喵");
+            //输出日志
+            log.Print();
+            Console.WriteLine("按任意键继续...");
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -136,7 +155,7 @@ namespace MCSharp
         public static void RegistryFunction(MethodBase method)
         {
             string funcname = method.DeclaringType.Namespace + "$" + method.DeclaringType.Name + "$" + method.Name;
-            FunctionInfo n = new FunctionInfo(funcname);
+            FunctionInfo n = new FunctionInfo(funcname, (FunctionTagAttribute)method.GetCustomAttribute(typeof(FunctionTagAttribute)));
             //若函数没有被注册，则注册此函数
             if (!functions.ContainsKey(funcname))
             {
@@ -194,14 +213,22 @@ namespace MCSharp
         /// <returns>如果命令函数被注册，返回true</returns>
         public static bool FunctionHasRegistry()
         {
-            foreach(StackFrame s in new StackTrace().GetFrames())
+            foreach(StackFrame s in new StackTrace(2).GetFrames())
             {
                 if (DatapackInfo.functions.ContainsKey(s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name))
                 {
                     return true;
-                } else if (s.GetMethod().IsDefined(typeof(MCSharp.Attribute.MCFunctionAttribute))){
+                } else if (s.GetMethod().IsDefined(typeof(MCFunctionAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(MCFunctionAttribute))){
                     RegistryFunction(s.GetMethod());
                     return true;
+                }
+                else if (s.GetMethod().IsDefined(typeof(PenetrateAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(PenetrateAttribute)))
+                {
+                    continue;
+                }
+                else
+                {
+                    throw new FunctionNotRegistryException("未注册的函数" + s.GetMethod().Name);
                 }
             }
             return false;

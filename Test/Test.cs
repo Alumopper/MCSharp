@@ -1,14 +1,7 @@
 ﻿using MCSharp.Attribute;
 using MCSharp.Cmds;
-using MCSharp.Type;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Test
 {
@@ -18,28 +11,30 @@ namespace MCSharp.Test
         {
             //初始化数据包
             DatapackInfo.Init("D:\\.minecraft\\saves\\Datapack Lab\\datapacks", 10, "qwq", "qwq");
-            qwq(); 
-            DatapackInfo.PrintDataPack();
-            Console.ReadLine();
-            //DatapackInfo.Create();      //生成数据包
+            DatapackInfo.log.Outputlevel = Util.Log.Level.DEBUG;
+            qwq();
+            DatapackInfo.Create();      //生成数据包
         }
 
         [MCFunction]
+        [FunctionTag("qwq","owo")]
         public static void qwq()
         {
-            Commands.Say("qwq");
+            DatapackInfo.log.AddLog(Util.Log.Level.WARN, "嘤嘤嘤");
+            Say("qwq");
             test();
         }
 
         public static void test()
         {
+            //Say("test");
             awa();
         }
 
         [MCFunction]
         public static void awa()
         {
-            Commands.Say("awa");
+            Say("awa");
         }
     }
 }

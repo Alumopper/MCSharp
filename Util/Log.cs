@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCSharp.Exception;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,14 +22,12 @@ namespace MCSharp.Util
             public string msg;
             public Level level;
             public string @class;
-            public int line;
 
-            public L(Level level, string msg, string @class, int line)
+            public L(Level level, string msg, string @class)
             {
                 this.msg = msg;
                 this.level = level;
                 this.@class = @class;
-                this.line = line;
             }
         }
 
@@ -82,8 +81,8 @@ namespace MCSharp.Util
         /// <param name="msg"></param>
         public void AddLog(Level level,string msg)
         {
-            StackFrame sf = StackManager.GetStack().Last();
-            ls.Insert(0,new L(level, msg , sf.GetFileName(), sf.GetFileColumnNumber()));
+            StackFrame sf = new StackFrame(1);
+            ls.Add(new L(level, msg , sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name));
         }
 
         /// <summary>
@@ -122,7 +121,7 @@ namespace MCSharp.Util
                                 break;
                             }
                     }
-                    Console.WriteLine(l.@class + ":" + l.line + "]" + l.msg);
+                    Console.WriteLine(l.@class + "]" + l.msg);
                     Console.ResetColor();
                 }
             }

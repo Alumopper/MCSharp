@@ -16,6 +16,6 @@ namespace MCSharp.Attribute
         /// <summary>
         /// 喵喵喵
         /// </summary>
-        public MCFunctionAttribute(){}
+        public MCFunctionAttribute() { }
     }
 }

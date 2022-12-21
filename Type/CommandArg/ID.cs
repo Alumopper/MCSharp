@@ -93,5 +93,17 @@ namespace MCSharp.Type
         {
             return new ID(id);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is ID)
+            {
+                return ((ID)obj).id == id && isTag == ((ID)obj).isTag;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
