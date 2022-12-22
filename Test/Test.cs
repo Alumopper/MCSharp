@@ -1,5 +1,6 @@
 ﻿using MCSharp.Attribute;
-using MCSharp.Cmds;
+using MCSharp.Type;
+using MCSharp.Type.CommandArg;
 using System;
 using static MCSharp.Cmds.Commands;
 
@@ -10,10 +11,10 @@ namespace MCSharp.Test
         public static void Main(string[] args)
         {
             //初始化数据包
-            DatapackInfo.Init("D:\\.minecraft\\saves\\Datapack Lab\\datapacks", 10, "qwq", "qwq");
-            DatapackInfo.log.Outputlevel = Util.Log.Level.DEBUG;
-            qwq();
-            DatapackInfo.Create();      //生成数据包
+            //DatapackInfo.Init("D:\\.minecraft\\saves\\Datapack Lab\\datapacks", 10, "qwq", "qwq");
+            Entity w = new Entity("@a[limit=2]");
+            Console.ReadKey();
+            //DatapackInfo.Create();      //生成数据包
         }
 
         [MCFunction]

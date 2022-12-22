@@ -35,6 +35,18 @@ namespace MCSharp.Type.CommandArg
             }
         }
 
+        public IntRange(string range)
+        {
+            //2..   ..2     2..3
+            string[] min_max = range.Split('.');
+            this.max = min_max[2] == "" ? null : (int?)int.Parse(min_max[2]);
+            this.min = min_max[0] == "" ? null : (int?)int.Parse(min_max[0]);
+            if(max == null && min == null)
+            {
+                throw new ArgumentException("最大值和最小值不能同时为空。");
+            }
+        }
+
         public override string ToString()
         {
             if (min == null)

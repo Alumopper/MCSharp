@@ -9,7 +9,7 @@ namespace MCSharp.Exception
     /// <summary>
     /// 当UUID不合法时抛出此异常
     /// </summary>
-    public class IllegalUUIDException : ApplicationException
+    public class IllegalUUIDException : IllegalFormatException
     { 
         public IllegalUUIDException(string msg) : base(msg) { }
     }

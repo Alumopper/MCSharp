@@ -16,4 +16,24 @@ namespace MCSharp.Type.CommandArg
         adventure,
         specture
     }
+
+    public class TGamemode
+    {
+        public static Gamemodes? GetGamemodes(string mode)
+        {
+            switch (mode)
+            {
+                case "survival":
+                    return Gamemodes.survival;
+                case "creative":
+                    return Gamemodes.creative;
+                case "adventure":
+                    return Gamemodes.adventure;
+                case "specture":
+                    return Gamemodes.specture;
+                default:
+                    throw new ArgumentException("无效的游戏模式: " + mode);
+            }
+        }
+    }
 }

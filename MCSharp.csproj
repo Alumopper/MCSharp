@@ -38,7 +38,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\MCSharp.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -152,6 +153,7 @@
     <Compile Include="DatapackInfo.cs" />
     <Compile Include="Exception\ArgumentNotMatchException.cs" />
     <Compile Include="Exception\AttributeConflictException.cs" />
+    <Compile Include="Exception\BracketsNotMatchException.cs" />
     <Compile Include="Exception\ExecuteCommandListEndException.cs" />
     <Compile Include="Exception\IllegalFormatException.cs" />
     <Compile Include="Exception\IllegalFunctionNameException.cs" />
