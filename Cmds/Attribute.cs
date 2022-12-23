@@ -23,7 +23,7 @@ namespace MCSharp.Cmds
     public class Attribute : Command
     {
         #region 变量
-        Entity target;
+        Selector target;
         string attribute;
         double scale;
         int type;
@@ -43,7 +43,7 @@ namespace MCSharp.Cmds
         /// <param name="target"></param>
         /// <param name="attribute"></param>
         /// <param name="scale"></param>
-        public Attribute(Entity target, string attribute, double scale = 1.0)
+        public Attribute(Selector target, string attribute, double scale = 1.0)
         {
             this.target = target;
             this.attribute = attribute;
@@ -56,7 +56,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 0
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Attribute(Entity target, string attribute, string get_set, double scale_value)
+        public Attribute(Selector target, string attribute, string get_set, double scale_value)
         {
             this.target = target;
             if (NBT.attributes.Contains(attribute))
@@ -88,7 +88,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 4
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Attribute(Entity target,string attribute, UUID uuid, string name, double value, string add_multiply_multiply_base)
+        public Attribute(Selector target,string attribute, UUID uuid, string name, double value, string add_multiply_multiply_base)
         {
             this.target = target;
             if (NBT.attributes.Contains(attribute))
@@ -119,7 +119,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 5
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Attribute(Entity target,string attribute, UUID uuid)
+        public Attribute(Selector target,string attribute, UUID uuid)
         {
             this.target = target;
             if (NBT.attributes.Contains(attribute))
@@ -139,7 +139,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 6
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Attribute(Entity target,string attribute, UUID uuid, double scale)
+        public Attribute(Selector target,string attribute, UUID uuid, double scale)
         {
             this.target = target;
             if (NBT.attributes.Contains(attribute))

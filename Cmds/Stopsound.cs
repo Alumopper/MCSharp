@@ -16,7 +16,7 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Stopsound : Command
     {
-        Entity targets;
+        Selector targets;
         Source? source;
         ID sound;
 
@@ -34,7 +34,7 @@ namespace MCSharp.Cmds
         /// <param name="targets">指定目标。</param>
         /// <param name="source">指定声音来源。</param>
         /// <param name="sound">指定声音。</param>
-        public Stopsound(Entity targets, Source? source = null, ID sound = null)
+        public Stopsound(Selector targets, Source? source = null, ID sound = null)
         {
             this.targets = targets;
             this.source = source;

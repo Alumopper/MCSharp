@@ -20,7 +20,7 @@ namespace MCSharp.Cmds
         float maxrange;
         float? maxheight = null;
         bool considerteam;
-        Entity target;
+        Selector target;
 
         /// <summary>
         /// spreadplayers &lt;pos2> &lt;distance> &lt;maxrange> under &lt;maxheight> &lt;considerteam> &lt;target>
@@ -31,7 +31,7 @@ namespace MCSharp.Cmds
         /// <param name="maxheight"></param>
         /// <param name="considerteam"></param>
         /// <param name="target"></param>
-        public Spreadplayers(Pos2D pos2, float distance, float maxrange, float maxheight, bool considerteam, Entity target)
+        public Spreadplayers(Pos2D pos2, float distance, float maxrange, float maxheight, bool considerteam, Selector target)
         {
             this.pos2 = pos2;
             this.distance = distance;
@@ -49,7 +49,7 @@ namespace MCSharp.Cmds
         /// <param name="maxrange"></param>
         /// <param name="respectTeams"></param>
         /// <param name="target"></param>
-        public Spreadplayers(Pos2D pos2, float distance, float maxrange, bool respectTeams, Entity target)
+        public Spreadplayers(Pos2D pos2, float distance, float maxrange, bool respectTeams, Selector target)
         {
             this.pos2 = pos2;
             this.distance = distance;

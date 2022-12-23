@@ -72,5 +72,10 @@ namespace MCSharp
         {
             return tag.ToString();
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

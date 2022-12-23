@@ -15,7 +15,7 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Spawnpoint : Command
     {
-        Entity player;
+        Selector player;
         Pos pos;
         Rotation angle;
 
@@ -25,7 +25,7 @@ namespace MCSharp.Cmds
         /// <param name="player">指定玩家的名称。</param>
         /// <param name="pos">指定出生点的位置。</param>
         /// <param name="angle">指定出生点的朝向。</param>
-        public Spawnpoint(Entity player = null, Pos pos = null, Rotation angle = null)
+        public Spawnpoint(Selector player = null, Pos pos = null, Rotation angle = null)
         {
             this.player = player;
             this.pos = pos;

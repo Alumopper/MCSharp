@@ -61,5 +61,10 @@ namespace MCSharp.Type.CommandArg
                 return min + ".." + max;
             }
         }
+
+        public static implicit operator IntRange(string range)
+        {
+            return new IntRange(range);
+        }
     }
 }

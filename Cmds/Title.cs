@@ -17,7 +17,7 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Title : Command
     {
-        Entity player;
+        Selector player;
         Option? clear_reset = null;
         TitleType? title_subtitle_actionbar = null;
         JsonText jsonText;
@@ -40,7 +40,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// <param name="player"></param>
         /// <param name="clear_reset"></param>
-        public Title(Entity player, Option clear_reset)
+        public Title(Selector player, Option clear_reset)
         {
             this.player = player;
             this.clear_reset = clear_reset;
@@ -52,7 +52,7 @@ namespace MCSharp.Cmds
         /// <param name="player"></param>
         /// <param name="title_subtitle_actionbar"></param>
         /// <param name="jsonText"></param>
-        public Title(Entity player, TitleType title_subtitle_actionbar, JsonText jsonText)
+        public Title(Selector player, TitleType title_subtitle_actionbar, JsonText jsonText)
         {
             this.player = player;
             this.title_subtitle_actionbar = title_subtitle_actionbar;
@@ -66,7 +66,7 @@ namespace MCSharp.Cmds
         /// <param name="fadeIn"></param>
         /// <param name="stay"></param>
         /// <param name="fadeOut"></param>
-        public Title(Entity player, int fadeIn, int stay, int fadeOut)
+        public Title(Selector player, int fadeIn, int stay, int fadeOut)
         {
             this.player = player;
             this.fadeIn = fadeIn;

@@ -18,7 +18,7 @@ namespace MCSharp.Cmds
     {
         ID sound;
         Source source;
-        Entity targets;
+        Selector targets;
         Pos pos;
         float volume;
         float pitch;
@@ -39,7 +39,7 @@ namespace MCSharp.Cmds
         /// <param name="volume">指定声音能被听见的距离。</param>
         /// <param name="pitch">指定声音的音调。</param>
         /// <param name="minVolume">指定在声音可闻范围外的目标能听到的音量。</param>
-        public Playsound(ID sound, Source source, Entity targets, Pos pos = null, float volume = 1.0f, float pitch = 1.0f, float minVolume = 0.0f)
+        public Playsound(ID sound, Source source, Selector targets, Pos pos = null, float volume = 1.0f, float pitch = 1.0f, float minVolume = 0.0f)
         {
             this.sound = sound;
             this.source = source;

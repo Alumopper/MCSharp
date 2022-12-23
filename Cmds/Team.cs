@@ -28,7 +28,7 @@ namespace MCSharp.Cmds
         JsonText displayName;
         re remove_empty;
         int type;
-        Entity members;
+        Selector members;
         OptionBool optionBool;
         bool valueBool;
         Color.Colors valueColor;
@@ -112,7 +112,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// <param name="team"></param>
         /// <param name="members"></param>
-        public Team(string team, Entity members)
+        public Team(string team, Selector members)
         {
             this.team = team;
             this.members = members;
@@ -123,7 +123,7 @@ namespace MCSharp.Cmds
         /// team leave &lt;members>
         /// </summary>
         /// <param name="members"></param>
-        public Team(Entity members)
+        public Team(Selector members)
         {
             this.members = members;
             type = 4;

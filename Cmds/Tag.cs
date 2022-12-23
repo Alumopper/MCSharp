@@ -18,7 +18,7 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Tag : Command
     {
-        Entity targets;
+        Selector targets;
         ar add_remove;
         string name;
         
@@ -33,7 +33,7 @@ namespace MCSharp.Cmds
         /// <param name="targets"></param>
         /// <param name="add_remove"></param>
         /// <param name="name"></param>
-        public Tag(Entity targets, ar add_remove, string name)
+        public Tag(Selector targets, ar add_remove, string name)
         {
             this.targets = targets;
             this.add_remove = add_remove;
@@ -44,7 +44,7 @@ namespace MCSharp.Cmds
         /// tag &lt;targets> list
         /// </summary>
         /// <param name="targets"></param>
-        public Tag(Entity targets)
+        public Tag(Selector targets)
         {
             this.targets = targets;
         }

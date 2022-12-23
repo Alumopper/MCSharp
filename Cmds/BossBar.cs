@@ -37,7 +37,7 @@ namespace MCSharp.Cmds
         string color;
         string max_value;
         int x;
-        Entity targets;
+        Selector targets;
         string style;
         bool visible;
 
@@ -149,7 +149,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 6
         /// <param name="targets">若为null，即此参数为无</param>
-        public Bossbar(ID id, string set, Entity targets = null)
+        public Bossbar(ID id, string set, Selector targets = null)
         {
             this.id = id;
             this.targets = targets;

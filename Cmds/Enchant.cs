@@ -15,14 +15,14 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Enchant : Command
     {
-        Entity target;
+        Selector target;
         ID id;
         int level = 1;
 
         /// <summary>
         /// enchant &lt;target> &lt;id> [&lt;level>]
         /// </summary>
-        public Enchant(Entity target, ID id,int level = 1)
+        public Enchant(Selector target, ID id,int level = 1)
         {
             this.target = target;
             this.id = id;

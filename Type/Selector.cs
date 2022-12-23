@@ -1,5 +1,6 @@
 ﻿using MCSharp.Exception;
 using MCSharp.Type.CommandArg;
+using MCSharp.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +12,14 @@ using System.Threading.Tasks;
 namespace MCSharp.Type
 {
     /// <summary>
-    /// 实体类，一个目标选择器
+    /// 目标选择器
     /// </summary>
-    public class Entity : DataArg
+    public class Selector : DataArg
     {
         public enum SelectorType
         {
             p, r, a, e, s
         }
-
-        /// <summary>
-        /// 目标选择器的字符串
-        /// </summary>
-        public string selector;
 
         /// <summary>
         /// 目标选择器的基础类型
@@ -38,13 +34,13 @@ namespace MCSharp.Type
         /// <summary>
         /// 目标选择器的参数
         /// </summary>
-        public Dictionary<string, object> args;
+        public List<SelectorArgument> args;
 
         /// <summary>
         /// 通过一个目标选择器构建实体
         /// </summary>
         /// <param name="selector"></param>
-        public Entity(string selector)
+        public Selector(string selector)
         {
             //目标选择器的格式：@type[argument1=value1,argument2=value2,...]
             //基本格式判断
@@ -58,6 +54,16 @@ namespace MCSharp.Type
                 //解析参数
                 args = ParseArgs(selector.Substring(2));
             }
+        }
+
+        /// <summary>
+        /// 通过一个目标选择器种类构建目标选择器
+        /// </summary>
+        /// <param name="type"></param>
+        public Selector(SelectorType type)
+        {
+            selectorType = type;
+            args = null;
         }
 
         public static SelectorType GetType(char c)
@@ -80,10 +86,10 @@ namespace MCSharp.Type
             }
         }
 
-        public static Dictionary<string, object> ParseArgs(string args)
+        public static List<SelectorArgument> ParseArgs(string args)
         {
             //^[@][prase]([\[](([^=,]+[=][!]?([^=,{}]+|[{].+[}]))+([,]([^=,]+[=][!]?([^=,{}]+|[{].+[}])))*)+[\]])?$
-            Dictionary<string, object> re = new Dictionary<string, object>();
+            List<SelectorArgument> re = new List<SelectorArgument>();
             if (!args.StartsWith("[") || !args.EndsWith("]"))
             {
                 throw new IllegalFormatException("非法的目标选择器参数:"+ args);
@@ -121,90 +127,88 @@ namespace MCSharp.Type
                     switch (kv[0])
                     {
                         case "x":
-                            re.Add("x", double.Parse(kv[1]));
+                            re.Add(new x(double.Parse(kv[1])));
                             break;
                         case "y":
-                            re.Add("y", double.Parse(kv[1]));
+                            re.Add(new y(double.Parse(kv[1])));
                             break;
                         case "z":
-                            re.Add("z", double.Parse(kv[1]));
+                            re.Add(new z(double.Parse(kv[1])));
                             break;
                         case "dx":
-                            re.Add("dx", double.Parse(kv[1]));
+                            re.Add(new dx(double.Parse(kv[1])));
                             break;
                         case "dy":
-                            re.Add("dy", double.Parse(kv[1]));
+                            re.Add(new dy(double.Parse(kv[1])));
                             break;
                         case "dz":
-                            re.Add("dz", double.Parse(kv[1]));
+                            re.Add(new dz(double.Parse(kv[1])));
                             break;
                         case "distance":
-                            re.Add("distance", double.Parse(kv[1]));
+                            re.Add(new distance(double.Parse(kv[1])));
                             break;
                         case "scores":
                             string[] scores = kv[1].Substring(1, kv[1].Length-2).Split(',');
-                            Dictionary<string, IntRange> scs = new Dictionary<string, IntRange>();
                             foreach (string score in scores)
                             {
                                 string[] sckv = score.Split('=');
-                                scs.Add(sckv[0], new IntRange(sckv[1]));
+                                re.Add(new scores(sckv[0], new IntRange(sckv[1])));
                             }
-                            re.Add("scores", scs);
                             break;
                         case "tag":
                             if (kv[1].StartsWith("!"))
                             {
-                                re.Add("!tag", kv[1].Substring(1));
+                                re.Add(new tag(kv[1].Substring(1),false));
                             }
                             else
                             {
-                                re.Add("tag", kv[1]);
+                                re.Add(new tag(kv[1]));
                             }
                             break;
                         case "team":
                             if (kv[1].StartsWith("!"))
                             {
-                                re.Add("!team", kv[1].Substring(1));
+                                re.Add(new team(kv[1].Substring(1), false));
                             }
                             else
                             {
-                                re.Add("team", kv[1]);
+                                re.Add(new team(kv[1]));
                             }
                             break;
                         case "type":
                             if (kv[1].StartsWith("!"))
                             {
-                                re.Add("!type", new ID(kv[1].Substring(1)));
+                                re.Add(new type(kv[1].Substring(1), false));
                             }
                             else
                             {
-                                re.Add("type", new ID(kv[1]));
+                                re.Add(new type(kv[1]));
                             }
                             break;
                         case "predicate":
                             if (kv[1].StartsWith("!"))
                             {
-                                re.Add("!predicate", new ID(kv[1].Substring(1)));
+                                re.Add(new predicate(kv[1].Substring(1), false));
                             }
                             else
                             {
-                                re.Add("predicate", new ID(kv[1]));
+                                re.Add(new predicate(kv[1]));
                             }
                             break;
                         case "x_rotation":
-                            re.Add("x_rotation", new IntRange(kv[1]));
+                            re.Add(new x_rotation(new IntRange(kv[1])));
                             break;
                         case "y_rotation":
-                            re.Add("y_rotation", new IntRange(kv[1]));
+                            re.Add(new y_rotation(new IntRange(kv[1])));
                             break;
                         case "nbt":
-                            re.Add("nbt", new NBT(kv[1]));
+                            re.Add(new nbt(new NBT(kv[1])));
                             break;
                         case "level":
-                            re.Add("level", new IntRange(kv[1]));
+                            re.Add(new level(new IntRange(kv[1])));
                             break;
                         case "gamemode":
-                            re.Add("gamemode", TGamemode.GetGamemodes(kv[1]));
+                            re.Add(new gamemode(TGamemode.GetGamemodes(kv[1])));
                             break;
                         case "advancements":
                             //TODO:需要确认，进度条件可不可以塞多个条件并列
@@ -214,21 +218,19 @@ namespace MCSharp.Type
                             {
                                 //条件
                                 string[] kv3 = kv2[1].Substring(1, kv[1].Length - 2).Split(new char[] { '=' }, 2);
-                                KeyValuePair<string, bool> pwp = new KeyValuePair<string, bool>(kv3[0], bool.Parse(kv3[1]));
-                                qwq = new KeyValuePair<ID, object>(new ID(kv2[0]), pwp);
+                                re.Add(new advancements(new ID(kv2[0]), kv3[0], bool.Parse(kv3[1])));
                             }
                             else
                             {
-                                qwq = new KeyValuePair<ID, object>(new ID(kv2[0]), bool.Parse(kv2[1]));
+                                re.Add(new advancements(new ID(kv2[0]), bool.Parse(kv2[1])));
                             }
-                            re.Add("advancements", qwq);
                             break;
                         case "limit":
-                            re.Add("limit", int.Parse(kv[1]));
+                            re.Add(new limit(int.Parse(kv[1])));
                             break;
                         case "sort":
                             //TODO:sort后面的字符串不是自由写的但是我现在好想睡觉阿巴阿巴阿巴阿巴阿巴阿巴阿巴阿巴Zzzzzzz（狐狐瘫
-                            re.Add("sort", kv[1]);
+                            re.Add(new sort(kv[1]));
                             break;
                     }                    
                 }
@@ -241,10 +243,20 @@ namespace MCSharp.Type
             return re;
         }
 
-
         public override string ToString()
         {
-            return selector;
+            string re = "@" + Tools.GetEnumString(selectorType);
+            if(args != null)
+            {
+                re += "[";
+                foreach(SelectorArgument arg in args)
+                {
+                    re += arg + ",";
+                }
+                re = re.Substring(0, re.Length - 1);
+                re += "]";
+            }
+            return re;
         }
     }
 }

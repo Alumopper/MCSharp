@@ -25,7 +25,7 @@ namespace MCSharp.Cmds
         float speed;
         int count;
         string force_normal;
-        Entity viewers;
+        Selector viewers;
 
         Color dust;
         float size;
@@ -54,7 +54,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 1
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(ID name, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(ID name, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Selector viewers = null)
         {
             this.name = name;
             this.pos = pos;
@@ -88,7 +88,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 3
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(Color dust, float size, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(Color dust, float size, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Selector viewers = null)
         {
             this.name = new ID("minecraft:dust");
             this.dust = dust;
@@ -125,7 +125,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 5
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(Color dust, float size, Color trans, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(Color dust, float size, Color trans, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Selector viewers = null)
         {
             this.name = new ID("minecraft:dust_color_transition");
             this.dust = dust;
@@ -166,7 +166,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 7
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(ID name, BlockState block, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(ID name, BlockState block, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Selector viewers = null)
         {
             this.name = name;
             if (!(name.id.Equals("minecraft:block") || name.id.Equals("minecraft:falling_dust")))
@@ -204,7 +204,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type 9
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Particle(ItemStack item, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(ItemStack item, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Selector viewers = null)
         {
             this.name = new ID("minecraft:item");
             this.item = item;
@@ -233,7 +233,7 @@ namespace MCSharp.Cmds
             type = 10;
         }
 
-        public Particle(int second, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Entity viewers = null)
+        public Particle(int second, Pos pos, Vector3<float> delta, float speed, int count, string force_normal = "normal", Selector viewers = null)
         {
             this.name = new ID("minecraft:shriek");
             this.second = second;

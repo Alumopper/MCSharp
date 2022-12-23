@@ -19,7 +19,7 @@ namespace MCSharp.Type.CommandArg
 
     public class TGamemode
     {
-        public static Gamemodes? GetGamemodes(string mode)
+        public static Gamemodes GetGamemodes(string mode)
         {
             switch (mode)
             {

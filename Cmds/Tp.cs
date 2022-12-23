@@ -23,12 +23,12 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Tp : Command
     {
-        Entity targets;
+        Selector targets;
         Pos location;
-        Entity destination;
+        Selector destination;
         Rotation rotation;
         Pos facingLocation;
-        Entity facingEntity;
+        Selector facingEntity;
         ef facingAnchor;
 
         public enum ef
@@ -40,7 +40,7 @@ namespace MCSharp.Cmds
         /// tp &lt;destination>
         /// </summary>
         /// <param name="destination"></param>
-        public Tp(Entity destination)
+        public Tp(Selector destination)
         {
             this.destination = destination;
         }
@@ -48,7 +48,7 @@ namespace MCSharp.Cmds
         /// <summary>
         /// tp &lt;targets> &lt;destination>
         /// </summary>
-        public Tp(Entity targets, Entity destination)
+        public Tp(Selector targets, Selector destination)
         {
             this.targets = targets;
             this.destination = destination;
@@ -66,7 +66,7 @@ namespace MCSharp.Cmds
         /// tp &lt;targets> &lt;location>
         /// tp &lt;targets> &lt;location> &lt;rotation>
         /// </summary>
-        public Tp(Entity targets, Pos location, Rotation rotation = null)
+        public Tp(Selector targets, Pos location, Rotation rotation = null)
         {
             this.targets = targets;
             this.location = location;
@@ -76,7 +76,7 @@ namespace MCSharp.Cmds
         /// <summary>
         /// tp &lt;targets> &lt;location> facing &lt;facingLocation>
         /// </summary>
-        public Tp(Entity targets, Pos location, Pos facingLocation)
+        public Tp(Selector targets, Pos location, Pos facingLocation)
         {
             this.targets = targets;
             this.location = location;
@@ -86,7 +86,7 @@ namespace MCSharp.Cmds
         /// <summary>
         /// tp &lt;targets> &lt;location> facing entity &lt;facingEntity> [&lt;facingAnchor>]
         /// </summary>
-        public Tp(Entity targets, Pos location, Entity facingEntity, ef eyes_feet = ef.eyes)
+        public Tp(Selector targets, Pos location, Selector facingEntity, ef eyes_feet = ef.eyes)
         {
             this.targets = targets;
             this.location = location;

@@ -15,7 +15,7 @@ namespace MCSharp.Cmds
     public class Commands
     {
         #region advancement
-        public static Advancement GrankEveryThing(Entity target)
+        public static Advancement GrankEveryThing(Selector target)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -26,7 +26,7 @@ namespace MCSharp.Cmds
             return advancement;
         }
 
-        public static Advancement GrankOnly(Entity target, string advancement)
+        public static Advancement GrankOnly(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -37,7 +37,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement GrankOnly(Entity target, string advancement, string criterion)
+        public static Advancement GrankOnly(Selector target, string advancement, string criterion)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -48,7 +48,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement GrankFrom(Entity target, string advancement)
+        public static Advancement GrankFrom(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -59,7 +59,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement GrankThrough(Entity target, string advancement)
+        public static Advancement GrankThrough(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -70,7 +70,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement GrankUntil(Entity target, string advancement)
+        public static Advancement GrankUntil(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -81,7 +81,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement RevokeEverything(Entity target)
+        public static Advancement RevokeEverything(Selector target)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -92,7 +92,7 @@ namespace MCSharp.Cmds
             return advancement;
         }
 
-        public static Advancement RevokeOnly(Entity target, string advancement)
+        public static Advancement RevokeOnly(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -103,7 +103,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement RevokeOnly(Entity target, string advancement, string criterion)
+        public static Advancement RevokeOnly(Selector target, string advancement, string criterion)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -114,7 +114,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement RevokeFrom(Entity target, string advancement)
+        public static Advancement RevokeFrom(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -125,7 +125,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement RevokeThrough(Entity target, string advancement)
+        public static Advancement RevokeThrough(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -136,7 +136,7 @@ namespace MCSharp.Cmds
             return advancement1;
         }
 
-        public static Advancement RevokeUntil(Entity target, string advancement)
+        public static Advancement RevokeUntil(Selector target, string advancement)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -151,7 +151,7 @@ namespace MCSharp.Cmds
 
         #region attribute
 
-        public static Attribute GetAttribute(Entity entity, string attrubute, double scale = 1.0)
+        public static Attribute GetAttribute(Selector entity, string attrubute, double scale = 1.0)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -162,7 +162,7 @@ namespace MCSharp.Cmds
             return attribute;
         }
 
-        public static Attribute GetBaseAttribute(Entity entity, string attribute, double scale = 1.0)
+        public static Attribute GetBaseAttribute(Selector entity, string attribute, double scale = 1.0)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -173,7 +173,7 @@ namespace MCSharp.Cmds
             return attribute1;
         }
 
-        public static Attribute SetBaseAttribute(Entity entity, string attribute, double value)
+        public static Attribute SetBaseAttribute(Selector entity, string attribute, double value)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -184,7 +184,7 @@ namespace MCSharp.Cmds
             return attribute1;
         }
 
-        public static Attribute AddAttriModifier(Entity target, string attribute, UUID uuid, string name, double value, string add__multiply__multiply_base)
+        public static Attribute AddAttriModifier(Selector target, string attribute, UUID uuid, string name, double value, string add__multiply__multiply_base)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -195,7 +195,7 @@ namespace MCSharp.Cmds
             return attribute1;
         }
 
-        public static Attribute RemoveAttriModifier(Entity target, string attribute, UUID uuid)
+        public static Attribute RemoveAttriModifier(Selector target, string attribute, UUID uuid)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -206,7 +206,7 @@ namespace MCSharp.Cmds
             return attribute1;
         }
 
-        public static Attribute GetAttriModifierValue(Entity target, string attribute, UUID uuid, double scale = 1.0)
+        public static Attribute GetAttriModifierValue(Selector target, string attribute, UUID uuid, double scale = 1.0)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -402,7 +402,7 @@ namespace MCSharp.Cmds
             return bossbar;
         }
 
-        public static Bossbar AddBossBarPlayer(ID id, Entity selector)
+        public static Bossbar AddBossBarPlayer(ID id, Selector selector)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -416,7 +416,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region clear
-        public static Clear Clear(Entity target, ItemStack itemStack = null, int? count = null)
+        public static Clear Clear(Selector target, ItemStack itemStack = null, int? count = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -552,7 +552,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data GetData(Entity target, string path = null, double? scale = null)
+        public static Data GetData(Selector target, string path = null, double? scale = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -585,7 +585,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data MergeData(Entity target, NBT nbt)
+        public static Data MergeData(Selector target, NBT nbt)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -618,7 +618,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataAppendFrom(Pos targetPos, string path, Entity source, string sourcePath)
+        public static Data ModifyDataAppendFrom(Pos targetPos, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -651,7 +651,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataMergeFrom(Pos targetPos, string path, Entity source, string sourcePath)
+        public static Data ModifyDataMergeFrom(Pos targetPos, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -684,7 +684,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataPrependFrom(Pos targetPos, string path, Entity source, string sourcePath)
+        public static Data ModifyDataPrependFrom(Pos targetPos, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -717,7 +717,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataSetFrom(Pos targetPos, string path, Entity source, string sourcePath)
+        public static Data ModifyDataSetFrom(Pos targetPos, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -739,7 +739,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataAppendFrom(Entity target, string path, Pos sourcePos, string sourcePath)
+        public static Data ModifyDataAppendFrom(Selector target, string path, Pos sourcePos, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -750,7 +750,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataAppendFrom(Entity target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataAppendFrom(Selector target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -761,7 +761,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataAppendFrom(Entity target, string path, ID source, string sourcePath)
+        public static Data ModifyDataAppendFrom(Selector target, string path, ID source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -772,7 +772,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataMergeFrom(Entity target, string path, Pos sourcePos, string sourcePath)
+        public static Data ModifyDataMergeFrom(Selector target, string path, Pos sourcePos, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -783,7 +783,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataMergeFrom(Entity target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataMergeFrom(Selector target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -794,7 +794,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataMergeFrom(Entity target, string path, ID source, string sourcePath)
+        public static Data ModifyDataMergeFrom(Selector target, string path, ID source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -805,7 +805,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataPrependFrom(Entity target, string path, Pos sourcePos, string sourcePath)
+        public static Data ModifyDataPrependFrom(Selector target, string path, Pos sourcePos, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -816,7 +816,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataPrependFrom(Entity target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataPrependFrom(Selector target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -827,7 +827,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataPrependFrom(Entity target, string path, ID source, string sourcePath)
+        public static Data ModifyDataPrependFrom(Selector target, string path, ID source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -838,7 +838,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataSetFrom(Entity target, string path, Pos source, string sourcePath)
+        public static Data ModifyDataSetFrom(Selector target, string path, Pos source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -849,7 +849,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataSetFrom(Entity target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataSetFrom(Selector target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -860,7 +860,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataSetFrom(Entity target, string path, ID source, string sourcePath)
+        public static Data ModifyDataSetFrom(Selector target, string path, ID source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -882,7 +882,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataAppendFrom(ID target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataAppendFrom(ID target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -915,7 +915,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataMergeFrom(ID target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataMergeFrom(ID target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -948,7 +948,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataPrependFrom(ID target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataPrependFrom(ID target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -981,7 +981,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataSetFrom(ID target, string path, Entity source, string sourcePath)
+        public static Data ModifyDataSetFrom(ID target, string path, Selector source, string sourcePath)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1014,7 +1014,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataSet(Entity target, string path, NBT nbt)
+        public static Data ModifyDataSet(Selector target, string path, NBT nbt)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1047,7 +1047,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataPrepend(Entity target, string path, NBT nbt)
+        public static Data ModifyDataPrepend(Selector target, string path, NBT nbt)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1080,7 +1080,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataAppend(Entity target, string path, NBT nbt)
+        public static Data ModifyDataAppend(Selector target, string path, NBT nbt)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1113,7 +1113,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataMerge(Entity target, string path, NBT nbt)
+        public static Data ModifyDataMerge(Selector target, string path, NBT nbt)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1146,7 +1146,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataInsertFrom(Pos target, string path, Entity source, string sourcePath, int index)
+        public static Data ModifyDataInsertFrom(Pos target, string path, Selector source, string sourcePath, int index)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1168,7 +1168,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataInsertFrom(Entity target, string path, Pos source, string sourcePath, int index)
+        public static Data ModifyDataInsertFrom(Selector target, string path, Pos source, string sourcePath, int index)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1179,7 +1179,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataInsertFrom(Entity target, string path, Entity source, string sourcePath, int index)
+        public static Data ModifyDataInsertFrom(Selector target, string path, Selector source, string sourcePath, int index)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1190,7 +1190,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataInsertFrom(Entity target, string path, ID source, string sourcePath, int index)
+        public static Data ModifyDataInsertFrom(Selector target, string path, ID source, string sourcePath, int index)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1212,7 +1212,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataInsertFrom(ID target, string path, Entity source, string sourcePath, int index)
+        public static Data ModifyDataInsertFrom(ID target, string path, Selector source, string sourcePath, int index)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1245,7 +1245,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data ModifyDataInsert(Entity target, string path, NBT nbt, int index)
+        public static Data ModifyDataInsert(Selector target, string path, NBT nbt, int index)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1278,7 +1278,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data RemoveData(Entity target, string path)
+        public static Data RemoveData(Selector target, string path)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1484,7 +1484,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region effect
-        public static Effect GiveEffect(Entity player, ID effect, int seconds = 30, int amplifier = 0, bool hideParticles = false)
+        public static Effect GiveEffect(Selector player, ID effect, int seconds = 30, int amplifier = 0, bool hideParticles = false)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1495,7 +1495,7 @@ namespace MCSharp.Cmds
             return effect1;
         }
 
-        public static Effect ClearEffect(Entity player = null, ID effect = null)
+        public static Effect ClearEffect(Selector player = null, ID effect = null)
         {
             {
                 if (!DatapackInfo.FunctionHasRegistry())
@@ -1510,7 +1510,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region enchant
-        public static Enchant Enchant(Entity player, ID enchantment, int level = 1)
+        public static Enchant Enchant(Selector player, ID enchantment, int level = 1)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1523,7 +1523,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region experience
-        public static Experience AddExperience(Entity player, int amount, bool levels = false)
+        public static Experience AddExperience(Selector player, int amount, bool levels = false)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1534,7 +1534,7 @@ namespace MCSharp.Cmds
             return experience;
         }
 
-        public static Experience SetExperience(Entity player, int amount, bool levels = false)
+        public static Experience SetExperience(Selector player, int amount, bool levels = false)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1545,7 +1545,7 @@ namespace MCSharp.Cmds
             return experience;
         }
 
-        public static Experience QueryExperience(Entity player, bool levels = false)
+        public static Experience QueryExperience(Selector player, bool levels = false)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1699,7 +1699,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region gamemode
-        public static Gamemode SetGamemode(Gamemodes gamemode, Entity target = null)
+        public static Gamemode SetGamemode(Gamemodes gamemode, Selector target = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1727,7 +1727,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region give 
-        public static Give Give(Entity target, ItemStack item)
+        public static Give Give(Selector target, ItemStack item)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1764,7 +1764,7 @@ namespace MCSharp.Cmds
             return item1;
         }
 
-        public static Item ModifyItem(Entity target, Slot slot, ID modifier)
+        public static Item ModifyItem(Selector target, Slot slot, ID modifier)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1786,7 +1786,7 @@ namespace MCSharp.Cmds
             return item1;
         }
 
-        public static Item ReplaceItem(Entity target, Slot slot, ItemStack item)
+        public static Item ReplaceItem(Selector target, Slot slot, ItemStack item)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1797,7 +1797,7 @@ namespace MCSharp.Cmds
             return item1;
         }
 
-        public static Item ReplaceItemFrom(Pos pos, Slot slot, Entity target, Slot slot2, ID modifier = null)
+        public static Item ReplaceItemFrom(Pos pos, Slot slot, Selector target, Slot slot2, ID modifier = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1808,7 +1808,7 @@ namespace MCSharp.Cmds
             return item1;
         }
 
-        public static Item ReplaceItemFrom(Entity target, Slot slot, Entity target2, Slot slot2, ID modifier = null)
+        public static Item ReplaceItemFrom(Selector target, Slot slot, Selector target2, Slot slot2, ID modifier = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1830,7 +1830,7 @@ namespace MCSharp.Cmds
             return item1;
         }
 
-        public static Item ReplaceItemFrom(Entity target, Slot slot, Pos pos2, Slot slot2, ID modifier = null)
+        public static Item ReplaceItemFrom(Selector target, Slot slot, Pos pos2, Slot slot2, ID modifier = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1867,7 +1867,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region kick
-        public static Kick Kick(Entity target, string reason = null)
+        public static Kick Kick(Selector target, string reason = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1880,7 +1880,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region kill
-        public static Kill Kill(Entity target)
+        public static Kill Kill(Selector target)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1966,7 +1966,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region msg
-        public static Msg Msg(Entity player, string message)
+        public static Msg Msg(Selector player, string message)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -1979,7 +1979,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region op
-        public static Op Op(Entity player)
+        public static Op Op(Selector player)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2040,7 +2040,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle(ID particle, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
+        public static Particle Particle(ID particle, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Selector viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2062,7 +2062,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle_dust(Type.Color color, float size, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
+        public static Particle Particle_dust(Type.Color color, float size, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Selector viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2084,7 +2084,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle_dust_color_transition(Type.Color color1, float size, Type.Color color2, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
+        public static Particle Particle_dust_color_transition(Type.Color color1, float size, Type.Color color2, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Selector viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2106,7 +2106,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle_block(BlockState block, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
+        public static Particle Particle_block(BlockState block, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Selector viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2128,7 +2128,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle_falling_dust(BlockState block, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
+        public static Particle Particle_falling_dust(BlockState block, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Selector viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2150,7 +2150,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle_item(ItemStack item, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
+        public static Particle Particle_item(ItemStack item, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Selector viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2172,7 +2172,7 @@ namespace MCSharp.Cmds
             return particle1;
         }
 
-        public static Particle Particle_shriek(int second, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Entity viewers = null)
+        public static Particle Particle_shriek(int second, Pos pos, Vector3<float> delta, float speed, int count, bool force = false, Selector viewers = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2255,7 +2255,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region playsound
-        public static Playsound Playsound(ID sound, Playsound.Source source, Entity targets, Pos pos = null, float volume = 1.0f, float pitch = 1.0f, float minvolumn = 0)
+        public static Playsound Playsound(ID sound, Playsound.Source source, Selector targets, Pos pos = null, float volume = 1.0f, float pitch = 1.0f, float minvolumn = 0)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2283,7 +2283,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region recipe
-        public static Recipe RecipeGive(Entity targets, ID recipe = null)
+        public static Recipe RecipeGive(Selector targets, ID recipe = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2294,7 +2294,7 @@ namespace MCSharp.Cmds
             return recipe1;
         }
 
-        public static Recipe RecipeTake(Entity targets, ID recipe = null)
+        public static Recipe RecipeTake(Selector targets, ID recipe = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2620,7 +2620,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region spawnpoint
-        public static Spawnpoint Spawnpoint(Entity target, Pos pos = null, Rotation angle = null)
+        public static Spawnpoint Spawnpoint(Selector target, Pos pos = null, Rotation angle = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2633,7 +2633,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region spectate
-        public static Spectate Spectate(Entity target, Entity source = null)
+        public static Spectate Spectate(Selector target, Selector source = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2657,7 +2657,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region spreadplayers
-        public static Spreadplayers SpreadPlayers(Pos2D pos, float spreadDistance, float maxRange, bool respectTeams, Entity targets)
+        public static Spreadplayers SpreadPlayers(Pos2D pos, float spreadDistance, float maxRange, bool respectTeams, Selector targets)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2668,7 +2668,7 @@ namespace MCSharp.Cmds
             return spreadplayers;
         }
 
-        public static Spreadplayers SpreadPlayers(Pos2D pos, float spreadDistance, float maxRange, float maxheight, bool respectTeams, Entity targets)
+        public static Spreadplayers SpreadPlayers(Pos2D pos, float spreadDistance, float maxRange, float maxheight, bool respectTeams, Selector targets)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2694,7 +2694,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region stopsound
-        public static Stopsound Stopsound(Entity target, Stopsound.Source source = Cmds.Stopsound.Source.master, string sound = null)
+        public static Stopsound Stopsound(Selector target, Stopsound.Source source = Cmds.Stopsound.Source.master, string sound = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2720,7 +2720,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region tag
-        public static Tag TagAdd(Entity targets, string name)
+        public static Tag TagAdd(Selector targets, string name)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2731,7 +2731,7 @@ namespace MCSharp.Cmds
             return tag;
         }
 
-        public static Tag TagRemove(Entity targets, string name)
+        public static Tag TagRemove(Selector targets, string name)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2742,7 +2742,7 @@ namespace MCSharp.Cmds
             return tag;
         }
 
-        public static Tag TagList(Entity targets)
+        public static Tag TagList(Selector targets)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2800,7 +2800,7 @@ namespace MCSharp.Cmds
             return teamcmd;
         }
 
-        public static Team TeamJoin(string team, Entity members = null)
+        public static Team TeamJoin(string team, Selector members = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2811,7 +2811,7 @@ namespace MCSharp.Cmds
             return teamcmd;
         }
 
-        public static Team TeamLeave(Entity members)
+        public static Team TeamLeave(Selector members)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2936,7 +2936,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region teleport
-        public static Teleport Teleport(Entity destination)
+        public static Teleport Teleport(Selector destination)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2947,7 +2947,7 @@ namespace MCSharp.Cmds
             return teleport;
         }
 
-        public static Teleport Teleport(Entity target, Entity destination)
+        public static Teleport Teleport(Selector target, Selector destination)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2958,7 +2958,7 @@ namespace MCSharp.Cmds
             return teleport;
         }
 
-        public static Teleport Teleport(Entity targets, Pos location, Rotation rotation = null)
+        public static Teleport Teleport(Selector targets, Pos location, Rotation rotation = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2969,7 +2969,7 @@ namespace MCSharp.Cmds
             return teleport;
         }
 
-        public static Teleport Teleport(Entity targets, Pos location, Pos facingLocation)
+        public static Teleport Teleport(Selector targets, Pos location, Pos facingLocation)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2980,7 +2980,7 @@ namespace MCSharp.Cmds
             return teleport;
         }
 
-        public static Teleport Teleport(Entity targets, Pos location, Entity facingEntity, Teleport.ef facingEntityAnchor = Cmds.Teleport.ef.feet)
+        public static Teleport Teleport(Selector targets, Pos location, Selector facingEntity, Teleport.ef facingEntityAnchor = Cmds.Teleport.ef.feet)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -2993,7 +2993,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region tell
-        public static Tell Tell(Entity target, string msg)
+        public static Tell Tell(Selector target, string msg)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3006,7 +3006,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region tellraw
-        public static Tellraw Tellraw(Entity target, JsonText message)
+        public static Tellraw Tellraw(Selector target, JsonText message)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3082,7 +3082,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region title
-        public static Title TitleClear(Entity player)
+        public static Title TitleClear(Selector player)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3093,7 +3093,7 @@ namespace MCSharp.Cmds
             return title;
         }
 
-        public static Title TitleReset(Entity player)
+        public static Title TitleReset(Selector player)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3104,7 +3104,7 @@ namespace MCSharp.Cmds
             return title;
         }
 
-        public static Title TitleAtTitle(Entity player, JsonText title)
+        public static Title TitleAtTitle(Selector player, JsonText title)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3115,7 +3115,7 @@ namespace MCSharp.Cmds
             return titleCmd;
         }
 
-        public static Title TitleAtSubtitle(Entity player, JsonText subtitle)
+        public static Title TitleAtSubtitle(Selector player, JsonText subtitle)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3126,7 +3126,7 @@ namespace MCSharp.Cmds
             return title;
         }
 
-        public static Title TitleAtActionbar(Entity player, JsonText actionbar)
+        public static Title TitleAtActionbar(Selector player, JsonText actionbar)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3137,7 +3137,7 @@ namespace MCSharp.Cmds
             return title;
         }
 
-        public static Title TitleWithFade(Entity player, int fadeIn, int stay, int fadeOut)
+        public static Title TitleWithFade(Selector player, int fadeIn, int stay, int fadeOut)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3163,7 +3163,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region tp
-        public static Tp Tp(Entity destination)
+        public static Tp Tp(Selector destination)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3174,7 +3174,7 @@ namespace MCSharp.Cmds
             return tp;
         }
 
-        public static Tp Tp(Entity target, Entity destination)
+        public static Tp Tp(Selector target, Selector destination)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3185,7 +3185,7 @@ namespace MCSharp.Cmds
             return tp;
         }
 
-        public static Tp Tp(Entity targets, Pos location, Rotation rotation = null)
+        public static Tp Tp(Selector targets, Pos location, Rotation rotation = null)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3196,7 +3196,7 @@ namespace MCSharp.Cmds
             return tp;
         }
 
-        public static Tp Tp(Entity targets, Pos location, Pos facingLocation)
+        public static Tp Tp(Selector targets, Pos location, Pos facingLocation)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3207,7 +3207,7 @@ namespace MCSharp.Cmds
             return tp;
         }
 
-        public static Tp Tp(Entity targets, Pos location, Entity facingEntity, Tp.ef facingEntityAnchor = Cmds.Tp.ef.feet)
+        public static Tp Tp(Selector targets, Pos location, Selector facingEntity, Tp.ef facingEntityAnchor = Cmds.Tp.ef.feet)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3255,7 +3255,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region w
-        public static W W(Entity target, string msg)
+        public static W W(Selector target, string msg)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3281,7 +3281,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region whitelist
-        public static Whitelist WhitelistAdd(Entity player)
+        public static Whitelist WhitelistAdd(Selector player)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3292,7 +3292,7 @@ namespace MCSharp.Cmds
             return whitelist;
         }
 
-        public static Whitelist WhitelistRemove(Entity player)
+        public static Whitelist WhitelistRemove(Selector player)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3440,7 +3440,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region xp
-        public static Xp AddXp(Entity player, int amount, bool levels = false)
+        public static Xp AddXp(Selector player, int amount, bool levels = false)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3451,7 +3451,7 @@ namespace MCSharp.Cmds
             return xp;
         }
 
-        public static Xp SetXp(Entity player, int amount, bool levels = false)
+        public static Xp SetXp(Selector player, int amount, bool levels = false)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {
@@ -3462,7 +3462,7 @@ namespace MCSharp.Cmds
             return xp;
         }
 
-        public static Xp QueryXp(Entity player, bool levels = false)
+        public static Xp QueryXp(Selector player, bool levels = false)
         {
             if (!DatapackInfo.FunctionHasRegistry())
             {

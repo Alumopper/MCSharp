@@ -19,7 +19,7 @@ namespace MCSharp.Cmds
     public class Effect : Command
     {
         string clear_give;
-        Entity targets;
+        Selector targets;
         ID effect;
         int seconds = -1;
         int amplifier = -1;
@@ -32,7 +32,7 @@ namespace MCSharp.Cmds
         /// effect give &lt;targets> &lt;effect>
         /// </summary>
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Effect(string clear_give, Entity targets = null, ID effect = null)
+        public Effect(string clear_give, Selector targets = null, ID effect = null)
         {
             this.clear_give = clear_give;
             if(clear_give.Equals("give") && (targets == null || effect == null))
@@ -50,7 +50,7 @@ namespace MCSharp.Cmds
         /// <summary>
         /// effect give &lt;targets> &lt;effect> [&lt;seconds>] [&lt;amplifier>] [&lt;hideParticles>]
         /// </summary>
-        public Effect(Entity targets, ID effect, int seconds = 30, int amplifier = 0, bool hideParticles = false)
+        public Effect(Selector targets, ID effect, int seconds = 30, int amplifier = 0, bool hideParticles = false)
         {
             this.targets = targets;
             this.effect = effect;

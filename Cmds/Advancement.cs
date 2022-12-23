@@ -26,10 +26,10 @@ namespace MCSharp.Cmds
         private static string[] ftu = new string[] { "from", "through", "until" };
 
         string grant_revoke;
-        Entity target;
+        Selector target;
         string[] args;
 
-        public Advancement(string grant_revoke, Entity target,params string[] args)
+        public Advancement(string grant_revoke, Selector target,params string[] args)
         {
             //检查参数
             if(!gr.Contains(grant_revoke))

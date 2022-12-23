@@ -17,13 +17,13 @@ namespace MCSharp.Cmds
     public class Gamemode : Command
     {
         Gamemodes mode;
-        Entity target;
+        Selector target;
 
         /// <summary>
         /// gamemode (adventure|creative|spectator|survival) [&lt;target>]
         /// </summary>
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Gamemode(Gamemodes gamemode, Entity target = null)
+        public Gamemode(Gamemodes gamemode, Selector target = null)
         {
             mode = gamemode;
             this.target = target;

@@ -19,7 +19,7 @@ namespace MCSharp.Cmds
     public class Xp : Command
     {
         string add_set;
-        Entity targets;
+        Selector targets;
         int amount;
         string levels_points;
         bool qwq;
@@ -31,7 +31,7 @@ namespace MCSharp.Cmds
         /// xp (add|set) &lt;targets> &lt;amount> [levels|points]
         /// </summary>
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Xp(string add_set, Entity targets, int amount, string levels_points)
+        public Xp(string add_set, Selector targets, int amount, string levels_points)
         {
             if (!@as.Contains(add_set))
             {
@@ -51,7 +51,7 @@ namespace MCSharp.Cmds
         /// xp query &lt;targets> (levels|points)
         /// </summary>
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Xp(Entity targets, string levels_points)
+        public Xp(Selector targets, string levels_points)
         {
             qwq = false;
             this.targets = targets;

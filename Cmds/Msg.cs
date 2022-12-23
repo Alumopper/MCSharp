@@ -15,13 +15,13 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Msg : Command
     {
-        Entity targets;
+        Selector targets;
         string message;
 
         /// <summary>
         /// msg &lt;target> &lt;message>
         /// </summary>
-        public Msg(Entity targets, string message)
+        public Msg(Selector targets, string message)
         {
             this.targets = targets;
             this.message = message;

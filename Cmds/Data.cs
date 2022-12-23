@@ -46,7 +46,7 @@ namespace MCSharp.Cmds
         #region 参数
         DataArg dara;
         Pos targetpos;
-        Entity targetentity;
+        Selector targetentity;
         ID targetid;
         string path;
         double? scale;
@@ -55,7 +55,7 @@ namespace MCSharp.Cmds
         string append_merge_prepend_set;
         string sourcePath;
         Pos sourcepos;
-        Entity sourceentity;
+        Selector sourceentity;
         ID sourceid;
         NBT value;
         int index;
@@ -82,7 +82,7 @@ namespace MCSharp.Cmds
         /// data get entity &lt;target> [&lt;path>] [&lt;scale>]
         /// </summary>
         /// type - 1
-        public Data(Entity target, string path = null, double? scale = null)
+        public Data(Selector target, string path = null, double? scale = null)
         {
             this.targetentity = target;
             this.path = path;
@@ -121,7 +121,7 @@ namespace MCSharp.Cmds
         /// data merge &lt;entity:target> &lt;nbt>
         /// </summary>
         /// type - 4
-        public Data(Entity target, NBT nbt)
+        public Data(Selector target, NBT nbt)
         {
             this.targetentity = target;
             this.nbt = nbt;
@@ -173,7 +173,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 7
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
+        public Data(Selector target, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -227,7 +227,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 9
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, Entity source, string sourcePath)
+        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
         {
             this.targetpos = targetpos;
             if (NBT.IsLegalPath(targetPath))
@@ -254,7 +254,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 10
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, string append_merge_prepend_set, Entity source, string sourcePath)
+        public Data(Selector target, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -281,7 +281,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 11
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, string append_merge_prepend_set, Entity source, string sourcePath)
+        public Data(ID target, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
         {
             this.targetid = target;
             if (NBT.IsLegalPath(targetPath))
@@ -336,7 +336,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 13
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
+        public Data(Selector target, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -412,7 +412,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 16
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, string append_merge_prepend_set, NBT value)
+        public Data(Selector target, string targetPath, string append_merge_prepend_set, NBT value)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -483,7 +483,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 19
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, int index, Pos sourcepos, string sourcePath)
+        public Data(Selector target, string targetPath, int index, Pos sourcepos, string sourcePath)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -529,7 +529,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 21
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, int index, Entity source, string sourcePath)
+        public Data(Pos targetpos, string targetPath, int index, Selector source, string sourcePath)
         {
             this.targetpos = targetpos;
             if (NBT.IsLegalPath(targetPath))
@@ -552,7 +552,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 22
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, int index, Entity source, string sourcePath)
+        public Data(Selector target, string targetPath, int index, Selector source, string sourcePath)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -575,7 +575,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 23
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, int index, Entity source, string sourcePath)
+        public Data(ID target, string targetPath, int index, Selector source, string sourcePath)
         {
             this.targetid = target;
             if (NBT.IsLegalPath(targetPath))
@@ -622,7 +622,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 25
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, int index, ID source, string sourcePath)
+        public Data(Selector target, string targetPath, int index, ID source, string sourcePath)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -686,7 +686,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 28
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string targetPath, int index, NBT value)
+        public Data(Selector target, string targetPath, int index, NBT value)
         {
             this.targetentity = target;
             if (NBT.IsLegalPath(targetPath))
@@ -740,7 +740,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 31
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Entity target, string path)
+        public Data(Selector target, string path)
         {
             this.targetentity = target;
             if (!NBT.IsLegalPath(path))

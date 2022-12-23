@@ -15,13 +15,13 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Tell : Command
     {
-        Entity targets;
+        Selector targets;
         string message;
 
         /// <summary>
         /// tell &lt;target> &lt;message>
         /// </summary>
-        public Tell(Entity targets, string message)
+        public Tell(Selector targets, string message)
         {
             this.targets = targets;
             this.message = message;

@@ -13,14 +13,14 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Kick : Command
     {
-        Entity player;
+        Selector player;
         string reason;
         /// <summary>
         /// <code>
         /// kick &lt;player> [reason]
         /// </code>
         /// </summary>
-        public Kick(Entity player, string reason = "")
+        public Kick(Selector player, string reason = "")
         {
             this.player = player;
             this.reason = reason;

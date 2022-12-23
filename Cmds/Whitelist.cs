@@ -18,7 +18,7 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Whitelist : Command
     {
-        Entity targets;
+        Selector targets;
         ar add_remove;
         loor list_on_off_reload;
 
@@ -37,7 +37,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// <param name="targets"></param>
         /// <param name="add_remove"></param>
-        public Whitelist(Entity targets, ar add_remove)
+        public Whitelist(Selector targets, ar add_remove)
         {
             this.targets = targets;
             this.add_remove = add_remove;

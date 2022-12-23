@@ -23,11 +23,11 @@ namespace MCSharp.Cmds
         Pos pos;
         Slot slot;
         ID modifier;
-        Entity targets;
+        Selector targets;
         ItemStack item;
         int count;
         Pos pos2;
-        Entity targets2;
+        Selector targets2;
         Slot slot2;
 
         int type;
@@ -48,7 +48,7 @@ namespace MCSharp.Cmds
         /// item modify entity &lt;targets> &lt;slot> vmodifier>
         /// </summary>
         /// type - 1
-        public Item(Entity targets, Slot slot, ID modifier)
+        public Item(Selector targets, Slot slot, ID modifier)
         {
             this.targets = targets;
             this.slot = slot;
@@ -73,7 +73,7 @@ namespace MCSharp.Cmds
         /// item replace entity &lt;targets> &lt;slot> with &lt;item> [&lt;count>]
         /// </summary>
         /// type - 3
-        public Item(Entity targets, Slot slot, ItemStack item, int count = 1)
+        public Item(Selector targets, Slot slot, ItemStack item, int count = 1)
         {
             this.targets = targets;
             this.slot = slot;
@@ -100,7 +100,7 @@ namespace MCSharp.Cmds
         /// item replace entity &lt;targets> &lt;slot> from block &lt;pos> &lt;slot> [&lt;modifier>]
         /// </summary>
         /// type - 5
-        public Item(Entity targets, Slot slot, Pos pos2, Slot slot2, ID modifier = null)
+        public Item(Selector targets, Slot slot, Pos pos2, Slot slot2, ID modifier = null)
         {
             this.targets = targets;
             this.slot = slot;
@@ -114,7 +114,7 @@ namespace MCSharp.Cmds
         /// item replace entity &lt;targets> &lt;slot> from entity &lt;targets> &lt;slot> [&lt;modifier>]
         /// </summary>
         /// type - 6
-        public Item(Entity targets, Slot slot, Entity targets2, Slot slot2, ID modifier = null)
+        public Item(Selector targets, Slot slot, Selector targets2, Slot slot2, ID modifier = null)
         {
             this.targets = targets;
             this.slot = slot;
@@ -128,7 +128,7 @@ namespace MCSharp.Cmds
         /// item replace block &lt;pos> &lt;slot> from entity &lt;targets &lt;slot> [&lt;modifier>]
         /// </summary>
         /// type - 7
-        public Item(Pos pos, Slot slot, Entity targets2, Slot slot2, ID modifier = null)
+        public Item(Pos pos, Slot slot, Selector targets2, Slot slot2, ID modifier = null)
         {
             this.pos = pos;
             this.slot = slot;

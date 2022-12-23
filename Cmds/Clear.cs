@@ -15,22 +15,22 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Clear : Command
     {
-        Entity targets;
+        Selector targets;
         ItemStack item;
         int maxCount = -1;
 
-        public Clear(Entity targets)
+        public Clear(Selector targets)
         {
             this.targets = targets;
         }
 
-        public Clear(Entity targets, ItemStack item)
+        public Clear(Selector targets, ItemStack item)
         {
             this.targets = targets;
             this.item = item;
         }
 
-        public Clear(Entity targets, ItemStack item, int maxCount)
+        public Clear(Selector targets, ItemStack item, int maxCount)
         {
             this.targets = targets;
             this.item = item;

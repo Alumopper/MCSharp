@@ -15,12 +15,12 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Op : Command
     {
-        Entity player;
+        Selector player;
 
         /// <summary>
         /// op &lt;player>
         /// </summary>
-        public Op(Entity player)
+        public Op(Selector player)
         {
             this.player = player;
         }

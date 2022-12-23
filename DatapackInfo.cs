@@ -15,10 +15,9 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-
 namespace MCSharp
 {
-    public class DatapackInfo
+    public static class DatapackInfo
     { 
         /// <summary>
         /// 数据包输出路径，应该是一个datapack文件夹下

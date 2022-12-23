@@ -15,13 +15,13 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Kill : Command
     {
-        Entity targets;
+        Selector targets;
 
         /// <summary>
         /// kill [&lt;targets>]
         /// </summary>
         /// <param name="targets"></param>
-        public Kill(Entity targets = null)
+        public Kill(Selector targets = null)
         {
             this.targets = targets;
         }

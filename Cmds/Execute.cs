@@ -62,9 +62,9 @@ namespace MCSharp.Cmds
 
         public class As : ExecuteChildCommand
         {
-            Entity targets;
+            Selector targets;
 
-            public As(Entity targets)
+            public As(Selector targets)
             {
                 this.targets = targets;
             }
@@ -77,9 +77,9 @@ namespace MCSharp.Cmds
 
         public class At : ExecuteChildCommand
         {
-            Entity targets;
+            Selector targets;
 
-            public At(Entity targets)
+            public At(Selector targets)
             {
                 this.targets = targets;
             }
@@ -92,13 +92,13 @@ namespace MCSharp.Cmds
 
         public class Facing : ExecuteChildCommand
         {
-            Entity targets;
+            Selector targets;
             Pos pos;
             string anchor;
 
             private static string[] ef = new string[] { "eyes", "feet" };
 
-            public Facing(Entity targets, string eyes_feet)
+            public Facing(Selector targets, string eyes_feet)
             {
                 this.targets = targets;
                 if (!ef.Contains(eyes_feet))
@@ -143,10 +143,10 @@ namespace MCSharp.Cmds
 
         public class Positioned : ExecuteChildCommand
         {
-            Entity targets;
+            Selector targets;
             Pos pos;
 
-            public Positioned(Entity targets)
+            public Positioned(Selector targets)
             {
                 this.targets = targets;
             }
@@ -165,9 +165,9 @@ namespace MCSharp.Cmds
         public class Rotated : ExecuteChildCommand
         {
             Rotation rot;
-            Entity targets;
+            Selector targets;
 
-            public Rotated(Entity targets)
+            public Rotated(Selector targets)
             {
                 this.targets = targets;
             }
@@ -208,7 +208,7 @@ namespace MCSharp.Cmds
             int qwq;
             ID id;
             vm value_max;
-            Entity target;
+            Selector target;
             SbObject objective;
             ID storage;
 
@@ -271,7 +271,7 @@ namespace MCSharp.Cmds
             /// <param name="type">被存储的数据的类型。</param>
             /// <param name="scale">存储值的倍率。</param>
             /// <exception cref="ArgumentNotMatchException"></exception>
-            public Store(rs result_success, Entity target, string path, Type type, double scale)
+            public Store(rs result_success, Selector target, string path, Type type, double scale)
             {
                 this.result_success = result_success;
                 this.target = target;
@@ -291,7 +291,7 @@ namespace MCSharp.Cmds
             /// <param name="result_success"></param>
             /// <param name="target">修改此分数持有者（可以是实体、选择器甚至不存在的玩家）的分数</param>
             /// <param name="objective">记分项。</param>
-            public Store(rs result_success, Entity target, SbObject objective)
+            public Store(rs result_success, Selector target, SbObject objective)
             {
                 this.result_success = result_success;
                 this.target = target;
@@ -357,12 +357,12 @@ namespace MCSharp.Cmds
             Pos destination;
             Mode all_masked;
             string path;
-            Entity target;
+            Selector target;
             ID source;
             ID predicate;
             SbObject targetObjective;
             string operation;
-            Entity sourceScore;
+            Selector sourceScore;
             SbObject sourceObjective;
             IntRange range;
             int type;
@@ -435,7 +435,7 @@ namespace MCSharp.Cmds
             /// <param name="target"></param>
             /// <param name="path"></param>
             /// <exception cref="ArgumentNotMatchException"></exception>
-            public If(Entity target, string path)
+            public If(Selector target, string path)
             {
                 this.target = target;
                 if (!NBT.IsLegalPath(path))
@@ -467,7 +467,7 @@ namespace MCSharp.Cmds
             /// (if|unless) entity &lt;targets> -> [execute]
             /// </summary>
             /// <param name="target"></param>
-            public If(Entity target)
+            public If(Selector target)
             {
                 this.target = target;
                 type = 6;
@@ -491,7 +491,7 @@ namespace MCSharp.Cmds
             /// <param name="operation"></param>
             /// <param name="source"></param>
             /// <param name="sourceObjective"></param>
-            public If(Entity target, SbObject targetObjective, string operation, Entity source, SbObject sourceObjective)
+            public If(Selector target, SbObject targetObjective, string operation, Selector source, SbObject sourceObjective)
             {
                 this.target = target;
                 this.targetObjective = targetObjective;
@@ -507,7 +507,7 @@ namespace MCSharp.Cmds
             /// <param name="target"></param>
             /// <param name="targetObjective"></param>
             /// <param name="range"></param>
-            public If(Entity target, SbObject targetObjective, IntRange range)
+            public If(Selector target, SbObject targetObjective, IntRange range)
             {
                 this.target = target;
                 this.targetObjective = targetObjective;

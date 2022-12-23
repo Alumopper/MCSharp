@@ -12,13 +12,13 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Tellraw : Command
     {
-        Entity targets;
+        Selector targets;
         JsonText message;
 
         /// <summary>
         /// tellraw &lt;target> &lt;message>
         /// </summary>
-        public Tellraw(Entity targets, JsonText message)
+        public Tellraw(Selector targets, JsonText message)
         {
             this.targets = targets;
             this.message = message;

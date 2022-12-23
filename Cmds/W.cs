@@ -16,13 +16,13 @@ namespace MCSharp.Cmds
     /// </summary>
     public class W : Command
     {
-        Entity targets;
+        Selector targets;
         string message;
 
         /// <summary>
         /// w &lt;target> &lt;message>
         /// </summary>
-        public W(Entity targets, string message)
+        public W(Selector targets, string message)
         {
             this.targets = targets;
             this.message = message;

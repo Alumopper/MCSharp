@@ -174,7 +174,7 @@
     <Compile Include="Type\CommandArg\Gamemodes.cs" />
     <Compile Include="Type\CommandArg\IntRange.cs" />
     <Compile Include="Type\CommandArg\ItemPredicate.cs" />
-    <Compile Include="Type\Entity.cs" />
+    <Compile Include="Type\Selector.cs" />
     <Compile Include="Type\CommandArg\ID.cs" />
     <Compile Include="Type\ItemStack.cs" />
     <Compile Include="Type\JsonText.cs" />
@@ -186,6 +186,7 @@
     <Compile Include="Type\Rotation.cs" />
     <Compile Include="Type\SbObject.cs" />
     <Compile Include="Type\SbValue.cs" />
+    <Compile Include="Type\SelectorBuilder.cs" />
     <Compile Include="Type\Slot.cs" />
     <Compile Include="Type\UUID.cs" />
     <Compile Include="Type\Vector2.cs" />

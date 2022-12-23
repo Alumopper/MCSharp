@@ -12,7 +12,10 @@ namespace MCSharp.Test
         {
             //初始化数据包
             //DatapackInfo.Init("D:\\.minecraft\\saves\\Datapack Lab\\datapacks", 10, "qwq", "qwq");
-            Entity w = new Entity("@a[limit=2]");
+            Selector w = new SelectorBuilder(Selector.SelectorType.a)
+                .Append(new distance(1))
+                .Append(new tag("qwq"))
+                .Build();
             Console.ReadKey();
             //DatapackInfo.Create();      //生成数据包
         }

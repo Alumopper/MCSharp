@@ -35,7 +35,7 @@ namespace MCSharp.Cmds
         {
             Pos pos;
             op1? spawn_insert = null;
-            Entity target;
+            Selector target;
             Slot slot;
             int? count;
 
@@ -59,7 +59,7 @@ namespace MCSharp.Cmds
             /// give &lt;玩家>
             /// </summary>
             /// <param name="target"></param>
-            public Target(Entity target)
+            public Target(Selector target)
             {
                 this.target = target;
             }
@@ -70,7 +70,7 @@ namespace MCSharp.Cmds
             /// <param name="target"></param>
             /// <param name="slot"></param>
             /// <param name="count"></param>
-            public Target(Entity target, Slot slot, int? count = null)
+            public Target(Selector target, Slot slot, int? count = null)
             {
                 this.target = target;
                 this.slot = slot;
@@ -117,7 +117,7 @@ namespace MCSharp.Cmds
             ID loot_table;
             Pos pos;
             string tool;
-            Entity target;
+            Selector target;
 
             /// <summary>
             /// fish &lt;loot_table> &lt;位置> [&lt;工具>|mainhand|offhand]
@@ -145,7 +145,7 @@ namespace MCSharp.Cmds
             /// kill &lt;目标>
             /// </summary>
             /// <param name="target"></param>
-            public Source(Entity target)
+            public Source(Selector target)
             {
                 this.target = target;
             }

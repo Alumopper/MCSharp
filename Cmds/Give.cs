@@ -15,14 +15,14 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Give : Command
     {
-        Entity target;
+        Selector target;
         ItemStack item;
 
         /// <summary>
         /// give &lt;target> &lt;item> [&lt;count>]
         /// </summary>
         /// <param name="item">一个物品堆。物品堆中已经包含count有关信息</param>
-        public Give(Entity target, ItemStack item)
+        public Give(Selector target, ItemStack item)
         {
             this.target = target;
             this.item = item;

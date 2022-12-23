@@ -18,7 +18,7 @@ namespace MCSharp.Cmds
     public class Recipe : Command
     {
         gt give_take;
-        Entity targets;
+        Selector targets;
         ID recipe;
 
         public enum gt
@@ -33,7 +33,7 @@ namespace MCSharp.Cmds
         /// <param name="targets">指定给予或剥夺合成配方的对象。</param>
         /// <param name="recipe">合成配方的物品ID。若指定为null，则表示*，玩家会被给予或剥夺全部合成配方。</param>
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Recipe(gt give_take, Entity targets, ID recipe = null)
+        public Recipe(gt give_take, Selector targets, ID recipe = null)
         {
             this.give_take = give_take;
             this.targets = targets;

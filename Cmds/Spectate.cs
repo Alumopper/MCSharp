@@ -16,8 +16,8 @@ namespace MCSharp.Cmds
     /// </summary>
     public class Spectate : Command
     {
-        Entity target;
-        Entity player;
+        Selector target;
+        Selector player;
 
         /// <summary>
         /// spectate &lt;target> [&lt;player>]
@@ -27,7 +27,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// <param name="target">令玩家进入的旁观视角所属的目标。必须为单个实体或玩家。</param>
         /// <param name="player">必须为单个处于旁观模式的玩家。</param>
-        public Spectate(Entity target, Entity player = null)
+        public Spectate(Selector target, Selector player = null)
         {
             this.target = target;
             this.player = player;
