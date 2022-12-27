@@ -64,7 +64,7 @@ namespace MCSharp
                             continue;
                         }
                         //添加函数调用语句
-                        DatapackInfo.functions[qwq[0]].GetCommands().Add(new Cmds.Function(new ID(DatapackInfo.functions[w].ToString())));
+                        DatapackInfo.functions[qwq[0]].AddCommand(new Cmds.Function(DatapackInfo.functions[w].ToString()));
                     }
                 }
                 stack = value;

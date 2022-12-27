@@ -72,6 +72,7 @@ namespace MCSharp.Util
         public Log()
         {
             ls = new ArrayList();
+            outputLevel = Level.INFO;
         }
 
         /// <summary>

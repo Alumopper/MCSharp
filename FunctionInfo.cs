@@ -48,9 +48,10 @@ namespace MCSharp
 
         /// <summary>
         /// 命令列表
+        /// TODO:此处的列表只应当允许两种类型出现（string和Command）
         /// </summary>
-        private List<Command> commands = new List<Command>();
-        public List<Command> GetCommands()
+        private List<object> commands = new List<object>();
+        public List<object> GetCommands()
         {
             return commands;
         }
@@ -103,6 +104,10 @@ namespace MCSharp
             return @namespace + ":" + path;
         }
 
+        /// <summary>
+        /// 向此函数中添加一行命令
+        /// </summary>
+        /// <param name="c"></param>
         public void AddCommand(Command c)
         {
             //检查栈的变化并对栈进行更新
@@ -113,9 +118,46 @@ namespace MCSharp
             {
                 if(isRoot || !end)
                 {
+                    commands.Add(c.ToString());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 向此函数中添加一行未序列化的命令
+        /// </summary>
+        /// <param name="c"></param>
+        public void AddUnserializedCommand(Command c)
+        {
+            //检查栈的变化并对栈进行更新
+            StackManager.Stack = StackManager.GetStackName();
+            //是否能添加命令
+            //需要：是根函数 或者 此函数第一次入栈（未结束）
+            if (StackManager.Stack.FindIndex(t => t.Equals(stackName)) == StackManager.Stack.LastIndexOf(stackName))
+            {
+                if (isRoot || !end)
+                {
                     commands.Add(c);
                 }
             }
+        }
+
+        /// <summary>
+        /// 删除最后一个命令
+        /// </summary>
+        public void RemoveCommand()
+        {
+            commands.RemoveAt(commands.Count - 1);
+        }
+
+        /// <summary>
+        /// 将此命令中的一个命令序列化
+        /// 若没有此命令，则抛出异常
+        /// </summary>
+        /// <param name="element"></param>
+        public void Serialize(Command element)
+        {
+            commands[commands.IndexOf(element)] = element.ToString();
         }
     }
 }

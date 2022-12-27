@@ -17,7 +17,7 @@ namespace MCSharp.Cmds
     {
         ID entity;
         Pos pos;
-        NBT nbt;
+        Storage nbt;
 
         /// <summary>
         /// summon &lt;entity> [&lt;pos>] [&lt;nbt>]
@@ -25,7 +25,7 @@ namespace MCSharp.Cmds
         /// <param name="entity">指定实体的名称。</param>
         /// <param name="pos">指定实体的位置。</param>
         /// <param name="nbt">指定实体的NBT数据。</param>
-        public Summon(ID entity, Pos pos = null, NBT nbt = null)
+        public Summon(ID entity, Pos pos = null, Storage nbt = null)
         {
             this.entity = entity;
             this.pos = pos;

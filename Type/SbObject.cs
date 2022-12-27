@@ -41,5 +41,16 @@ namespace MCSharp.Type
         {
             return name;
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is SbObject @object &&
+                   name == @object.name;
+        }
+
+        public override int GetHashCode()
+        {
+            return 363513814 + EqualityComparer<string>.Default.GetHashCode(name);
+        }
     }
 }

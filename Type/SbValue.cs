@@ -69,7 +69,22 @@ namespace MCSharp.Type
             Commands.SbPlayerOperation(this, "=", sbValue);
             return this;
         }
-        
+
+        public override bool Equals(object obj)
+        {
+            return obj is SbValue value &&
+                   playerName == value.playerName &&
+                   EqualityComparer<SbObject>.Default.Equals(@object, value.@object);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = -1402998315;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(playerName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<SbObject>.Default.GetHashCode(@object);
+            return hashCode;
+        }
+
         public static SbValue operator+ (SbValue a, SbValue b)
         {
             SbValue qwq = new SbValue(0, Guid.NewGuid().ToString("N"));
@@ -179,5 +194,6 @@ namespace MCSharp.Type
             Commands.SbPlayerOperation(qwq, "%=", b);
             return qwq;
         }
+
     }
 }
