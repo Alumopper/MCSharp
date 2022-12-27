@@ -31,6 +31,7 @@ namespace MCSharp.Cmds
         public Clone(Pos begin, Pos end, Pos destination, string replace_masked, string force_move_normal)
         {
             this.begin = begin;
+            this.end = end;
             this.destination = destination;
             if (!rm.Contains(replace_masked) && replace_masked != null)
             {
@@ -61,6 +62,7 @@ namespace MCSharp.Cmds
         public Clone(Pos begin, Pos end, Pos destination, BlockPredicate filter , string force_move_normal)
         {
             this.begin = begin;
+            this.end = end;
             this.destination = destination;
             this.filter = filter;
             if (force_move_normal != null && !fmn.Contains(force_move_normal))

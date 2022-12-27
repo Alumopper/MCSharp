@@ -39,7 +39,7 @@ namespace MCSharp.Type.CommandArg
                 {
                     throw new IllegalFormatException("无法解析字符串" + pre + "为方块状态");
                 }
-                NBT w = new NBT(b); //尝试
+                Storage w = NBT.Prase(b); //尝试
             }
             else
             {

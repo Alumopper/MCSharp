@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using fNbt;
 
 namespace MCSharp.Type
 {
@@ -12,12 +13,6 @@ namespace MCSharp.Type
     /// </summary>
     public class NBT
     {
-
-        public NBT(string nbt)
-        {
-
-        }
-
         /// <summary>
         /// 属性的穷尽字符串数组
         /// </summary>
@@ -50,6 +45,15 @@ namespace MCSharp.Type
             return true;
         }
     
+        /// <summary>
+        /// 反序列化一段nbt字符串，从字符串中解析nbt
+        /// </summary>
+        /// <param name="nbt"></param>
+        /// <returns>反序列化出的nbt字符串</returns>
+        public static Storage Prase(string nbt)
+        {
+            return null;
+        }
     
     }
 }

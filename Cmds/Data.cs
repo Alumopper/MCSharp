@@ -44,20 +44,19 @@ namespace MCSharp.Cmds
     public class Data : Command
     {
         #region 参数
-        DataArg dara;
         Pos targetpos;
         Selector targetentity;
         ID targetid;
         string path;
         double? scale;
-        NBT nbt;
+        NBTTag nbt;
         string targetPath;
         string append_merge_prepend_set;
         string sourcePath;
         Pos sourcepos;
         Selector sourceentity;
         ID sourceid;
-        NBT value;
+        NBTTag value;
         int index;
         int type;
         #endregion
@@ -110,7 +109,7 @@ namespace MCSharp.Cmds
         /// data merge &lt;block:targetPos> &lt;nbt>
         /// </summary>
         /// type - 3
-        public Data(Pos targetpos, NBT nbt)
+        public Data(Pos targetpos, NBTTag nbt)
         {
             this.targetpos = targetpos;
             this.nbt = nbt;
@@ -121,7 +120,7 @@ namespace MCSharp.Cmds
         /// data merge &lt;entity:target> &lt;nbt>
         /// </summary>
         /// type - 4
-        public Data(Selector target, NBT nbt)
+        public Data(Selector target, NBTTag nbt)
         {
             this.targetentity = target;
             this.nbt = nbt;
@@ -132,7 +131,7 @@ namespace MCSharp.Cmds
         /// data merge &lt;storage:target> &lt;nbt>
         /// </summary>
         /// type - 5
-        public Data(ID target, NBT nbt)
+        public Data(ID target, NBTTag nbt)
         {
             this.targetid = target;
             this.nbt = nbt;
@@ -149,10 +148,6 @@ namespace MCSharp.Cmds
         public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -160,10 +155,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourcepos = sourcepos;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 6;
         }
@@ -176,10 +167,6 @@ namespace MCSharp.Cmds
         public Data(Selector target, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -187,10 +174,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourcepos = sourcepos;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 7;
         }
@@ -203,10 +186,6 @@ namespace MCSharp.Cmds
         public Data(ID target, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -214,10 +193,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourcepos = sourcepos;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 8;
         }
@@ -230,10 +205,6 @@ namespace MCSharp.Cmds
         public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -241,10 +212,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourceentity = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             this.type = 9;
         }
@@ -257,10 +224,6 @@ namespace MCSharp.Cmds
         public Data(Selector target, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -268,10 +231,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourceentity = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 10;
         }
@@ -284,10 +243,6 @@ namespace MCSharp.Cmds
         public Data(ID target, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -295,10 +250,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourceentity = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 11;
         }
@@ -312,10 +263,6 @@ namespace MCSharp.Cmds
         public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -323,10 +270,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourceid = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 12;
         }
@@ -339,10 +282,6 @@ namespace MCSharp.Cmds
         public Data(Selector target, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -350,10 +289,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourceid = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 13;
         }
@@ -366,10 +301,6 @@ namespace MCSharp.Cmds
         public Data(ID target, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -377,10 +308,6 @@ namespace MCSharp.Cmds
             }
             this.append_merge_prepend_set = append_merge_prepend_set;
             this.sourceid = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 14;
         }
@@ -390,13 +317,9 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 15
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, NBT value)
+        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, NBTTag value)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -412,13 +335,9 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 16
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, string append_merge_prepend_set, NBT value)
+        public Data(Selector target, string targetPath, string append_merge_prepend_set, NBTTag value)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -434,13 +353,9 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 17
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, string append_merge_prepend_set, NBT value)
+        public Data(ID target, string targetPath, string append_merge_prepend_set, NBTTag value)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -459,10 +374,6 @@ namespace MCSharp.Cmds
         public Data(Pos targetpos, string targetPath, int index, Pos sourcepos, string sourcePath)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             if (!amps.Contains(append_merge_prepend_set))
             {
@@ -470,10 +381,6 @@ namespace MCSharp.Cmds
             }
             this.index = index;
             this.sourcepos = sourcepos;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 18;
         }
@@ -486,17 +393,9 @@ namespace MCSharp.Cmds
         public Data(Selector target, string targetPath, int index, Pos sourcepos, string sourcePath)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourcepos = sourcepos;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             this.type = 19;
         }
@@ -509,17 +408,9 @@ namespace MCSharp.Cmds
         public Data(ID target, string targetPath, int index, Pos sourcepos, string sourcePath)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourcepos = sourcepos;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 20;
         }
@@ -532,17 +423,9 @@ namespace MCSharp.Cmds
         public Data(Pos targetpos, string targetPath, int index, Selector source, string sourcePath)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourceentity = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 21;
         }
@@ -555,17 +438,9 @@ namespace MCSharp.Cmds
         public Data(Selector target, string targetPath, int index, Selector source, string sourcePath)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourceentity = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 22;
         }
@@ -578,17 +453,9 @@ namespace MCSharp.Cmds
         public Data(ID target, string targetPath, int index, Selector source, string sourcePath)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourceentity = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 23;
         }
@@ -602,17 +469,9 @@ namespace MCSharp.Cmds
         public Data(Pos targetpos, string targetPath, int index, ID source, string sourcePath)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourceid = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 24;
         }
@@ -625,17 +484,9 @@ namespace MCSharp.Cmds
         public Data(Selector target, string targetPath, int index, ID source, string sourcePath)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourceid = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 25;
         }
@@ -648,17 +499,9 @@ namespace MCSharp.Cmds
         public Data(ID target, string targetPath, int index, ID source, string sourcePath)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.sourceid = source;
-            if (NBT.IsLegalPath(sourcePath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + sourcePath + "。不是合法的nbt路径");
-            }
             this.sourcePath = sourcePath;
             type = 26;
         }
@@ -668,13 +511,9 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 27
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, int index, NBT value)
+        public Data(Pos targetpos, string targetPath, int index, NBTTag value)
         {
             this.targetpos = targetpos;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.value = value;
@@ -686,13 +525,9 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 28
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, int index, NBT value)
+        public Data(Selector target, string targetPath, int index, NBTTag value)
         {
             this.targetentity = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.value = value;
@@ -704,13 +539,9 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 29
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, int index, NBT value)
+        public Data(ID target, string targetPath, int index, NBTTag value)
         {
             this.targetid = target;
-            if (NBT.IsLegalPath(targetPath))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + targetPath + "。不是合法的nbt路径");
-            }
             this.targetPath = targetPath;
             this.index = index;
             this.value = value;
@@ -727,10 +558,6 @@ namespace MCSharp.Cmds
         public Data(Pos targetpos, string path)
         {
             this.targetpos = targetpos;
-            if (!NBT.IsLegalPath(path))
-            {
-                throw new ArgumentNotMatchException("不是合法的NBT路径:" + path);
-            }
             this.path = path;
             type = 30;
         }
@@ -743,10 +570,6 @@ namespace MCSharp.Cmds
         public Data(Selector target, string path)
         {
             this.targetentity = target;
-            if (!NBT.IsLegalPath(path))
-            {
-                throw new ArgumentNotMatchException("不是合法的NBT路径:" + path);
-            }
             this.path = path;
             type = 31;
         }
@@ -759,10 +582,6 @@ namespace MCSharp.Cmds
         public Data(ID target, string path)
         {
             this.targetid = target;
-            if (!NBT.IsLegalPath(path))
-            {
-                throw new ArgumentNotMatchException("不是合法的NBT路径:" + path);
-            }
             this.path = path;
             type = 32;
         }
@@ -871,19 +690,19 @@ namespace MCSharp.Cmds
                 case 15:
                     {
                         //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
-                        re = "data modify block " + targetpos + " " + targetPath + " " + append_merge_prepend_set + " value " + value;
+                        re = "data modify block " + targetpos + " " + targetPath + " " + append_merge_prepend_set + " value " + value.ValueString();
                         break;
                     }
                 case 16:
                     {
                         //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
-                        re = "data modify entity " + targetentity + " " + targetPath + " " + append_merge_prepend_set + " value " + value;
+                        re = "data modify entity " + targetentity + " " + targetPath + " " + append_merge_prepend_set + " value " + value.ValueString();
                         break;
                     }
                 case 17:
                     {
                         //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
-                        re = "data modify storage " + targetid + " " + targetPath + " " + append_merge_prepend_set + " value " + value;
+                        re = "data modify storage " + targetid + " " + targetPath + " " + append_merge_prepend_set + " value " + value.ValueString();
                         break;
                     }
                 case 18:
@@ -943,19 +762,19 @@ namespace MCSharp.Cmds
                 case 27:
                     {
                         //data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-                        re = "data modify block " + targetpos +" " + targetPath + " insert " + index + " value " + value;
+                        re = "data modify block " + targetpos +" " + targetPath + " insert " + index + " value " + value.ValueString();
                         break;
                     }
                 case 28:
                     {
                         //data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-                        re = "data modify entity " + targetentity + " " + targetPath + " insert " + index + " value " + value;
+                        re = "data modify entity " + targetentity + " " + targetPath + " insert " + index + " value " + value.ValueString();
                         break;
                     }
                 case 29:
                     {
                         //data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-                        re = "data modify storage " + targetid + " " + targetPath + " insert " + index + " value " + value;
+                        re = "data modify storage " + targetid + " " + targetPath + " insert " + index + " value " + value.ValueString();
                         break;
                     }
                 #endregion

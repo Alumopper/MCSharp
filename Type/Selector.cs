@@ -36,6 +36,8 @@ namespace MCSharp.Type
         /// </summary>
         public List<SelectorArgument> args;
 
+        Storage nbt = new Storage();
+
         /// <summary>
         /// 通过一个目标选择器构建实体
         /// </summary>
@@ -54,6 +56,11 @@ namespace MCSharp.Type
                 //解析参数
                 args = ParseArgs(selector.Substring(2));
             }
+        }
+
+        public static implicit operator Selector(string selector)
+        {
+            return new Selector(selector);
         }
 
         /// <summary>
@@ -202,7 +209,7 @@ namespace MCSharp.Type
                             re.Add(new y_rotation(new IntRange(kv[1])));
                             break;
                         case "nbt":
-                            re.Add(new nbt(new NBT(kv[1])));
+                            re.Add(new nbt(NBT.Prase(kv[1])));
                             break;
                         case "level":
                             re.Add(new level(new IntRange(kv[1])));
@@ -213,7 +220,6 @@ namespace MCSharp.Type
                         case "advancements":
                             //TODO:需要确认，进度条件可不可以塞多个条件并列
                             string[] kv2 = kv[1].Substring(1, kv[1].Length - 2).Split(new char[] {'='},2);
-                            KeyValuePair<ID, object> qwq;
                             if (Regex.IsMatch(kv2[1], "^[{][0-9a-z_]+[=](true|false)[}]$"))
                             {
                                 //条件

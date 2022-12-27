@@ -35,6 +35,141 @@ namespace MCSharp.Type
             return this.selector;    
         }
 
+        public static SelectorBuilder SelectAllPlayer()
+        {
+            return new SelectorBuilder(Selector.SelectorType.a);
+        }
+
+        public static SelectorBuilder SelectAllEntity()
+        {
+            return new SelectorBuilder(Selector.SelectorType.e);
+        }
+
+        public static SelectorBuilder SelectRandom()
+        {
+            return new SelectorBuilder(Selector.SelectorType.r);
+        }
+
+        public static SelectorBuilder SelectSelf()
+        {
+            return new SelectorBuilder(Selector.SelectorType.s);
+        }
+
+        public static SelectorBuilder SelectNearest()
+        {
+            return new SelectorBuilder(Selector.SelectorType.p);
+        }
+
+        public SelectorBuilder x(double x)
+        {
+            return Append(new x(x));
+        }
+
+        public SelectorBuilder y(double y)
+        {
+            return Append(new y(y));
+        }
+
+        public SelectorBuilder z(double z)
+        {
+            return Append(new z(z));
+        }
+
+        public SelectorBuilder distance(double distance)
+        {
+            return Append(new distance(distance));
+        }
+
+        public SelectorBuilder dx(double dx)
+        {
+            return Append(new dx(dx));
+        }
+
+        public SelectorBuilder dy(double dy)
+        {
+            return Append(new dy(dy));
+        }
+
+        public SelectorBuilder dz(double dz)
+        {
+            return Append(new dz(dz));
+        }
+
+        public SelectorBuilder scores(SbObject objective, IntRange range)
+        {
+            return Append(new scores(objective, range));
+        }
+
+        public SelectorBuilder tag(string tag, bool fit = true)
+        {
+            return Append(new tag(tag, fit));
+        }
+
+        public SelectorBuilder team(string team, bool fit = true)
+        {
+            return Append(new team(team, fit));
+        }
+
+        public SelectorBuilder name(string name, bool fit = true)
+        {
+            return Append(new name(name, fit));
+        }
+
+        public SelectorBuilder type(ID type, bool fit = true)
+        {
+            return Append(new type(type, fit));
+        }
+
+        public SelectorBuilder predicate(ID predicate, bool fit = true)
+        {
+            return Append(new predicate(predicate,fit));
+        }
+
+        public SelectorBuilder x_rotation(IntRange range)
+        {
+            return Append(new x_rotation(range));
+        }
+
+        public SelectorBuilder y_rotation(IntRange range)
+        {
+            return Append(new y_rotation(range));
+        }
+
+        public SelectorBuilder nbt(Storage nbt, bool fit = true)
+        {
+            return Append(new nbt(nbt, fit));
+        }
+
+        public SelectorBuilder level(IntRange range)
+        {
+            return Append(new level(range));
+        }
+
+        public SelectorBuilder gamemode(Gamemodes gamemode, bool fit = true)
+        {
+            return Append(new gamemode(gamemode, fit));
+        }
+
+        public SelectorBuilder advancements(ID advancement, bool fit)
+        {
+            return Append(new advancements(advancement, fit));
+        }
+
+        public SelectorBuilder advancements(ID advancement, string criterion, bool fit)
+        {
+            return Append(new advancements(advancement, criterion, fit));
+        }
+
+        public SelectorBuilder limit(int limit)
+        {
+            return Append(new limit(limit));
+        }
+
+        public SelectorBuilder sort(string sort)
+        {
+            return Append(new sort(sort));
+        }
+
     }
     public interface SelectorArgument { }
 
@@ -255,9 +390,9 @@ namespace MCSharp.Type
 
     public class nbt : SelectorArgument
     {
-        NBT value;
+        Storage value;
         bool fit;
-        public nbt(NBT nbt, bool fit = true)
+        public nbt(Storage nbt, bool fit = true)
         {
             this.value = nbt;
             this.fit = fit;

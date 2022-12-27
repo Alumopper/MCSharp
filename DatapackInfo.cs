@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static MCSharp.Cmds.Execute;
 
 namespace MCSharp
 {
@@ -62,11 +63,22 @@ namespace MCSharp
             return name;
         }
 
+        public enum FunctionState
+        {
+            UnRegestered,
+            Regestered,
+            Forbidden
+        }
+
         /// <summary>
         /// 创建一个数据包
         /// </summary>
         public static void Create()
         {
+            if (!hasInited)
+            {
+                throw new ApplicationException("数据包未初始化:" + name);
+            }
             //删除旧数据包
             DirectoryInfo old = new DirectoryInfo(outputPath + "\\" + name);
             if (old.Exists)
@@ -198,9 +210,9 @@ namespace MCSharp
             foreach(FunctionInfo functionInfo in functions.Values)
             {
                 Console.WriteLine(functionInfo.ToString());
-                foreach(Command command in functionInfo.GetCommands())
+                foreach(object command in functionInfo.GetCommands())
                 {
-                    Console.WriteLine("\t" + command);
+                    Console.WriteLine("\t" + command.ToString());
                 }
             }
         }
@@ -210,19 +222,33 @@ namespace MCSharp
         /// 此命令函数是否被注册
         /// </summary>
         /// <returns>如果命令函数被注册，返回true</returns>
-        public static bool FunctionHasRegistry()
+        public static FunctionState GetFunctionState()
         {
-            foreach(StackFrame s in new StackTrace(2).GetFrames())
+            List<StackFrame> fs = new StackTrace(2).GetFrames().ToList();
+            foreach (StackFrame s in fs)
             {
+                //是否已注册
                 if (DatapackInfo.functions.ContainsKey(s.GetMethod().DeclaringType.Namespace + "$" + s.GetMethod().DeclaringType.Name + "$" + s.GetMethod().Name))
                 {
-                    return true;
-                } else if (s.GetMethod().IsDefined(typeof(MCFunctionAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(MCFunctionAttribute))){
-                    RegistryFunction(s.GetMethod());
-                    return true;
+                    return FunctionState.Regestered;
                 }
-                else if (s.GetMethod().IsDefined(typeof(PenetrateAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(PenetrateAttribute)))
+                //是否有穿透属性
+                if (s.GetMethod().IsDefined(typeof(MCFunctionAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(MCFunctionAttribute)))
                 {
+                    RegistryFunction(s.GetMethod());
+                    return FunctionState.Regestered;
+                }
+                //是否有有效的中断属性
+                int index = fs.IndexOf(s);
+                foreach(System.Attribute attribute in s.GetMethod().GetCustomAttributes(inherit: true).Cast<System.Attribute>())
+                {
+                    if (attribute is ForbidAttribute attribute1 && attribute1.frame == index)
+                    {
+                        return FunctionState.Forbidden;
+                    }
+                }
+                //是否有穿透属性
+                if (s.GetMethod().IsDefined(typeof(PenetrateAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(PenetrateAttribute))){
                     continue;
                 }
                 else
@@ -230,7 +256,7 @@ namespace MCSharp
                     throw new FunctionNotRegistryException("未注册的函数" + s.GetMethod().Name);
                 }
             }
-            return false;
+            return FunctionState.UnRegestered;
         }
 
         /// <summary>

@@ -41,6 +41,7 @@ namespace MCSharp.Cmds
             {
                 throw new ArgumentNotMatchException("参数错误: " + recipe + "。不应当为标签");
             }
+            this.recipe = recipe;
         }
 
         public override string ToString()

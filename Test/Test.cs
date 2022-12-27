@@ -11,34 +11,31 @@ namespace MCSharp.Test
         public static void Main(string[] args)
         {
             //初始化数据包
-            //DatapackInfo.Init("D:\\.minecraft\\saves\\Datapack Lab\\datapacks", 10, "qwq", "qwq");
-            Selector w = new SelectorBuilder(Selector.SelectorType.a)
-                .Append(new distance(1))
-                .Append(new tag("qwq"))
-                .Build();
+            DatapackInfo.Init("D:\\.minecraft\\saves\\Datapack Lab\\datapacks", 10, "qwq", "qwq");
+            //Selector s = "@s";
+            //Storage nbt = s.nbt["testDouble"];
+            ////data modify storage xxx(临时变量，随机的名字) testDouble set from entity @s testDouble
+            //nbt.Value = 1.2;
+            ////data modify storgae xxx testDouble set value 1.2
+            //s.nbt["testDouble"] = nbt;
+            ////data modify entity @s NBT.testDouble set from storage xxx testDouble
+            qwq();
+            DatapackInfo.PrintDataPack();
+            DatapackInfo.log.Print();
             Console.ReadKey();
             //DatapackInfo.Create();      //生成数据包
         }
 
         [MCFunction]
-        [FunctionTag("qwq","owo")]
         public static void qwq()
         {
-            DatapackInfo.log.AddLog(Util.Log.Level.WARN, "嘤嘤嘤");
-            Say("qwq");
-            test();
-        }
-
-        public static void test()
-        {
-            //Say("test");
-            awa();
-        }
-
-        [MCFunction]
-        public static void awa()
-        {
-            Say("awa");
+            NBTCompound qwq = new NBTCompound("owo")
+            {
+                new NBTDouble("qwq",1.2)
+            };
+            qwq.Append(qwq);
+            qwq["qwq"].Value = 1.4;
+            DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq["qwq"].ToString());
         }
     }
 }

@@ -38,6 +38,7 @@ namespace MCSharp.Cmds
             {
                 throw new ArgumentNotMatchException("参数错误:" + add_set + "。应当为\"add\"或\"set\"");
             }
+            this.add_set = add_set;
             qwq = true;
             this.targets = targets;
             this.amount = amount;
