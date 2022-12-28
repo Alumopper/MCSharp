@@ -54,9 +54,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="fNbt, Version=0.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\fNbt.0.6.4\lib\net35-client\fNbt.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Text.Json">
@@ -164,7 +161,6 @@
     <Compile Include="Exception\FunctionNotRegistryException.cs" />
     <Compile Include="Exception\IllegalUUIDException.cs" />
     <Compile Include="FunctionInfo.cs" />
-    <Compile Include="Lib\Double.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FunctionTag.cs" />
     <Compile Include="StackManager.cs" />
@@ -179,9 +175,13 @@
     <Compile Include="Type\CommandArg\Gamemodes.cs" />
     <Compile Include="Type\CommandArg\IntRange.cs" />
     <Compile Include="Type\CommandArg\ItemPredicate.cs" />
+    <Compile Include="Type\NBTArray.cs" />
     <Compile Include="Type\NBTCompound.cs" />
     <Compile Include="Type\NBTDouble.cs" />
     <Compile Include="Type\NBTIntArray.cs" />
+    <Compile Include="Type\NBTElement.cs" />
+    <Compile Include="Type\NBTList.cs" />
+    <Compile Include="Type\NBTSingle.cs" />
     <Compile Include="Type\NBTTag.cs" />
     <Compile Include="Type\Selector.cs" />
     <Compile Include="Type\CommandArg\ID.cs" />
@@ -206,7 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">

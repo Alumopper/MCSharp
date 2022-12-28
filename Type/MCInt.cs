@@ -30,7 +30,7 @@ namespace MCSharp.Type
             Commands.SbPlayerOperation(this, "=", x);
         }
 
-        public MCInt Set(SbValue x)
+        public new MCInt Set(SbValue x)
         {
             this.value = x.value;
             Commands.SbPlayerOperation(this, "=", x);

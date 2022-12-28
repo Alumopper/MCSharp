@@ -1,5 +1,4 @@
-﻿using fNbt;
-using MCSharp.Attribute;
+﻿using MCSharp.Attribute;
 using System;
 using static MCSharp.Cmds.Commands;
 using System.Collections.Generic;
@@ -12,24 +11,35 @@ namespace MCSharp.Type
     [Penetrate]
     public class NBTTag
     {
+        //此NBTTag的父节点
+        public NBTTag parentRoot;
         string name;
         object value;
+        protected bool qwq = false;   //new的过程是否已经完毕
 
         private static int count = 0;
 
         protected int index;
-        internal string IndexName
+
+        /// <summary>
+        /// 此NBTTag在存储mcsharp:temp中的路径
+        /// </summary>
+        internal string Path
         {
             get
             {
-                return name + index;
+                string re = name + (parentRoot != null ? "" : index.ToString());
+                if (parentRoot is NBTCompound)
+                {
+                    re = parentRoot.Path + "." + re;
+                }
+                else if (parentRoot is NBTList<NBTTag> parentList)
+                {
+                    re = "[" + parentList.IndexOf(this) + "]";
+                }
+                return re;
             }
         }
-
-        /// <summary>
-        /// 当前的nbt路径嵌套情况
-        /// </summary>
-        protected static string nbtPath = null;
         
         public NBTTag()
         {
@@ -54,15 +64,22 @@ namespace MCSharp.Type
             get => value;
             set => this.value = value;
         }
-
-        public virtual string ValueString()
-        {
-            return "unknown";
-        }
         
         public override string ToString()
         {
             throw new NotImplementedException();
+        }
+
+        public virtual NBTTag this[string index]
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

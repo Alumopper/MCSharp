@@ -44,62 +44,32 @@ namespace MCSharp.Cmds
     public class Data : Command
     {
         #region 参数
-        Pos targetpos;
-        Selector targetentity;
-        ID targetid;
+        object target;
         string path;
         double? scale;
-        NBTTag nbt;
+        NBTElement<dynamic> nbt;
         string targetPath;
-        string append_merge_prepend_set;
+        string append_prepend_merge_set;
         string sourcePath;
-        Pos sourcepos;
-        Selector sourceentity;
-        ID sourceid;
-        NBTTag value;
+        object source;
         int index;
         int type;
+        NBTElement<dynamic> element;
         #endregion
-
-        private static string[] amps = new string[] { "append", "merge", "prepend", "set" };
+        
+        private static string[] amps = new string[] { "append", "prepend", "merge", "set" };
 
         #region get
         /// <summary>
         /// data get block &lt;targetPos> [&lt;path>] [&lt;scale>]
         /// </summary>
         /// type - 0
-        public Data(Pos targetpos,string path = null, double? scale = null)
+        public Data(object target,string path = null, double? scale = null)
         {
-            this.targetpos = targetpos;
+            this.target = target;
             this.path = path;
             this.scale = scale;
             this.type = 0;
-        }
-
-
-        /// <summary>
-        /// data get entity &lt;target> [&lt;path>] [&lt;scale>]
-        /// </summary>
-        /// type - 1
-        public Data(Selector target, string path = null, double? scale = null)
-        {
-            this.targetentity = target;
-            this.path = path;
-            this.scale = scale;
-            type = 1;
-        }
-
-
-        /// <summary>
-        /// data get storage &lt;targetPos> [&lt;path>] [&lt;scale>]
-        /// </summary>
-        /// type - 2
-        public Data(ID target, string path = null, double? scale = null)
-        {
-            this.targetid = target;
-            this.path = path;
-            this.scale = scale;
-            type = 2;
         }
 
         #endregion
@@ -109,401 +79,65 @@ namespace MCSharp.Cmds
         /// data merge &lt;block:targetPos> &lt;nbt>
         /// </summary>
         /// type - 3
-        public Data(Pos targetpos, NBTTag nbt)
+        public Data(object target, NBTElement<dynamic> nbt)
         {
-            this.targetpos = targetpos;
+            this.target = target;
             this.nbt = nbt;
             type = 3;
-        }
-
-        /// <summary>
-        /// data merge &lt;entity:target> &lt;nbt>
-        /// </summary>
-        /// type - 4
-        public Data(Selector target, NBTTag nbt)
-        {
-            this.targetentity = target;
-            this.nbt = nbt;
-            type = 4;
-        }
-
-        /// <summary>
-        /// data merge &lt;storage:target> &lt;nbt>
-        /// </summary>
-        /// type - 5
-        public Data(ID target, NBTTag nbt)
-        {
-            this.targetid = target;
-            this.nbt = nbt;
-            this.type = 5;
         }
         #endregion
 
         #region modify
         /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
+        /// data modify block &lt;targetPos> &lt;targetPath> (append|prepend|merge|set) from block &lt;sourcePos> [&lt;sourcepath>]
         /// </summary>
         /// type - 6
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
+        public Data(object target, string targetPath, string append_prepend_merge_set, object source, string sourcePath)
         {
-            this.targetpos = targetpos;
+            this.target = target;
             this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
+            if (!amps.Contains(append_prepend_merge_set))
             {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
+                throw new ArgumentNotMatchException("参数错误:" + append_prepend_merge_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
             }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourcepos = sourcepos;
+            this.append_prepend_merge_set = append_prepend_merge_set;
+            this.source = source;
             this.sourcePath = sourcePath;
             type = 6;
         }
-
+        
         /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 7
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourcepos = sourcepos;
-            this.sourcePath = sourcePath;
-            type = 7;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 8
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, string append_merge_prepend_set, Pos sourcepos, string sourcePath)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourcepos = sourcepos;
-            this.sourcePath = sourcePath;
-            type = 8;
-        }
-
-        /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from entity &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 9
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
-        {
-            this.targetpos = targetpos;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourceentity = source;
-            this.sourcePath = sourcePath;
-            this.type = 9;
-        }
-
-        /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> (append|merge|prepend|set) from entity &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 10
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourceentity = source;
-            this.sourcePath = sourcePath;
-            type = 10;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> (append|merge|prepend|set) from entity &lt;source>
-        /// </summary>
-        /// type - 11
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, string append_merge_prepend_set, Selector source, string sourcePath)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourceentity = source;
-            this.sourcePath = sourcePath;
-            type = 11;
-        }
-
-
-        /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from storage &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 12
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
-        {
-            this.targetpos = targetpos;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourceid = source;
-            this.sourcePath = sourcePath;
-            type = 12;
-        }
-
-        /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> (append|merge|prepend|set) from storage &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 13
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourceid = source;
-            this.sourcePath = sourcePath;
-            type = 13;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> (append|merge|prepend|set) from storage &lt;source>
-        /// </summary>
-        /// type - 14
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, string append_merge_prepend_set, ID source, string sourcePath)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.sourceid = source;
-            this.sourcePath = sourcePath;
-            type = 14;
-        }
-
-        /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value &lt;value>
+        /// data modify block &lt;targetPos> &lt;targetPath> (append|prepend|set) value &lt;value>
         /// </summary>
         /// type - 15
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, string append_merge_prepend_set, NBTTag value)
+        public Data(object target, string targetPath, string append_prepend_merge_set, NBTElement<dynamic> value)
         {
-            this.targetpos = targetpos;
+            this.target = target;
             this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
+            if (!amps.Contains(append_prepend_merge_set))
             {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
+                throw new ArgumentNotMatchException("参数错误:" + append_prepend_merge_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
             }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.value = value;
+            this.append_prepend_merge_set = append_prepend_merge_set;
+            this.element = value;
             type = 15;
         }
-
-        /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> (append|merge|prepend|set) value &lt;value>
-        /// </summary>
-        /// type - 16
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, string append_merge_prepend_set, NBTTag value)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.value = value;
-            type = 16;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> (append|merge|prepend|set) value &lt;value>
-        /// </summary>
-        /// type - 17
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, string append_merge_prepend_set, NBTTag value)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
-            this.append_merge_prepend_set = append_merge_prepend_set;
-            this.value = value;
-            type = 17;
-        }
-
+        
         /// <summary>
         /// data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> from block &lt;sourcePos> [&lt;sourcepath>]
         /// </summary>
         /// type - 18
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, int index, Pos sourcepos, string sourcePath)
+        public Data(object target, string targetPath, int index, object source, string sourcePath)
         {
-            this.targetpos = targetpos;
+            this.target = target;
             this.targetPath = targetPath;
-            if (!amps.Contains(append_merge_prepend_set))
-            {
-                throw new ArgumentNotMatchException("参数错误:" + append_merge_prepend_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
-            }
             this.index = index;
-            this.sourcepos = sourcepos;
+            this.source = source;
             this.sourcePath = sourcePath;
             type = 18;
-        }
-
-        /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> insert &lt;index> from block &lt;sourcePos> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 19
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, int index, Pos sourcepos, string sourcePath)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourcepos = sourcepos;
-            this.sourcePath = sourcePath;
-            this.type = 19;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> insert &lt;index> from block &lt;sourcePos> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 20
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, int index, Pos sourcepos, string sourcePath)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourcepos = sourcepos;
-            this.sourcePath = sourcePath;
-            type = 20;
-        }
-
-        /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from entity &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 21
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, int index, Selector source, string sourcePath)
-        {
-            this.targetpos = targetpos;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourceentity = source;
-            this.sourcePath = sourcePath;
-            type = 21;
-        }
-
-        /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value> from entity &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 22
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, int index, Selector source, string sourcePath)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourceentity = source;
-            this.sourcePath = sourcePath;
-            type = 22;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> insert &lt;index> value &lt;value> from entity &lt;source>
-        /// </summary>
-        /// type - 23
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, int index, Selector source, string sourcePath)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourceentity = source;
-            this.sourcePath = sourcePath;
-            type = 23;
-        }
-
-
-        /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from storage &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 24
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, int index, ID source, string sourcePath)
-        {
-            this.targetpos = targetpos;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourceid = source;
-            this.sourcePath = sourcePath;
-            type = 24;
-        }
-
-        /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value> from storage &lt;source> [&lt;sourcepath>]
-        /// </summary>
-        /// type - 25
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, int index, ID source, string sourcePath)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourceid = source;
-            this.sourcePath = sourcePath;
-            type = 25;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-        /// </summary>
-        /// type - 26
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, int index, ID source, string sourcePath)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.sourceid = source;
-            this.sourcePath = sourcePath;
-            type = 26;
         }
 
         /// <summary>
@@ -511,41 +145,13 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 27
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string targetPath, int index, NBTTag value)
+        public Data(object target, string targetPath, int index, NBTElement<dynamic> value)
         {
-            this.targetpos = targetpos;
+            this.target = target;
             this.targetPath = targetPath;
             this.index = index;
-            this.value = value;
+            this.element = value;
             type = 27;
-        }
-
-        /// <summary>
-        /// data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-        /// </summary>
-        /// type - 28
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string targetPath, int index, NBTTag value)
-        {
-            this.targetentity = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.value = value;
-            type = 28;
-        }
-
-        /// <summary>
-        /// data modify storage &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-        /// </summary>
-        /// type - 29
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string targetPath, int index, NBTTag value)
-        {
-            this.targetid = target;
-            this.targetPath = targetPath;
-            this.index = index;
-            this.value = value;
-            type = 29;
         }
         #endregion
 
@@ -555,35 +161,11 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 30
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Pos targetpos, string path)
+        public Data(object target, string path)
         {
-            this.targetpos = targetpos;
+            this.target = target;
             this.path = path;
             type = 30;
-        }
-
-        /// <summary>
-        /// data remove entity &lt;target> &lt;path>
-        /// </summary>
-        /// type - 31
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(Selector target, string path)
-        {
-            this.targetentity = target;
-            this.path = path;
-            type = 31;
-        }
-
-        /// <summary>
-        /// data remove storage &lt;target> &lt;path>
-        /// </summary>
-        /// type - 32
-        /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(ID target, string path)
-        {
-            this.targetid = target;
-            this.path = path;
-            type = 32;
         }
         #endregion
 
@@ -596,19 +178,7 @@ namespace MCSharp.Cmds
                 case 0:
                     {
                         //data get block &lt;:targetPos> [&lt;path>] [&lt;scale>]
-                        re = "data get block " + targetpos + " " + (path == null ? "" : (path + " ")) + (scale == null ? "" : (scale + " "));
-                        break;
-                    }
-                case 1:
-                    {
-                        //data get block &lt;:targetPos> [&lt;path>] [&lt;scale>]
-                        re = "data get entity " + targetentity + " " + path == null ? "" : (path + " ") + (scale == null ? "" : (scale + " ")); ;
-                        break;
-                    }
-                case 2:
-                    {
-                        //data get block &lt;:targetPos> [&lt;path>] [&lt;scale>]
-                        re = "data get storage " + targetid + " " + path == null ? "" : (path + " ") + (scale == null ? "" : (scale + " ")); ;
+                        re = "data get " + getTypeString(target) + " " + target + " " + (path == null ? "" : (path + " ")) + (scale == null ? "" : (scale + " "));
                         break;
                     }
                 #endregion
@@ -616,19 +186,7 @@ namespace MCSharp.Cmds
                 case 3:
                     {
                         //data merge &lt;block:targetPos> &lt;nbt>
-                        re = "data merge block " + targetpos + " " + nbt;
-                        break;
-                    }
-                case 4:
-                    {
-                        //data merge &lt;block:targetPos> &lt;nbt>
-                        re = "data merge entity " + targetentity + " " + nbt;
-                        break;
-                    }
-                case 5:
-                    {
-                        //data merge &lt;block:targetPos> &lt;nbt>
-                        re = "data merge storage " + targetid + " " + nbt;
+                        re = "data merge " + getTypeString(target) + " " + target + " " + nbt;
                         break;
                     }
                 #endregion
@@ -636,145 +194,25 @@ namespace MCSharp.Cmds
                 case 6:
                     {
                         //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify block " + targetpos +" " + targetPath + " " + append_merge_prepend_set + " from block " + sourcepos + " " + sourcePath;
-                        break;
-                    }
-                case 7:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify entity " + targetentity + " " + targetPath + " " + append_merge_prepend_set + " from block " + sourcepos + " " + sourcePath;
-                        break;
-                    }
-                case 8:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify storage " + targetid + " " + targetPath + " " + append_merge_prepend_set + " from block " + sourcepos + " " + sourcePath;
-                        break;
-                    }
-                case 9:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify block " + targetpos + " " + targetPath + " " + append_merge_prepend_set + " from entity " + sourceentity + " " + sourcePath;
-                        break;
-                    }
-                case 10:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify entity " + targetentity + " " + targetPath + " " + append_merge_prepend_set + " from entity " + sourceentity + " " + sourcePath;
-                        break;
-                    }
-                case 11:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify storage " + targetid + " " + targetPath + " " + append_merge_prepend_set + " from entity " + sourceentity + " " + sourcePath;
-                        break;
-                    }
-                case 12:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify block " + targetpos + " " + targetPath + " " + append_merge_prepend_set + " from storage " + sourceid + " " + sourcePath;
-                        break;
-                    }
-                case 13:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify entity " + targetentity + " " + targetPath + " " + append_merge_prepend_set + " from storage " + sourceid + " " + sourcePath;
-                        break;
-                    }
-                case 14:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify storage " + targetid + " " + targetPath + " " + append_merge_prepend_set + " from storage " + sourceid + " " + sourcePath;
+                        re = "data modify " + getTypeString(target) + " " + target +" " + targetPath + " " + append_prepend_merge_set + " from " + getTypeString(source) + " " + source + " " + sourcePath;
                         break;
                     }
                 case 15:
                     {
                         //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
-                        re = "data modify block " + targetpos + " " + targetPath + " " + append_merge_prepend_set + " value " + value.ValueString();
-                        break;
-                    }
-                case 16:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
-                        re = "data modify entity " + targetentity + " " + targetPath + " " + append_merge_prepend_set + " value " + value.ValueString();
-                        break;
-                    }
-                case 17:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
-                        re = "data modify storage " + targetid + " " + targetPath + " " + append_merge_prepend_set + " value " + value.ValueString();
+                        re = "data modify " + getTypeString(target) + " " + target + " " + targetPath + " " + append_prepend_merge_set + " value " + element;
                         break;
                     }
                 case 18:
                     {
                         //data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify block " + targetpos +" " + targetPath + " insert " + index + " from block " + sourcepos + " " + sourcePath;
-                        break;
-                    }
-                case 19:
-                    {
-                        //data modify entity &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify entity " + targetentity + " " + targetPath +" insert " + index + " from block " + sourcepos + " " + sourcePath;
-                        break;
-                    }
-                case 20:
-                    {
-                        //data modify entity &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify storage " + targetid + " " + targetPath + " insert " + index + " from block " + sourcepos + " " + sourcePath;
-                        break;
-                    }
-                case 21:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify block " + targetpos + " " + targetPath + " insert " + index + " from entity " + sourceentity + " " + sourcePath;
-                        break;
-                    }
-                case 22:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify entity " + targetentity + " " + targetPath + " insert " + index + " from entity " + sourceentity + " " + sourcePath;
-                        break;
-                    }
-                case 23:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify storage " + targetid + " " + targetPath + " insert " + index + " from entity " + sourceentity + " " + sourcePath;
-                        break;
-                    }
-                case 24:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify block " + targetpos + " " + targetPath + " insert " + index + " from storage " + sourceid + " " + sourcePath;
-                        break;
-                    }
-                case 25:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify entity " + targetentity + " " + targetPath + " insert " + index + " from storage " + sourceid + " " + sourcePath;
-                        break;
-                    }
-                case 26:
-                    {
-                        //data modify block &lt;targetPos> &lt;targetPath> insert &lt;index> value &lt;value> from block &lt;sourcePos> [&lt;sourcepath>]
-                        re = "data modify storage " + targetid + " " + targetPath + " insert " + index + " from storage " + sourceid + " " + sourcePath;
+                        re = "data modify " + getTypeString(target) + " " + target + " " + targetPath + " insert " + index + " from " + getTypeString(source) + " " + source + " " + sourcePath;
                         break;
                     }
                 case 27:
                     {
                         //data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-                        re = "data modify block " + targetpos +" " + targetPath + " insert " + index + " value " + value.ValueString();
-                        break;
-                    }
-                case 28:
-                    {
-                        //data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-                        re = "data modify entity " + targetentity + " " + targetPath + " insert " + index + " value " + value.ValueString();
-                        break;
-                    }
-                case 29:
-                    {
-                        //data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-                        re = "data modify storage " + targetid + " " + targetPath + " insert " + index + " value " + value.ValueString();
+                        re = "data modify " + getTypeString(target) + " " + target + " " + targetPath + " insert " + index + " value " + element;
                         break;
                     }
                 #endregion
@@ -782,24 +220,30 @@ namespace MCSharp.Cmds
                 case 30:
                     {
                         //data remove block &lt;targetPos> &lt;path>
-                        re = "data remove block " + targetpos + " " + path;
-                        break;
-                    }
-                case 31:
-                    {
-                        //data remove block &lt;targetPos> &lt;path>
-                        re = "data remove entity " + targetentity + " " + path;
-                        break;
-                    }
-                case 32:
-                    {
-                        //data remove block &lt;targetPos> &lt;path>
-                        re = "data remove storage " + targetid + " " + path;
+                        re = "data remove " + getTypeString(target) + " " + target + " " + path;
                         break;
                     }
                     #endregion
             }
             return re;
         }
+
+        private static string getTypeString(object o)
+        {
+            if(o is Pos)
+            {
+                return "block";
+            }else if(o is Selector)
+            {
+                return "entity";
+            }else if(o is ID)
+            {
+                return "storage";
+            }
+            else
+            {
+                return null;
+            }
+        } 
     }
 }

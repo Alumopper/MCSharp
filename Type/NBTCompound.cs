@@ -10,8 +10,7 @@ namespace MCSharp.Type
     [Penetrate]
     public class NBTCompound : NBTTag, IEnumerable<NBTTag>
     {
-        Dictionary<string,NBTTag> value = new Dictionary<string, NBTTag>();
-        bool qwq = false;   //new的过程是否已经完毕
+        NBTElement<Dictionary<string,NBTTag>> value = new Dictionary<string, NBTTag>();
         Data data;
         
         public override object Value
@@ -29,26 +28,13 @@ namespace MCSharp.Type
                     }
                     qwq = true; //对Compound中的元素进行了添加操作。必然完成了new的过程
                     this.value = value1;
-                    DataModifySet(new ID("mcsharp:temp"), nbtPath ?? IndexName, this);
-                    nbtPath = null;
+                    DataModifySet(new ID("mcsharp:temp"), Path, this.value);
                 }
                 else
                 {
                     throw new ArgumentException("需要为类型Dictionary<string,NBTTag>:" + value);
                 }
             }
-        }
-
-        public override string ValueString()
-        {
-            string result = "{";
-            foreach (NBTTag i in value.Values)
-            {
-                result += i.ToString() + ",";
-            }
-            result = result.Substring(0, result.Length - 1);
-            result += "}";
-            return result;
         }
 
         public NBTCompound(string name) : base(name)
@@ -58,30 +44,25 @@ namespace MCSharp.Type
             //    value.Add(tag.Name, tag);
             //}
             //添加未序列化的命令，从而在new语句中后续调用add方法改变字典时也会让命令中的元素发生变化
-            data = new Data(new ID("mcsharp:temp"), nbtPath??IndexName, "set", this);
+            data = new Data(new ID("mcsharp:temp"), Path, "set", this.value);
             AddUnserializedCommand(data);
         }
 
-        
-
-        public NBTTag this[string index]
+        public override NBTTag this[string index]
         {
             get
             {
-                foreach (KeyValuePair<string, NBTTag> tag in value)
+                //一有动静我就序列化.jpg
+                if (!qwq)
+                {
+                    //将命令序列化到函数中
+                    Serialize(data);
+                }
+                qwq = true; //对Compound中的元素进行了访问操作。必然完成了new的过程
+                foreach (KeyValuePair<string, NBTTag> tag in value.Value)
                 {
                     if (tag.Key == index)
                     {
-                        //进行了一次调用，记录
-                        if(nbtPath == null)
-                        {
-                            //没有嵌套过，这个是根标签
-                            nbtPath = IndexName + "." + index;
-                        }
-                        else
-                        {
-                            nbtPath += "." + index;
-                        }
                         return tag.Value;
                     }
                 }
@@ -91,15 +72,20 @@ namespace MCSharp.Type
 
         internal void Add(NBTTag tag)
         {
+            if(tag is NBTCompound qwq)
+            {
+                qwq.qwq = true; //用于new的NBTTag是没有命令哒，不用考虑序列化问题
+            }
             RemoveCommand();
-            value.Add(tag.Name, tag);
+            tag.parentRoot = this;  //父元素设置
+            value.Value.Add(tag.Name, tag);
         }
 
         /// <summary>
         /// 向此NBTCompound中添加一个NBTTag
         /// </summary>
         /// <param name="tag"></param>
-        public void Append(NBTTag tag)
+        public void Merge(NBTTag tag)
         {
             //一有动静我就序列化.jpg
             if (!qwq)
@@ -108,8 +94,9 @@ namespace MCSharp.Type
                 Serialize(data);
             }
             qwq = true; //对Compound中的元素进行了添加操作。必然完成了new的过程
-            value.Add(tag.Name, tag);
-            DataModifySetFrom(new ID("mcsharp:temp"), IndexName + "." + tag.Name, new ID("mcsharp:temp"), tag.IndexName);
+            tag.parentRoot = this;  //父元素设置
+            value.Value.Add(tag.Name, tag);
+            DataModifySetFrom(new ID("mcsharp:temp"), Path + "." + tag.Name, new ID("mcsharp:temp"), tag.Path);
         }
 
         /// <summary>
@@ -125,21 +112,18 @@ namespace MCSharp.Type
                 Serialize(data);
             }
             qwq = true; //对Compound中的元素进行了添加操作。必然完成了new的过程
-            value.Remove(path);
-            DataRemove(new ID("mcsharp:temp"), IndexName + "." + path);
+            value.Value[path].parentRoot = null;
+            value.Value.Remove(path);
+            DataRemove(new ID("mcsharp:temp"), Path + "." + path);
         }
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator<NBTTag> GetEnumerator() => value.Values.GetEnumerator();
+        public IEnumerator<NBTTag> GetEnumerator() => value.Value.Values.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => value.Values.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => value.Value.Values.GetEnumerator();
 
         public override string ToString()
         {
-            return Name + ":" + ValueString();
+            return Name + ":" + value;
         }
     }
 }

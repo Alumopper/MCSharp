@@ -2,13 +2,14 @@
 using MCSharp.Type;
 using MCSharp.Type.CommandArg;
 using System;
+using System.Linq;
 using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Test
 {
     internal class Test
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             //初始化数据包
             DatapackInfo.Init("D:\\.minecraft\\saves\\Datapack Lab\\datapacks", 10, "qwq", "qwq");
@@ -31,11 +32,15 @@ namespace MCSharp.Test
         {
             NBTCompound qwq = new NBTCompound("owo")
             {
-                new NBTDouble("qwq",1.2)
+                new NBTDouble("qwq",1.2),
+                new NBTCompound("awa")
+                {
+                    new NBTDouble("uwu",114514)
+                }
             };
-            qwq.Append(qwq);
-            qwq["qwq"].Value = 1.4;
+            qwq["awa"]["uwu"].Value = 1.4;
             DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq["qwq"].ToString());
+            DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq["awa"]["uwu"].ToString());
         }
     }
 }

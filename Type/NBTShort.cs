@@ -2,26 +2,26 @@
 
 namespace MCSharp.Type
 {
-    public class NBTDouble : NBTSingle<double>
-    {       
+    public class NBTShort : NBTSingle<short>
+    {
         public override object Value
         {
             get => value;
             set
             {
-                if (value is double value2)
+                if (value is short value2)
                 {
                     this.value = value2;
                     DataModifySet(new ID("mcsharp:temp"), Path, this.value);
                 }
                 else
                 {
-                    throw new System.ArgumentException("需要为类型double:" + value);
+                    throw new System.ArgumentException("需要为类型short:" + value);
                 }
             }
         }
 
-        public NBTDouble(string name, double value) : base(name, value)
+        public NBTShort(string name, short value) : base(name, value)
         {
         }
     }

@@ -2,26 +2,26 @@
 
 namespace MCSharp.Type
 {
-    public class NBTDouble : NBTSingle<double>
-    {       
+    public class NBTBool : NBTSingle<bool>
+    {
         public override object Value
         {
             get => value;
             set
             {
-                if (value is double value2)
+                if (value is bool value2)
                 {
                     this.value = value2;
                     DataModifySet(new ID("mcsharp:temp"), Path, this.value);
                 }
                 else
                 {
-                    throw new System.ArgumentException("需要为类型double:" + value);
+                    throw new System.ArgumentException("需要为类型bool:" + value);
                 }
             }
         }
 
-        public NBTDouble(string name, double value) : base(name, value)
+        public NBTBool(string name, bool value) : base(name, value)
         {
         }
     }

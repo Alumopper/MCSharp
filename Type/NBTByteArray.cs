@@ -4,9 +4,9 @@ using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Type
 {
-    public class NBTIntArray : NBTArray<int>
+    public class NBTByteArray : NBTArray<byte>
     {
-        public NBTIntArray(string name) : base(name)
+        public NBTByteArray(string name) : base(name)
         {
         }
 
@@ -14,14 +14,14 @@ namespace MCSharp.Type
         {
             set
             {
-                if (value is List<int> value1)
+                if (value is List<byte> value1)
                 {
                     this.value = value1;
                     DataModifySet(new ID("mcsharp:temp"), Path, this);
                 }
                 else
                 {
-                    throw new ArgumentException("需要为类型List<int>:" + value);
+                    throw new ArgumentException("需要为类型List<byte>:" + value);
                 }
             }
         }

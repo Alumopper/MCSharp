@@ -719,7 +719,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataMerge(Pos targetPos, NBTTag nbt)
+        public static Data DataMerge(Pos targetPos, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -733,7 +733,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataMerge(Selector target, NBTTag nbt)
+        public static Data DataMerge(Selector target, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -747,7 +747,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataMerge(ID target, NBTTag nbt)
+        public static Data DataMerge(ID target, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1265,7 +1265,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifySet(Pos target, string path, NBTTag nbt)
+        public static Data DataModifySet(Pos target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1279,7 +1279,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifySet(Selector target, string path, NBTTag nbt)
+        public static Data DataModifySet(Selector target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1293,7 +1293,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifySet(ID target, string path, NBTTag nbt)
+        public static Data DataModifySet(ID target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1307,7 +1307,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyPrepend(Pos target, string path, NBTTag nbt)
+        public static Data DataModifyPrepend(Pos target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1321,7 +1321,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyPrepend(Selector target, string path, NBTTag nbt)
+        public static Data DataModifyPrepend(Selector target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1335,7 +1335,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyPrepend(ID target, string path, NBTTag nbt)
+        public static Data DataModifyPrepend(ID target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1349,7 +1349,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyAppend(Pos target, string path, NBTTag nbt)
+        public static Data DataModifyAppend(Pos target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1363,7 +1363,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyAppend(Selector target, string path, NBTTag nbt)
+        public static Data DataModifyAppend(Selector target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1377,7 +1377,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyAppend(ID target, string path, NBTTag nbt)
+        public static Data DataModifyAppend(ID target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1391,7 +1391,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyMerge(Pos target, string path, NBTTag nbt)
+        public static Data DataModifyMerge(Pos target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1405,7 +1405,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyMerge(Selector target, string path, NBTTag nbt)
+        public static Data DataModifyMerge(Selector target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1419,7 +1419,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyMerge(ID target, string path, NBTTag nbt)
+        public static Data DataModifyMerge(ID target, string path, NBTElement<dynamic> nbt)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1559,7 +1559,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyInsert(Pos target, string path, NBTTag nbt, int index)
+        public static Data DataModifyInsert(Pos target, string path, NBTElement<dynamic> nbt, int index)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1573,7 +1573,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyInsert(Selector target, string path, NBTTag nbt, int index)
+        public static Data DataModifyInsert(Selector target, string path, NBTElement<dynamic> nbt, int index)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -1587,7 +1587,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataModifyInsert(ID target, string path, NBTTag nbt, int index)
+        public static Data DataModifyInsert(ID target, string path, NBTElement<dynamic> nbt, int index)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
