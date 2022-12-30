@@ -44,17 +44,17 @@ namespace MCSharp.Cmds
     public class Data : Command
     {
         #region 参数
-        object target;
+        DataArg target;
         string path;
         double? scale;
-        NBTElement<dynamic> nbt;
+        NBTTag nbt;
         string targetPath;
         string append_prepend_merge_set;
+        NBTTag value;
         string sourcePath;
-        object source;
+        DataArg source;
         int index;
         int type;
-        NBTElement<dynamic> element;
         #endregion
         
         private static string[] amps = new string[] { "append", "prepend", "merge", "set" };
@@ -64,7 +64,7 @@ namespace MCSharp.Cmds
         /// data get block &lt;targetPos> [&lt;path>] [&lt;scale>]
         /// </summary>
         /// type - 0
-        public Data(object target,string path = null, double? scale = null)
+        public Data(DataArg target,string path = null, double? scale = null)
         {
             this.target = target;
             this.path = path;
@@ -79,7 +79,7 @@ namespace MCSharp.Cmds
         /// data merge &lt;block:targetPos> &lt;nbt>
         /// </summary>
         /// type - 3
-        public Data(object target, NBTElement<dynamic> nbt)
+        public Data(DataArg target, NBTTag nbt)
         {
             this.target = target;
             this.nbt = nbt;
@@ -93,7 +93,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 6
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(object target, string targetPath, string append_prepend_merge_set, object source, string sourcePath)
+        public Data(DataArg target, string targetPath, string append_prepend_merge_set, DataArg source, string sourcePath)
         {
             this.target = target;
             this.targetPath = targetPath;
@@ -108,11 +108,11 @@ namespace MCSharp.Cmds
         }
         
         /// <summary>
-        /// data modify block &lt;targetPos> &lt;targetPath> (append|prepend|set) value &lt;value>
+        /// data modify block &lt;targetPos> &lt;targetPath> (append|prepend|merge|set) value &lt;value>
         /// </summary>
         /// type - 15
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(object target, string targetPath, string append_prepend_merge_set, NBTElement<dynamic> value)
+        public Data(DataArg target, string targetPath, string append_prepend_merge_set, NBTTag value)
         {
             this.target = target;
             this.targetPath = targetPath;
@@ -121,7 +121,7 @@ namespace MCSharp.Cmds
                 throw new ArgumentNotMatchException("参数错误:" + append_prepend_merge_set + "。应当为\"append\", \"merge\", \"prepend\"或\"set\"");
             }
             this.append_prepend_merge_set = append_prepend_merge_set;
-            this.element = value;
+            this.value = value;
             type = 15;
         }
         
@@ -130,7 +130,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 18
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(object target, string targetPath, int index, object source, string sourcePath)
+        public Data(DataArg target, string targetPath, int index, DataArg source, string sourcePath)
         {
             this.target = target;
             this.targetPath = targetPath;
@@ -145,12 +145,12 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 27
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(object target, string targetPath, int index, NBTElement<dynamic> value)
+        public Data(DataArg target, string targetPath, int index, NBTTag value)
         {
             this.target = target;
             this.targetPath = targetPath;
             this.index = index;
-            this.element = value;
+            this.value = value;
             type = 27;
         }
         #endregion
@@ -161,7 +161,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 30
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(object target, string path)
+        public Data(DataArg target, string path)
         {
             this.target = target;
             this.path = path;
@@ -186,7 +186,7 @@ namespace MCSharp.Cmds
                 case 3:
                     {
                         //data merge &lt;block:targetPos> &lt;nbt>
-                        re = "data merge " + getTypeString(target) + " " + target + " " + nbt;
+                        re = "data merge " + getTypeString(target) + " " + target + " " + nbt.ValueString;
                         break;
                     }
                 #endregion
@@ -200,7 +200,7 @@ namespace MCSharp.Cmds
                 case 15:
                     {
                         //data modify block &lt;targetPos> &lt;targetPath> (append|merge|prepend|set) value <value>
-                        re = "data modify " + getTypeString(target) + " " + target + " " + targetPath + " " + append_prepend_merge_set + " value " + element;
+                        re = "data modify " + getTypeString(target) + " " + target + " " + targetPath + " " + append_prepend_merge_set + " value " + value.ValueString;
                         break;
                     }
                 case 18:
@@ -212,7 +212,7 @@ namespace MCSharp.Cmds
                 case 27:
                     {
                         //data modify entity &lt;target> &lt;targetPath> insert &lt;index> value &lt;value>
-                        re = "data modify " + getTypeString(target) + " " + target + " " + targetPath + " insert " + index + " value " + element;
+                        re = "data modify " + getTypeString(target) + " " + target + " " + targetPath + " insert " + index + " value " + value.ValueString;
                         break;
                     }
                 #endregion

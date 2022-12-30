@@ -1,0 +1,115 @@
+﻿using MCSharp.Cmds;
+using MCSharp.Exception;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MCSharp.Type
+{
+    /// <summary>
+    /// 一个NBT路径
+    /// </summary>
+    public class NBTPath
+    {
+        string name;
+        
+        /// <summary>
+        /// 这个NBT路径名字
+        /// </summary>
+        public string Name
+        {
+            get;
+            set;
+        }
+
+        NBTTag value;
+
+        /// <summary>
+        /// 这个NBT路径对应的NBT标签
+        /// </summary>
+        public NBTTag Value
+        {
+            get
+            {
+                return value;
+            }
+            set
+            {
+                value.Path = this;
+            }
+        }
+
+        NBTTag parent;
+
+        /// <summary>
+        /// 这个NBT路径的父标签。可能为空
+        /// </summary>
+        public NBTTag Parent
+        {
+            get { return parent; }
+            set
+            {
+                parent = value;
+            }
+        }
+
+        public NBTPath(string name, NBTTag value)
+        {
+            this.name = name;
+            this.value = value;
+            value.Path = this;
+        }
+
+        public override string ToString()
+        {
+            string re = name + (parent != null ? "" : value.index.ToString());
+            if (parent is NBTCompound)
+            {
+                re = parent.Path.ToString() + "." + re;
+            }
+            else if (parent is NBTList<NBTTag> parentList)
+            {
+                re = "[" + parentList.IndexOf(value) + "]";
+            }
+            return re;
+        }
+
+        public NBTPath this[object index]
+        {
+            get
+            {
+                if(index is string strindex)
+                {
+                    if(!(value is NBTCompound value1))
+                    {
+                        throw new NBTException("只有NBTCompound类型的值才支持字符串索引");
+                    }
+                    else
+                    {
+                        return value1[strindex];
+                    }
+                }else if(index is int intindex)
+                {
+                    if(!(value is NBTArray<dynamic> array))
+                    {
+                        throw new NBTException("只有NBTArray类型的值才支持字符串索引");
+                    }
+                    else
+                    {
+                        return array[intindex];
+                    }
+                }
+                else
+                {
+                    throw new NBTException("不支持索引的类型:" + index.GetType().Name);
+                }
+            }
+            set
+            {
+
+            }
+        }
+    }
+}

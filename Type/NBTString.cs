@@ -12,7 +12,7 @@ namespace MCSharp.Type
                 if (value is string value2)
                 {
                     this.value = value2;
-                    DataModifySet(new ID("mcsharp:temp"), Path, this.value);
+                    DataModifySet(this, this);
                 }
                 else
                 {

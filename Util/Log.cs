@@ -80,10 +80,10 @@ namespace MCSharp.Util
         /// </summary>
         /// <param name="level"></param>
         /// <param name="msg"></param>
-        public void AddLog(Level level,string msg)
+        public void AddLog(Level level,object msg)
         {
             StackFrame sf = new StackFrame(1);
-            ls.Add(new L(level, msg , sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name));
+            ls.Add(new L(level, msg.ToString() , sf.GetMethod().DeclaringType.Name + "." + sf.GetMethod().Name));
         }
 
         /// <summary>

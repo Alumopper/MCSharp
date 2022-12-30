@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCSharp.Type.CommandArg;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MCSharp.Type
 {
-    public class Storage
+    public class Storage : DataArg
     {
 
         public ID name;

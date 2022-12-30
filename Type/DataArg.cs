@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MCSharp.Type.CommandArg
+namespace MCSharp.Type
 {
     /// <summary>
     /// 啥用没用，表示这个东西可以被塞到data里面去
     /// </summary>
-    internal interface DataArg
+    public interface DataArg
     {
     }
 }

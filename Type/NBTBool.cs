@@ -12,7 +12,7 @@ namespace MCSharp.Type
                 if (value is bool value2)
                 {
                     this.value = value2;
-                    DataModifySet(new ID("mcsharp:temp"), Path, this.value);
+                    DataModifySet(this, this);
                 }
                 else
                 {
@@ -21,6 +21,14 @@ namespace MCSharp.Type
             }
         }
 
+        public override string ValueString
+        {
+            get
+            {
+                return value ? "true" : "false";
+            }
+        }
+        
         public NBTBool(string name, bool value) : base(name, value)
         {
         }

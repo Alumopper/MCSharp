@@ -12,12 +12,20 @@ namespace MCSharp.Type
                 if (value is float value2)
                 {
                     this.value = value2;
-                    DataModifySet(new ID("mcsharp:temp"), Path, this.value);
+                    DataModifySet(this, this);
                 }
                 else
                 {
                     throw new System.ArgumentException("需要为类型float:" + value);
                 }
+            }
+        }
+
+        public override string ValueString
+        {
+            get
+            {
+                return value + "f";
             }
         }
 

@@ -30,17 +30,38 @@ namespace MCSharp.Test
         [MCFunction]
         public static void qwq()
         {
-            NBTCompound qwq = new NBTCompound("owo")
+            //NBTCompound qwq = new NBTCompound("owo")
+            //{
+            //    new NBTDouble("qwq",1.2),
+            //    new NBTCompound("awa")
+            //    {
+            //        new NBTDouble("uwu",114514)
+            //    }
+            //};
+            //qwq["awa"]["uwu"].Value = 1.4;
+            //DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq["qwq"].ToString());
+            //DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq["awa"]["uwu"].ToString());
+            NBTList<NBTCompound> qwq = new NBTList<NBTCompound>("list")
             {
-                new NBTDouble("qwq",1.2),
-                new NBTCompound("awa")
+                new NBTCompound()
                 {
-                    new NBTDouble("uwu",114514)
+                    new NBTDouble("qwq",1.2),
+                },
+                new NBTCompound()
+                {
+                    new NBTBool("qwq",false),
+                    new NBTIntArray("array")
+                    {
+                        1,2,5,6
+                    }
                 }
             };
-            qwq["awa"]["uwu"].Value = 1.4;
-            DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq["qwq"].ToString());
-            DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq["awa"]["uwu"].ToString());
+            qwq[0] = new NBTCompound()
+            {
+                new NBTDouble("qwq",3.5),
+            };
+            qwq[0]["qwq"].Value = 11.4514;
+            DatapackInfo.log.AddLog(Util.Log.Level.INFO, qwq[0]);
         }
     }
 }

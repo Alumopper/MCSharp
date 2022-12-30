@@ -12,7 +12,7 @@ namespace MCSharp.Type
                 if (value is short value2)
                 {
                     this.value = value2;
-                    DataModifySet(new ID("mcsharp:temp"), Path, this.value);
+                    DataModifySet(this, this);
                 }
                 else
                 {
@@ -23,6 +23,14 @@ namespace MCSharp.Type
 
         public NBTShort(string name, short value) : base(name, value)
         {
+        }
+
+        public override string ValueString
+        {
+            get
+            {
+                return value + "s";
+            }
         }
     }
 }

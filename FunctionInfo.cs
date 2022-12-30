@@ -118,7 +118,7 @@ namespace MCSharp
             {
                 if(isRoot || !end)
                 {
-                    commands.Add(c.ToString());
+                    commands.Add(c);
                 }
             }
         }

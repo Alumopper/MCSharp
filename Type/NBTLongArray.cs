@@ -14,15 +14,30 @@ namespace MCSharp.Type
         {
             set
             {
-                if (value is List<long> value1)
+                if (value is List<NBTSingle<long>> value1)
                 {
                     this.value = value1;
-                    DataModifySet(new ID("mcsharp:temp"), Path, this);
+                    DataModifySet(this, this);
                 }
                 else
                 {
                     throw new ArgumentException("需要为类型List<long>:" + value);
                 }
+            }
+        }
+        
+        public override string ValueString
+        {
+            get
+            {
+                string s = "[L;";
+                foreach (long nbt in value)
+                {
+                    s += nbt + ",";
+                }
+                s = s.TrimEnd(',');
+                s += "]";
+                return s;
             }
         }
     }

@@ -14,6 +14,8 @@ namespace MCSharp.Type
     /// </summary>
     public class ID : DataArg
     {
+        public static readonly ID tempNBT = new ID("mcsharp:temp");
+
         /// <summary>
         /// 命名空间id全称。不包含标签符"#"
         /// </summary>

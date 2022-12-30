@@ -36,8 +36,6 @@ namespace MCSharp.Type
         /// </summary>
         public List<SelectorArgument> args;
 
-        Storage nbt = new Storage();
-
         /// <summary>
         /// 通过一个目标选择器构建实体
         /// </summary>
