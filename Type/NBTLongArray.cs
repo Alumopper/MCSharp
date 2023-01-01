@@ -10,6 +10,8 @@ namespace MCSharp.Type
         {
         }
 
+        public NBTLongArray() : base() { }
+
         public override object Value
         {
             set

@@ -6,9 +6,9 @@ namespace MCSharp.Type
 {
     public class NBTIntArray : NBTArray<int>
     {
-        public NBTIntArray(string name) : base(name)
-        {
-        }
+        public NBTIntArray(string name) : base(name) { }
+
+        public NBTIntArray() : base() { }
 
         public override object Value
         {

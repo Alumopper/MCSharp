@@ -59,7 +59,7 @@ namespace MCSharp.Cmds
         public Attribute(Selector target, string attribute, string get_set, double scale_value)
         {
             this.target = target;
-            if (NBT.attributes.Contains(attribute))
+            if (NBTTag.attributes.Contains(attribute))
             {
                 this.attribute = attribute;
             }
@@ -91,7 +91,7 @@ namespace MCSharp.Cmds
         public Attribute(Selector target,string attribute, UUID uuid, string name, double value, string add_multiply_multiply_base)
         {
             this.target = target;
-            if (NBT.attributes.Contains(attribute))
+            if (NBTTag.attributes.Contains(attribute))
             {
                 this.attribute = attribute;
             }
@@ -122,7 +122,7 @@ namespace MCSharp.Cmds
         public Attribute(Selector target,string attribute, UUID uuid)
         {
             this.target = target;
-            if (NBT.attributes.Contains(attribute))
+            if (NBTTag.attributes.Contains(attribute))
             {
                 this.attribute = attribute;
             }
@@ -142,7 +142,7 @@ namespace MCSharp.Cmds
         public Attribute(Selector target,string attribute, UUID uuid, double scale)
         {
             this.target = target;
-            if (NBT.attributes.Contains(attribute))
+            if (NBTTag.attributes.Contains(attribute))
             {
                 this.attribute = attribute;
             }

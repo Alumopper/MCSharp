@@ -10,6 +10,10 @@ namespace MCSharp.Type
         {
         }
 
+        public NBTByteArray() : base()
+        {
+        }
+
         public override object Value
         {
             set

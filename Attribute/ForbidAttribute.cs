@@ -13,7 +13,10 @@ namespace MCSharp.Attribute
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Constructor, AllowMultiple = false, Inherited = false)]
     public class ForbidAttribute : System.Attribute
     {
-        public int frame;
+        /// <summary>
+        /// 有效帧。若为-1则始终有效
+        /// </summary>
+        public int frame = -1;
         public ForbidAttribute(){ }
 
         /// <summary>

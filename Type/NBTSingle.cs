@@ -79,10 +79,5 @@ namespace MCSharp.Type
             this.value = value;
             DataModifySet(this, this);
         }
-
-        public override string ToString()
-        {
-            return Name + ":" + ValueString;
-        }
     }
 }

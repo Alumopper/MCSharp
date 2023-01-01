@@ -124,6 +124,20 @@ namespace MCSharp.Type
             //添加未序列化的命令，从而在new语句中后续调用add方法改变列表时也会让命令中的元素发生变化
             data = DataModifySet(this, this,false);
         }
+        
+        public NBTList(DataArg container) : base(container)
+        {
+            isList = true;
+            //添加未序列化的命令，从而在new语句中后续调用add方法改变列表时也会让命令中的元素发生变化
+            data = DataModifySet(this, this, false);
+        }
+
+        public NBTList() : base(ID.tempNBT)
+        {
+            isList = true;
+            //添加未序列化的命令，从而在new语句中后续调用add方法改变列表时也会让命令中的元素发生变化
+            data = DataModifySet(this, this, false);
+        }
 
         internal void Add(T item)
         {
@@ -133,6 +147,19 @@ namespace MCSharp.Type
             }
             value.Add(item);
             item.parentRoot = this;
+        }
+        
+        internal void Add(T[] items)
+        {
+            foreach(T item in items)
+            {
+                if (item.Name != null)
+                {
+                    RemoveCommand();
+                }
+                value.Add(item);
+                item.parentRoot = this;
+            }
         }
 
         public void Append(T item)
