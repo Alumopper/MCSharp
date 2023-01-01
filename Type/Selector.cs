@@ -32,12 +32,24 @@ namespace MCSharp.Type
         public bool isSingle;
 
         /// <summary>
+        /// 这个选择器的参数。
+        /// </summary>
+        public NBTCompound nbt;
+        public NBTCompound NBT
+        {
+            get
+            {
+                return nbt;
+            }
+        }
+        
+        /// <summary>
         /// 目标选择器的参数
         /// </summary>
         public List<SelectorArgument> args;
 
         /// <summary>
-        /// 通过一个目标选择器构建实体
+        /// 通过一个目标选择器字符串构建目标选择器（反序列化）
         /// </summary>
         /// <param name="selector"></param>
         public Selector(string selector)
@@ -62,7 +74,7 @@ namespace MCSharp.Type
         }
 
         /// <summary>
-        /// 通过一个目标选择器种类构建目标选择器
+        /// 通过一个目标选择器基类型构建目标选择器
         /// </summary>
         /// <param name="type"></param>
         public Selector(SelectorType type)
@@ -71,6 +83,12 @@ namespace MCSharp.Type
             args = null;
         }
 
+        /// <summary>
+        /// 获取目标选择器的基类型
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        /// <exception cref="IllegalFormatException"></exception>
         public static SelectorType GetType(char c)
         {
             //目标选择器的格式：@type[argument1=value1,argument2=value2,...]
@@ -91,6 +109,13 @@ namespace MCSharp.Type
             }
         }
 
+        /// <summary>
+        /// 从字符串中解析出目标选择器的参数
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        /// <exception cref="IllegalFormatException"></exception>
+        /// <exception cref="BracketsNotMatchException"></exception>
         public static List<SelectorArgument> ParseArgs(string args)
         {
             //^[@][prase]([\[](([^=,]+[=][!]?([^=,{}]+|[{].+[}]))+([,]([^=,]+[=][!]?([^=,{}]+|[{].+[}])))*)+[\]])?$
@@ -207,7 +232,7 @@ namespace MCSharp.Type
                             re.Add(new y_rotation(new IntRange(kv[1])));
                             break;
                         case "nbt":
-                            re.Add(new nbt(NBT.Prase(kv[1])));
+                            re.Add(new nbt(NBTTag.Prase(null, kv[1])));
                             break;
                         case "level":
                             re.Add(new level(new IntRange(kv[1])));

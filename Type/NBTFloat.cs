@@ -4,6 +4,18 @@ namespace MCSharp.Type
 {
     public class NBTFloat : NBTSingle<float>
     {
+        public NBTFloat(float value) : base(value)
+        {
+        }
+
+        public NBTFloat(string name, float value) : base(name, value)
+        {
+        }
+
+        public NBTFloat(string name, float value, DataArg container) : base(name, value, container)
+        {
+        }
+
         public override object Value
         {
             get => value;
@@ -27,10 +39,6 @@ namespace MCSharp.Type
             {
                 return value + "f";
             }
-        }
-
-        public NBTFloat(string name, float value) : base(name, value)
-        {
         }
     }
 }

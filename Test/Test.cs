@@ -3,6 +3,7 @@ using MCSharp.Type;
 using MCSharp.Type.CommandArg;
 using System;
 using System.Linq;
+using System.Text.Json.Serialization;
 using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Test
@@ -20,7 +21,7 @@ namespace MCSharp.Test
             ////data modify storgae xxx testDouble set value 1.2
             //s.nbt["testDouble"] = nbt;
             ////data modify entity @s NBT.testDouble set from storage xxx testDouble
-            qwq();
+            Console.WriteLine(NBTTag.Prase(null,"{a:{b:[11,2,3,5,8]}}"));
             DatapackInfo.PrintDataPack();
             DatapackInfo.log.Print();
             Console.ReadKey();

@@ -28,32 +28,22 @@ namespace MCSharp.Type.CommandArg
         /// </summary>
         public string pre;
 
-        public BlockState(string pre)
+        //todo
+        public NBTTag nbt;
+
+        public BlockState(string pre, NBTTag nbt)
         {
-            if (pre.Contains('{'))
+            if (!Regex.IsMatch(pre, "^([a-z0-9_]+|([a-z0-9_]+[:][a-z0-9_]+))+([\\[][a-z0-9_]+[=][a-z0-9_]+[\\]])*$"))
             {
-                string[] qwq = pre.Split('{');
-                string a = qwq[0];  //非nbt
-                string b = qwq[1];  //nbt部分
-                if (!Regex.IsMatch(a, "^([a-z0-9_]+|([a-z0-9_]+[:][a-z0-9_]+))+([\\[][a-z0-9_]+[=][a-z0-9_]+[\\]])*$"))
-                {
-                    throw new IllegalFormatException("无法解析字符串" + pre + "为方块状态");
-                }
-                Storage w = NBT.Prase(b); //尝试
-            }
-            else
-            {
-                if (!Regex.IsMatch(pre, "^([a-z0-9_]+|([a-z0-9_]+[:][a-z0-9_]+))+([\\[][a-z0-9_]+[=][a-z0-9_]+[\\]])*$"))
-                {
-                    throw new IllegalFormatException("无法解析字符串" + pre + "为方块状态");
-                }
+                throw new IllegalFormatException("无法解析字符串" + pre + "为方块状态");
             }
             this.pre = pre;
+            this.nbt = nbt;
         }
 
         public override string ToString()
         {
-            return pre;
+            return pre + "{" + nbt + "}";
         }
     }
 }

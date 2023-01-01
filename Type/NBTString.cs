@@ -4,6 +4,18 @@ namespace MCSharp.Type
 {
     public class NBTString : NBTSingle<string>
     {
+        public NBTString(string value) : base(value)
+        {
+        }
+
+        public NBTString(string name, string value) : base(name, value)
+        {
+        }
+
+        public NBTString(string name, string value, DataArg container) : base(name, value, container)
+        {
+        }
+
         public override object Value
         {
             get => value;
@@ -21,8 +33,12 @@ namespace MCSharp.Type
             }
         }
 
-        public NBTString(string name, string value) : base(name, value)
+        public override string ValueString
         {
+            get
+            {
+                return "\"" + value + "\"";
+            }
         }
     }
 }

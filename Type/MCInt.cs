@@ -8,7 +8,7 @@ namespace MCSharp.Type
     /// <summary>
     /// 整数，用于计算。实质为计分板的值
     /// </summary>
-    [Penetrate]
+    [Inline]
     public class MCInt : SbValue, MCType
     {
         public MCInt(int value)

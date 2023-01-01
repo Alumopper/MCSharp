@@ -10,8 +10,8 @@ namespace MCSharp.Attribute
     /// 命令将会穿透此方法传递到上一方法
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Class)]
-    public class PenetrateAttribute : System.Attribute
+    public class InlineAttribute : System.Attribute
     {
-        public PenetrateAttribute() { }
+        public InlineAttribute() { }
     }
 }

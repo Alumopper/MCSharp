@@ -10,7 +10,7 @@ using MCSharp.Attribute;
 namespace MCSharp.Type
 {
 
-    [Penetrate]
+    [Inline]
     public class SbValue : MCType
     {
         /// <summary>

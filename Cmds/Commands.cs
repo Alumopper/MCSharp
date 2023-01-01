@@ -4566,7 +4566,7 @@ namespace MCSharp.Cmds
         #endregion
 
         #region xp
-        public static Xp AddXp(Selector player, int amount, bool levels = false, bool serialize = true)
+        public static Xp XpAdd(Selector player, int amount, bool levels = false, bool serialize = true)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -4584,7 +4584,7 @@ namespace MCSharp.Cmds
             return xp;
         }
 
-        public static Xp SetXp(Selector player, int amount, bool levels = false, bool serialize = true)
+        public static Xp XpSet(Selector player, int amount, bool levels = false, bool serialize = true)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -4602,7 +4602,7 @@ namespace MCSharp.Cmds
             return xp;
         }
 
-        public static Xp QueryXp(Selector player, bool levels = false, bool serialize = true)
+        public static Xp XpQuery(Selector player, bool levels = false, bool serialize = true)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -4621,7 +4621,7 @@ namespace MCSharp.Cmds
         }
         #endregion
 
-        public static void Comment(string comment, bool serialize = true)
+        public static void Comment(string comment)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -4637,6 +4637,7 @@ namespace MCSharp.Cmds
         /// 将一个已有的命令添加到当前的命令函数中
         /// </summary>
         /// <param name="command">要添加的命令</param>
+        /// <param name="serialize">是否序列化。默认为是</param>
         public static void AddCommand(Command command, bool serialize = true)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
@@ -4648,13 +4649,17 @@ namespace MCSharp.Cmds
                 return;
             }
             DatapackInfo.functions[StackManager.GetStackName()[0]].AddCommand(command);
+            if (serialize)
+            {
+                DatapackInfo.functions[StackManager.GetStackName()[0]].Serialize(command);
+            }
         }
         
         /// <summary>
         /// 将当前命令函数的最后一行命令删除
         /// </summary>
         /// <exception cref="FunctionNotRegistryException"></exception>
-        public static void RemoveCommand(bool serialize = true)
+        public static void RemoveCommand()
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -4671,7 +4676,7 @@ namespace MCSharp.Cmds
         /// 将当前命令函数中的此未序列化的命令序列化
         /// </summary>
         /// <param name="command"></param>
-        public static void Serialize(Command command, bool serialize = true)
+        public static void Serialize(Command command)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {
@@ -4682,23 +4687,6 @@ namespace MCSharp.Cmds
                 return;
             }
             DatapackInfo.functions[StackManager.GetStackName()[0]].Serialize(command);
-        }
-        
-        /// <summary>
-        /// 将一个已有的命令添加到当前的命令函数中，并且不序列化
-        /// </summary>
-        /// <param name="command">要添加的命令</param>
-        public static void AddUnserializedCommand(Command command, bool serialize = true)
-        {
-            if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
-            {
-                throw new FunctionNotRegistryException("未注册的函数:" + new StackFrame(1).GetMethod().Name);
-            }
-            else if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.Forbidden)
-            {
-                return;
-            }
-            DatapackInfo.functions[StackManager.GetStackName()[0]].AddUnserializedCommand(command);
         }
 
     }

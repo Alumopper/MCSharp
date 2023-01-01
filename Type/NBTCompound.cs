@@ -7,7 +7,7 @@ using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Type
 {
-    [Penetrate]
+    [Inline]
     public class NBTCompound : NBTTag, IEnumerable<NBTTag>
     {
         List<NBTTag> value;
@@ -93,6 +93,15 @@ namespace MCSharp.Type
         }
 
         /// <summary>
+        /// 创建一个匿名NBTCompound，指定它所属的NBT容器
+        /// </summary>
+        public NBTCompound(DataArg container) : base(container)
+        {
+            value = new List<NBTTag>();
+            hasSerialized = true;
+        }
+
+        /// <summary>
         /// 创建一个匿名NBTCompound
         /// </summary>
         public NBTCompound() : base(ID.tempNBT)
@@ -149,6 +158,23 @@ namespace MCSharp.Type
             value.Add(tag);
         }
 
+        internal void Add(NBTTag[] tags)
+        {
+            foreach(NBTTag tag in tags)
+            {
+                if (tag is NBTCompound qwq)
+                {
+                    qwq.hasSerialized = true; //用于new的NBTTag是没有命令哒，不用考虑序列化问题
+                }
+                if (tag.Name != null)
+                {
+                    RemoveCommand();
+                }
+                tag.parentRoot = this;  //父元素设置
+                value.Add(tag);
+            }
+        }
+
         /// <summary>
         /// 向此NBTCompound中添加一个NBTTag
         /// </summary>
@@ -178,17 +204,18 @@ namespace MCSharp.Type
             value.Remove(this[path]);
             DataRemove(ID.tempNBT, Path + "." + path);
         }
+
+        public T GetDynamicNBT<T>(string key) where T : NBTTag, new()
+        {
+            T re = new T
+            {
+                name = key
+            };
+            return re;
+        }
         
         public IEnumerator<NBTTag> GetEnumerator() => value.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => value.GetEnumerator();
-
-        /// <summary>
-        /// 获取这个NBTCompound的字符串形式
-        /// </summary>
-        public override string ToString()
-        {
-            return Name + ":" + ValueString;
-        }
     }
 }

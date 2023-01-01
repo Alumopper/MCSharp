@@ -4,6 +4,18 @@ namespace MCSharp.Type
 {
     public class NBTByte : NBTSingle<byte>
     {
+        public NBTByte(byte value) : base(value)
+        {
+        }
+
+        public NBTByte(string name, byte value) : base(name, value)
+        {
+        }
+
+        public NBTByte(string name, byte value, DataArg container) : base(name, value, container)
+        {
+        }
+
         public override object Value
         {
             get => value;
@@ -27,10 +39,6 @@ namespace MCSharp.Type
             {
                 return value + "b";
             }
-        }
-
-        public NBTByte(string name, byte value) : base(name, value)
-        {
         }
     }
 }

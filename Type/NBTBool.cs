@@ -4,6 +4,18 @@ namespace MCSharp.Type
 {
     public class NBTBool : NBTSingle<bool>
     {
+        public NBTBool(bool value) : base(value)
+        {
+        }
+
+        public NBTBool(string name, bool value) : base(name, value)
+        {
+        }
+
+        public NBTBool(string name, bool value, DataArg container) : base(name, value, container)
+        {
+        }
+
         public override object Value
         {
             get => value;
@@ -27,10 +39,6 @@ namespace MCSharp.Type
             {
                 return value ? "true" : "false";
             }
-        }
-        
-        public NBTBool(string name, bool value) : base(name, value)
-        {
         }
     }
 }

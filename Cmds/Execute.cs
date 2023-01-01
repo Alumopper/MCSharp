@@ -201,16 +201,14 @@ namespace MCSharp.Cmds
         public class Store : ExecuteChildCommand
         {
             rs result_success;
-            Pos targetPos;
+            DataArg target;
             string path;
             Type type;
             double scale;
             int qwq;
             ID id;
             vm value_max;
-            Selector target;
             SbObject objective;
-            ID storage;
 
             public enum rs
             {
@@ -226,22 +224,18 @@ namespace MCSharp.Cmds
             }
 
             /// <summary>
-            /// store (result|success) block &lt;targetPos> &lt;path> &lt;type> &lt;scale> -> execute
+            /// store (result|success) [block|storage|entity] &lt;target> &lt;path> &lt;type> &lt;scale> -> execute
             /// </summary>
             /// <param name="result_success"></param>
             /// <param name="targetPos">需要将数据存储到的目标方块的坐标。   </param>
-            /// <param name="path">需要持有结果的NBT标签的位置。</param>
+            /// <param name="path">需要持有结果的NBTTag标签的位置。</param>
             /// <param name="type">被存储的数据的类型。</param>
             /// <param name="scale">存储值的倍率。</param>
             /// <exception cref="ArgumentNotMatchException"></exception>
-            public Store(rs result_success, Pos targetPos, string path, Type type, double scale)
+            public Store(rs result_success, DataArg target, string path, Type type, double scale)
             {
                 this.result_success = result_success;
-                this.targetPos = targetPos;
-                if (!NBT.IsLegalPath(path))
-                {
-                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
-                }
+                this.target = target;
                 this.path = path;
                 this.type = type;
                 this.scale = scale;
@@ -261,30 +255,7 @@ namespace MCSharp.Cmds
                 this.value_max = value_max;
                 this.qwq = 1;
             }
-
-            /// <summary>
-            /// store (result|success) entity &lt;target> &lt;path> &lt;type> &lt;scale> -> execute
-            /// </summary>
-            /// <param name="result_success"></param>
-            /// <param name="target">目标实体。可以为玩家ID，UUID，或选择器。</param>
-            /// <param name="path">实体NBT数据的路径。</param>
-            /// <param name="type">被存储的数据的类型。</param>
-            /// <param name="scale">存储值的倍率。</param>
-            /// <exception cref="ArgumentNotMatchException"></exception>
-            public Store(rs result_success, Selector target, string path, Type type, double scale)
-            {
-                this.result_success = result_success;
-                this.target = target;
-                if (!NBT.IsLegalPath(path))
-                {
-                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
-                }
-                this.path = path;
-                this.type = type;
-                this.scale = scale;
-                qwq = 2;
-            }
-
+            
             /// <summary>
             /// store (result|success) score &lt;targets> &lt;objective> -> execute
             /// </summary>
@@ -296,30 +267,7 @@ namespace MCSharp.Cmds
                 this.result_success = result_success;
                 this.target = target;
                 this.objective = objective;
-                qwq = 3;
-            }
-
-            /// <summary>
-            /// store (result|success) storage &lt;target> &lt;path> &lt;type> &lt;scale> -> execute
-            /// </summary>
-            /// <param name="result_success"></param>
-            /// <param name="target">目标存储容器的命名空间ID。</param>
-            /// <param name="path">需要持有结果的NBT标签的位置。</param>
-            /// <param name="type">需要存储为的数据的类型。</param>
-            /// <param name="scale">存储值前先乘以一定的倍率。</param>
-            /// <exception cref="ArgumentNotMatchException"></exception>
-            public Store(rs result_success, ID target, string path, Type type, double scale)
-            {
-                this.result_success = result_success;
-                this.storage = target;
-                if (!NBT.IsLegalPath(path))
-                {
-                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
-                }
-                this.path = path;
-                this.type = type;
-                this.scale = scale;
-                qwq = 4;
+                this.qwq = 3;
             }
 
             public override string ToString()
@@ -328,22 +276,36 @@ namespace MCSharp.Cmds
                 switch (qwq)
                 {
                     case 0:
-                        re += " block " + targetPos + " " + path + " " + Tools.GetEnumString(type) + " " + scale;
+                        re +=  getTypeString(target) + " " + target + " " + path + " " + Tools.GetEnumString(type) + " " + scale;
                         break;
                     case 1:
                         re += " bossbar " + id + " " + Tools.GetEnumString(value_max);
                         break;
-                    case 2:
-                        re += " entity " + target + " " + path + " " + Tools.GetEnumString(type) + " " + scale;
-                        break;
                     case 3:
                         re += " score " + target + " " + objective;
                         break;
-                    case 4:
-                        re += " storage " + storage + " " + path + " " + Tools.GetEnumString(type) + " " + scale;
-                        break;
                 }
                 return re;
+            }
+
+            private static string getTypeString(object o)
+            {
+                if (o is Pos)
+                {
+                    return "block";
+                }
+                else if (o is Selector)
+                {
+                    return "entity";
+                }
+                else if (o is ID)
+                {
+                    return "storage";
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         
@@ -421,9 +383,9 @@ namespace MCSharp.Cmds
             public If(Pos pos, string path)
             {
                 this.pos = pos;
-                if (!NBT.IsLegalPath(path))
+                if (!NBTTag.IsLegalPath(path))
                 {
-                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBTTag路径");
                 }
                 this.path = path;
                 type = 3;
@@ -438,9 +400,9 @@ namespace MCSharp.Cmds
             public If(Selector target, string path)
             {
                 this.target = target;
-                if (!NBT.IsLegalPath(path))
+                if (!NBTTag.IsLegalPath(path))
                 {
-                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBTTag路径");
                 }
                 this.path = path;
                 type = 4;
@@ -455,9 +417,9 @@ namespace MCSharp.Cmds
             public If(ID source, string path)
             {
                 this.source = source;
-                if (!NBT.IsLegalPath(path))
+                if (!NBTTag.IsLegalPath(path))
                 {
-                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBT路径");
+                    throw new ArgumentNotMatchException("参数错误:" + path + "。不是合法的NBTTag路径");
                 }
                 this.path = path;
                 type = 5;
@@ -557,7 +519,7 @@ namespace MCSharp.Cmds
 
         #endregion
 
-        List<ExecuteChildCommand> childcommands = new List<ExecuteChildCommand>();
+        readonly List<ExecuteChildCommand> childcommands = new List<ExecuteChildCommand>();
 
         public void Append(ExecuteChildCommand childCommand)
         {

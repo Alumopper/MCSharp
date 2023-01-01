@@ -1,7 +1,9 @@
 ﻿using MCSharp.Cmds;
+using MCSharp.Exception;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using static MCSharp.Cmds.Commands;
 
 
@@ -36,6 +38,17 @@ namespace MCSharp.Type
             }
         }
 
+        public NBTArray() : base(ID.tempNBT)
+        {
+            value = new List<NBTSingle<T>>();
+            data = DataModifySet(this, this, false);
+        }
+
+        public NBTArray(DataArg container) : base(container)
+        {
+            value = new List<NBTSingle<T>>();
+            data = DataModifySet(this, this, false);
+        }
 
         public NBTArray(string name) : base(name, ID.tempNBT)
         {
@@ -83,15 +96,28 @@ namespace MCSharp.Type
             }
         }
 
-        public override string ToString()
-        {
-            return Name + ":" + ValueString;
-        }
-
         internal void Add(NBTSingle<T> item)
         {
             value.Add(item);
             item.parentRoot = this;
+        }
+
+        internal void Add(NBTSingle<T>[] items)
+        {
+            foreach(NBTSingle<T> item in items)
+            {
+                value.Add(item);
+                item.parentRoot = this;
+            }
+        }
+
+        internal void Add(T[] items)
+        {
+            foreach (NBTSingle<T> item in items)
+            {
+                value.Add(item);
+                item.parentRoot = this;
+            }
         }
 
         /// <summary>
@@ -114,5 +140,58 @@ namespace MCSharp.Type
         public IEnumerator<NBTSingle<T>> GetEnumerator() => value.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => value.GetEnumerator();
+
+        /// <summary>
+        /// 将一个字符串转化为NBTArray<T>
+        /// </summary>
+        /// <param name="nbt"></param>
+        /// <returns></returns>
+        public static NBTTag Prase(string nbt)
+        {
+            try
+            {
+                string[] keyValue = nbt.Split(new char[] {':'},2);
+                //[T;1,1,1,1,1,1,1,1,1,1]
+                string[] values = keyValue[1].Substring(1, keyValue[1].Length - 2).Split(':',';');
+                if (values[0] == "B")
+                {
+                    //byte
+                    byte[] bytes = new byte[values.Length-1];
+                    for (int i = 0; i < bytes.Length; i++)
+                    {
+                        bytes[i] = byte.Parse(values[i + 1]);
+                    }
+                    return new NBTArray<byte>(keyValue[0]) { bytes };
+                }
+                if (values[0] == "I")
+                {
+                    //int
+                    int[] ints = new int[values.Length - 1];
+                    for (int i = 0; i < ints.Length; i++)
+                    {
+                        ints[i] = byte.Parse(values[i + 1]);
+                    }
+                    return new NBTArray<int>(keyValue[0]) { ints };
+                }
+                if (values[0] == "L")
+                {
+                    //int
+                    long[] longs = new long[values.Length - 1];
+                    for (int i = 0; i < longs.Length; i++)
+                    {
+                        longs[i] = byte.Parse(values[i + 1]);
+                    }
+                    return new NBTArray<long>(keyValue[0]) { longs };
+                }
+                else
+                {
+                    throw new ApplicationException();
+                }
+            }
+            catch (ApplicationException)
+            {
+                throw new IllegalFormatException("无法解析nbt字符串: " + nbt);
+            }
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace MCSharp.Type.CommandArg
 {
     /// <summary>
     /// 代表世界中某类方块的判据。
-    /// 检查方块状态属性和（方块实体）NBT数据。允许用方块标签筛选方块类型。
+    /// 检查方块状态属性和（方块实体）NBTTag数据。允许用方块标签筛选方块类型。
     /// <para>
     /// 一些例子:
     /// <list type="bullet">
@@ -31,37 +31,27 @@ namespace MCSharp.Type.CommandArg
         /// </summary>
         public string pre;
 
+        //todo
+        public NBTTag nbt;
+
         /// <summary>
         /// 创建一个方块判据。
         /// </summary>
         /// <param name="pre"></param>
         /// <exception cref="IllegalFormatException"></exception>
-        public BlockPredicate(string pre)
+        public BlockPredicate(string pre, NBTTag nbt)
         {
-            if (pre.Contains('{'))
+            if (!Regex.IsMatch(pre, "^[#]?([a-z0-9_]+|([a-z0-9_]+[:][a-z0-9_]+))+([\\[][a-z0-9_]+[=][a-z0-9_]+[\\]])*$"))
             {
-                string[] qwq = pre.Split('{');
-                string a = qwq[0];  //非nbt
-                string b = qwq[1];  //nbt部分
-                if (!Regex.IsMatch(a, "^[#]?([a-z0-9_]+|([a-z0-9_]+[:][a-z0-9_]+))+([\\[][a-z0-9_]+[=][a-z0-9_]+[\\]])*$"))
-                {
-                    throw new IllegalFormatException("无法解析字符串" + pre + "为方块谓词");
-                }
-                Storage w = NBT.Prase(b); //尝试
-            }
-            else
-            {
-                if (!Regex.IsMatch(pre, "^[#]?([a-z0-9_]+|([a-z0-9_]+[:][a-z0-9_]+))+([\\[][a-z0-9_]+[=][a-z0-9_]+[\\]])*$"))
-                {
-                    throw new IllegalFormatException("无法解析字符串" + pre + "为方块谓词");
-                }
+                throw new IllegalFormatException("无法解析字符串" + pre + "为方块谓词");
             }
             this.pre = pre;
+            this.nbt = nbt;
         }
 
         public override string ToString()
         {
-            return pre;
+            return pre + "{" + nbt + "}";
         }
     }
 }

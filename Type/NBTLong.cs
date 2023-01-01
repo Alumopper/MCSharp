@@ -4,6 +4,18 @@ namespace MCSharp.Type
 {
     public class NBTLong : NBTSingle<long>
     {
+        public NBTLong(long value) : base(value)
+        {
+        }
+
+        public NBTLong(string name, long value) : base(name, value)
+        {
+        }
+
+        public NBTLong(string name, long value, DataArg container) : base(name, value, container)
+        {
+        }
+
         public override object Value
         {
             get => value;
@@ -25,12 +37,8 @@ namespace MCSharp.Type
         {
             get
             {
-                return value + "l";
+                return value + "L";
             }
-        }
-
-        public NBTLong(string name, long value) : base(name, value)
-        {
         }
     }
 }

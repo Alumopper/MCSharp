@@ -135,7 +135,7 @@ namespace MCSharp.Type
             return Append(new y_rotation(range));
         }
 
-        public SelectorBuilder nbt(Storage nbt, bool fit = true)
+        public SelectorBuilder nbt(NBTTag nbt, bool fit = true)
         {
             return Append(new nbt(nbt, fit));
         }
@@ -390,9 +390,9 @@ namespace MCSharp.Type
 
     public class nbt : SelectorArgument
     {
-        Storage value;
+        NBTTag value;
         bool fit;
-        public nbt(Storage nbt, bool fit = true)
+        public nbt(NBTTag nbt, bool fit = true)
         {
             this.value = nbt;
             this.fit = fit;

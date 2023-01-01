@@ -11,7 +11,7 @@ namespace MCSharp.Type
     /// <summary>
     /// 一个计分板对象。
     /// </summary>
-    [Penetrate]
+    [Inline]
     public class SbObject
     {
         public string name;

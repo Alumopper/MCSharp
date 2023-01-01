@@ -54,6 +54,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="fNbt, Version=0.6.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\fNbt.0.6.4\lib\net35-client\fNbt.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Text.Json">
@@ -70,7 +73,7 @@
     <Compile Include="Attribute\ForbidAttribute.cs" />
     <Compile Include="Attribute\FunctionTagAttribute.cs" />
     <Compile Include="Attribute\MCFunctionAttribute.cs" />
-    <Compile Include="Attribute\PenetrateAttribute.cs" />
+    <Compile Include="Attribute\InlineAttribute.cs" />
     <Compile Include="Cmds\Advancement.cs" />
     <Compile Include="Cmds\Attribute.cs" />
     <Compile Include="Cmds\Ban.cs" />
@@ -187,6 +190,7 @@
     <Compile Include="Type\NBTFloat.cs" />
     <Compile Include="Type\NBTInt.cs" />
     <Compile Include="Type\NBTIntArray.cs" />
+    <None Include="packages.config" />
     <None Include="Type\NBTElement.cs.dis" />
     <Compile Include="Type\NBTList.cs" />
     <Compile Include="Type\NBTLong.cs" />

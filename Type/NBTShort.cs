@@ -4,6 +4,18 @@ namespace MCSharp.Type
 {
     public class NBTShort : NBTSingle<short>
     {
+        public NBTShort(short value) : base(value)
+        {
+        }
+
+        public NBTShort(string name, short value) : base(name, value)
+        {
+        }
+
+        public NBTShort(string name, short value, DataArg container) : base(name, value, container)
+        {
+        }
+
         public override object Value
         {
             get => value;
@@ -19,10 +31,6 @@ namespace MCSharp.Type
                     throw new System.ArgumentException("需要为类型short:" + value);
                 }
             }
-        }
-
-        public NBTShort(string name, short value) : base(name, value)
-        {
         }
 
         public override string ValueString

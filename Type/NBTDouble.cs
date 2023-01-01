@@ -3,7 +3,19 @@
 namespace MCSharp.Type
 {
     public class NBTDouble : NBTSingle<double>
-    {       
+    {
+        public NBTDouble(double value) : base(value)
+        {
+        }
+
+        public NBTDouble(string name, double value) : base(name, value)
+        {
+        }
+
+        public NBTDouble(string name, double value, DataArg container) : base(name, value, container)
+        {
+        }
+
         public override object Value
         {
             get => value;
@@ -27,10 +39,6 @@ namespace MCSharp.Type
             {
                 return value + "d";
             }
-        }
-
-        public NBTDouble(string name, double value) : base(name, value)
-        {
         }
     }
 }

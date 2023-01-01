@@ -28,7 +28,7 @@ namespace MCSharp
         /// <summary>
         /// 数据包版本
         /// </summary>
-        public static int version;
+        public static int version = 10;
 
         /// <summary>
         /// 17w43a - 17w47b 
@@ -272,7 +272,7 @@ namespace MCSharp
                 {
                     return FunctionState.Regestered;
                 }
-                //是否有穿透属性
+                //是否有注册属性
                 if (s.GetMethod().IsDefined(typeof(MCFunctionAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(MCFunctionAttribute)))
                 {
                     RegistryFunction(s.GetMethod());
@@ -282,13 +282,13 @@ namespace MCSharp
                 int index = fs.IndexOf(s);
                 foreach(System.Attribute attribute in s.GetMethod().GetCustomAttributes(inherit: true).Cast<System.Attribute>())
                 {
-                    if (attribute is ForbidAttribute attribute1 && attribute1.frame == index)
+                    if (attribute is ForbidAttribute attribute1 && (attribute1.frame == index || attribute1.frame == -1))
                     {
                         return FunctionState.Forbidden;
                     }
                 }
                 //是否有穿透属性
-                if (s.GetMethod().IsDefined(typeof(PenetrateAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(PenetrateAttribute))){
+                if (s.GetMethod().IsDefined(typeof(InlineAttribute)) || s.GetMethod().DeclaringType.IsDefined(typeof(InlineAttribute))){
                     continue;
                 }
                 else

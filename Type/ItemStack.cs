@@ -22,10 +22,11 @@ namespace MCSharp.Type
         /// 物品id
         /// </summary>
         public string id;
+
         /// <summary>
         /// 物品nbt标签
         /// </summary>
-        public Storage nbt;
+        public NBTTag nbt;
 
         /// <summary>
         /// 物品的数量
@@ -50,7 +51,7 @@ namespace MCSharp.Type
                     throw new IllegalFormatException("无法解析字符串" + item_stack + "为item_stack");
                 }
                 this.id = a;
-                this.nbt = NBT.Prase(b); //尝试
+                this.nbt = NBTTag.Prase(null, b); //尝试
             }
             else
             {
@@ -71,7 +72,7 @@ namespace MCSharp.Type
         /// <param name="nbt"></param>
         /// <param name="count"></param>
         /// <exception cref="IllegalFormatException"></exception>
-        public ItemStack(string id, Storage nbt, int count = 1)
+        public ItemStack(string id, NBTTag nbt, int count = 1)
         {
 
             if (!Regex.IsMatch(id, "^([a-z0-9_]+|([a-z0-9_]+[:][a-z0-9_]+))+$"))
