@@ -47,6 +47,10 @@ namespace MCSharp.Type
         {
             get
             {
+                if (IsDynamic)
+                {
+                    return "?";
+                }
                 string s = "{";
                 foreach (NBTTag nbt in value)
                 {
@@ -85,7 +89,7 @@ namespace MCSharp.Type
         /// </summary>
         /// <param name="name"></param>
         /// <param name="container"></param>
-        public NBTCompound(string name, DataArg container) : base(name, container)
+        public NBTCompound(string name, IDataArg container) : base(name, container)
         {
             value = new List<NBTTag>();
             //添加未序列化的命令，从而在new语句中后续调用add方法改变字典时也会让命令中的元素发生变化
@@ -95,7 +99,7 @@ namespace MCSharp.Type
         /// <summary>
         /// 创建一个匿名NBTCompound，指定它所属的NBT容器
         /// </summary>
-        public NBTCompound(DataArg container) : base(container)
+        public NBTCompound(IDataArg container) : base(container)
         {
             value = new List<NBTTag>();
             hasSerialized = true;
@@ -211,6 +215,7 @@ namespace MCSharp.Type
             {
                 name = key
             };
+            value.Add(re);
             return re;
         }
         

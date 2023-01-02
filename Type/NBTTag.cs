@@ -69,9 +69,9 @@ namespace MCSharp.Type
         /// </summary>
         protected bool hasSerialized = false;
 
-        DataArg container;
+        IDataArg container;
         
-        public DataArg Container
+        public IDataArg Container
         {
             get
             {
@@ -105,13 +105,13 @@ namespace MCSharp.Type
 
         protected bool isList = false;
 
-        public NBTTag(DataArg container)
+        public NBTTag(IDataArg container)
         {
             index = count++;
             this.container = container;
         }
 
-        internal NBTTag(string name, DataArg container)
+        internal NBTTag(string name, IDataArg container)
         {
             index = count++;
             this.name = name;

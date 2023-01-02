@@ -12,7 +12,7 @@ namespace MCSharp.Type
         {
         }
 
-        public NBTFloat(string name, float value, DataArg container) : base(name, value, container)
+        public NBTFloat(string name, float value, IDataArg container) : base(name, value, container)
         {
         }
 

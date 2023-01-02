@@ -27,13 +27,13 @@ namespace MCSharp.Type
         }
 
         /// <summary>
-        /// 此NBTSingle是否是动态的
+        /// 此NBTSingle是否是动态的。始终返回true
         /// </summary>
         public override bool IsDynamic
         {
             get
             {
-                return value == null;
+                return true;
             }
         }
 
@@ -47,6 +47,16 @@ namespace MCSharp.Type
             return new NBTSingle<T>(value);
         }
 
+        /// <summary>
+        /// 创建一个动态匿名NBTSingle
+        /// </summary>
+        /// <param name="value"></param>
+        public NBTSingle() : base(ID.tempNBT)
+        {
+            this.value = default;
+            //匿名NBT标签不会有命令
+        }
+        
         /// <summary>
         /// 创建一个只有值的匿名NBTSingle
         /// </summary>
@@ -74,7 +84,7 @@ namespace MCSharp.Type
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <param name="container"></param>
-        public NBTSingle(string name, T value, DataArg container) : base(name, container)
+        public NBTSingle(string name, T value, IDataArg container) : base(name, container)
         {
             this.value = value;
             DataModifySet(this, this);

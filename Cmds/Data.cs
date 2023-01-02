@@ -44,7 +44,7 @@ namespace MCSharp.Cmds
     public class Data : Command
     {
         #region 参数
-        DataArg target;
+        IDataArg target;
         string path;
         double? scale;
         NBTTag nbt;
@@ -52,7 +52,7 @@ namespace MCSharp.Cmds
         string append_prepend_merge_set;
         NBTTag value;
         string sourcePath;
-        DataArg source;
+        IDataArg source;
         int index;
         int type;
         #endregion
@@ -64,7 +64,7 @@ namespace MCSharp.Cmds
         /// data get block &lt;targetPos> [&lt;path>] [&lt;scale>]
         /// </summary>
         /// type - 0
-        public Data(DataArg target,string path = null, double? scale = null)
+        public Data(IDataArg target,string path = null, double? scale = null)
         {
             this.target = target;
             this.path = path;
@@ -79,7 +79,7 @@ namespace MCSharp.Cmds
         /// data merge &lt;block:targetPos> &lt;nbt>
         /// </summary>
         /// type - 3
-        public Data(DataArg target, NBTTag nbt)
+        public Data(IDataArg target, NBTTag nbt)
         {
             this.target = target;
             this.nbt = nbt;
@@ -93,7 +93,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 6
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(DataArg target, string targetPath, string append_prepend_merge_set, DataArg source, string sourcePath)
+        public Data(IDataArg target, string targetPath, string append_prepend_merge_set, IDataArg source, string sourcePath)
         {
             this.target = target;
             this.targetPath = targetPath;
@@ -112,7 +112,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 15
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(DataArg target, string targetPath, string append_prepend_merge_set, NBTTag value)
+        public Data(IDataArg target, string targetPath, string append_prepend_merge_set, NBTTag value)
         {
             this.target = target;
             this.targetPath = targetPath;
@@ -130,7 +130,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 18
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(DataArg target, string targetPath, int index, DataArg source, string sourcePath)
+        public Data(IDataArg target, string targetPath, int index, IDataArg source, string sourcePath)
         {
             this.target = target;
             this.targetPath = targetPath;
@@ -145,7 +145,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 27
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(DataArg target, string targetPath, int index, NBTTag value)
+        public Data(IDataArg target, string targetPath, int index, NBTTag value)
         {
             this.target = target;
             this.targetPath = targetPath;
@@ -161,7 +161,7 @@ namespace MCSharp.Cmds
         /// </summary>
         /// type - 30
         /// <exception cref="ArgumentNotMatchException"></exception>
-        public Data(DataArg target, string path)
+        public Data(IDataArg target, string path)
         {
             this.target = target;
             this.path = path;

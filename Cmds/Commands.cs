@@ -874,7 +874,7 @@ namespace MCSharp.Cmds
             return data;
         }
 
-        public static Data DataMerge(DataArg targetPos, NBTTag nbt, bool serialize = true)
+        public static Data DataMerge(IDataArg targetPos, NBTTag nbt, bool serialize = true)
         {
             if (DatapackInfo.GetFunctionState() == DatapackInfo.FunctionState.UnRegestered)
             {

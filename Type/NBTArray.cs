@@ -3,6 +3,7 @@ using MCSharp.Exception;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using static MCSharp.Cmds.Commands;
 
@@ -30,6 +31,9 @@ namespace MCSharp.Type
             }
         }
         
+        /// <summary>
+        /// 这个NBTArray是不是动态的
+        /// </summary>
         public override bool IsDynamic
         {
             get
@@ -44,7 +48,7 @@ namespace MCSharp.Type
             data = DataModifySet(this, this, false);
         }
 
-        public NBTArray(DataArg container) : base(container)
+        public NBTArray(IDataArg container) : base(container)
         {
             value = new List<NBTSingle<T>>();
             data = DataModifySet(this, this, false);
@@ -56,7 +60,7 @@ namespace MCSharp.Type
             data = DataModifySet(this, this, false);
         }
         
-        public NBTArray(string name, DataArg container) : base(name, container)
+        public NBTArray(string name, IDataArg container) : base(name, container)
         {
             value = new List<NBTSingle<T>>();
             data = DataModifySet(this, this, false);
@@ -121,7 +125,7 @@ namespace MCSharp.Type
         }
 
         /// <summary>
-        /// 向此NBTIntArray中添加一个整数
+        /// 向此NBTArray末尾添加一个值
         /// </summary>
         /// <param name="tag"></param>
         public void Append(T tag)
@@ -135,6 +139,53 @@ namespace MCSharp.Type
             hasSerialized = true; //对Compound中的元素进行了添加操作。必然完成了new的过程
             value.Add(tag);
             DataModifyAppend(this, (NBTSingle<T>)tag);
+        }
+
+        /// <summary>
+        /// 在此NBTArray的指定位置插入一个值
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="tag">要插入的值</param>
+        public void Insert(int index, T tag)
+        {
+            //一有动静我就序列化.jpg
+            if (!hasSerialized)
+            {
+                //将命令序列化到函数中
+                Serialize(data);
+            }
+            hasSerialized = true; //对Compound中的元素进行了添加操作。必然完成了new的过程
+            value.Insert(index, tag);
+            DataModifyInsert(this, (NBTSingle<T>)tag, index);
+        }
+        
+        /// <summary>
+        /// 在此NBTArray开头插入一个值
+        /// </summary>
+        /// <param name="item"></param>
+        public void Prepend(T item)
+        {
+            //一有动静我就序列化.jpg
+            if (!hasSerialized)
+            {
+                //将命令序列化到函数中
+                Serialize(data);
+            }
+            hasSerialized = true; //对Compound中的元素进行了访问操作。必然完成了new的过程
+            value.Prepend<NBTSingle<T>>(item);
+            DataModifyPrepend(this, (NBTSingle<T>)item);
+        }
+        
+        /// <summary>
+        /// 将此NBTList中的指定项删除
+        /// </summary>
+        /// <param name="path"></param>
+        public void Remove(int index)
+        {
+            //因为索引中有序列化，这里虽然也有动静但是不会专门去序列化啦
+            this[index].parentRoot = null;
+            value.Remove((NBTSingle<T>)this[index]);
+            DataRemove(ID.tempNBT, Path + "[" + index + "]");
         }
 
         public IEnumerator<NBTSingle<T>> GetEnumerator() => value.GetEnumerator();

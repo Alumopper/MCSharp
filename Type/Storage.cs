@@ -5,7 +5,7 @@ using static MCSharp.Cmds.Commands;
 namespace MCSharp.Type
 {
     [Inline]
-    public class Storage : DataArg
+    public class Storage : IDataArg
     {
 
         public ID name;
@@ -41,6 +41,16 @@ namespace MCSharp.Type
         {
             this.name = name;
             this.nbt = nbt;
+        }
+        
+        public void Merge(NBTTag nbt)
+        {
+            DataMerge(this, nbt);
+        }
+
+        public string DataCmdStr()
+        {
+            return name.ToString();
         }
     }
 }

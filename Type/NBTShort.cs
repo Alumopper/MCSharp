@@ -12,7 +12,7 @@ namespace MCSharp.Type
         {
         }
 
-        public NBTShort(string name, short value, DataArg container) : base(name, value, container)
+        public NBTShort(string name, short value, IDataArg container) : base(name, value, container)
         {
         }
 

@@ -1,6 +1,7 @@
 ﻿using MCSharp.Cmds;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Type
@@ -53,6 +54,9 @@ namespace MCSharp.Type
             }
         }
         
+        /// <summary>
+        /// 这个NBTList是不是动态的
+        /// </summary>
         public override bool IsDynamic
         {
             get
@@ -111,7 +115,7 @@ namespace MCSharp.Type
             }
         }
 
-        public NBTList(string name, DataArg container) : base(name, container)
+        public NBTList(string name, IDataArg container) : base(name, container)
         {
             isList = true;
             //添加未序列化的命令，从而在new语句中后续调用add方法改变列表时也会让命令中的元素发生变化
@@ -125,7 +129,7 @@ namespace MCSharp.Type
             data = DataModifySet(this, this,false);
         }
         
-        public NBTList(DataArg container) : base(container)
+        public NBTList(IDataArg container) : base(container)
         {
             isList = true;
             //添加未序列化的命令，从而在new语句中后续调用add方法改变列表时也会让命令中的元素发生变化
@@ -162,6 +166,10 @@ namespace MCSharp.Type
             }
         }
 
+        /// <summary>
+        /// 在此NBTList末尾添加一个值
+        /// </summary>
+        /// <param name="item"></param>
         public void Append(T item)
         {
             //一有动静我就序列化.jpg
@@ -175,7 +183,56 @@ namespace MCSharp.Type
             item.parentRoot = this;
             DataModifyAppend(this, item);
         }
+
+        /// <summary>
+        /// 在此NBTList的指定位置插入一个值
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <param name="item">要插入的值</param>
+        public void Insert(int index, T item)
+        {
+            //一有动静我就序列化.jpg
+            if (!hasSerialized)
+            {
+                //将命令序列化到函数中
+                Serialize(data);
+            }
+            hasSerialized = true; //对Compound中的元素进行了添加操作。必然完成了new的过程
+            value.Insert(index, item);
+            item.parentRoot = this;
+            DataModifyInsert(this, (NBTSingle<T>)item, index);
+        }
+
+        /// <summary>
+        /// 在此NBTList开头插入一个值
+        /// </summary>
+        /// <param name="item"></param>
+        public void Prepend(T item)
+        {
+            //一有动静我就序列化.jpg
+            if (!hasSerialized)
+            {
+                //将命令序列化到函数中
+                Serialize(data);
+            }
+            hasSerialized = true; //对Compound中的元素进行了访问操作。必然完成了new的过程
+            value.Prepend(item);
+            item.parentRoot = this;
+            DataModifyPrepend(this, item);
+        }
         
+        /// <summary>
+        /// 将此NBTList中的指定项删除
+        /// </summary>
+        /// <param name="path"></param>
+        public void Remove(int index)
+        {
+            //因为索引中有序列化，这里虽然也有动静但是不会专门去序列化啦
+            this[index].parentRoot = null;
+            value.Remove((T)this[index]);
+            DataRemove(ID.tempNBT, Path + "[" + index + "]");
+        }
+
         public IEnumerator<T> GetEnumerator() => value.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => value.GetEnumerator();

@@ -12,7 +12,7 @@ namespace MCSharp.Type
         {
         }
 
-        public NBTString(string name, string value, DataArg container) : base(name, value, container)
+        public NBTString(string name, string value, IDataArg container) : base(name, value, container)
         {
         }
 

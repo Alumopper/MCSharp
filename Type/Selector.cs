@@ -1,20 +1,16 @@
 ﻿using MCSharp.Exception;
 using MCSharp.Type.CommandArg;
 using MCSharp.Util;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Type
 {
     /// <summary>
     /// 目标选择器
     /// </summary>
-    public class Selector : DataArg
+    public class Selector : IDataArg
     {
         public enum SelectorType
         {
@@ -32,7 +28,7 @@ namespace MCSharp.Type
         public bool isSingle;
 
         /// <summary>
-        /// 这个选择器的参数。
+        /// 这个选择器所选择实体的nbt。
         /// </summary>
         public NBTCompound nbt;
         public NBTCompound NBT
@@ -286,6 +282,16 @@ namespace MCSharp.Type
                 re += "]";
             }
             return re;
+        }
+
+        public void Merge(NBTTag nbt)
+        {
+            DataMerge(this, nbt);
+        }
+
+        public string DataCmdStr()
+        {
+            return ToString();
         }
     }
 }

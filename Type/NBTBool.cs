@@ -12,7 +12,7 @@ namespace MCSharp.Type
         {
         }
 
-        public NBTBool(string name, bool value, DataArg container) : base(name, value, container)
+        public NBTBool(string name, bool value, IDataArg container) : base(name, value, container)
         {
         }
 

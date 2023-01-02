@@ -12,7 +12,7 @@ namespace MCSharp.Type
         {
         }
 
-        public NBTDouble(string name, double value, DataArg container) : base(name, value, container)
+        public NBTDouble(string name, double value, IDataArg container) : base(name, value, container)
         {
         }
 

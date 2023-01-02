@@ -15,6 +15,5 @@ namespace MCSharp.Type
         {
             this.related = related;
         }
-
     }
 }

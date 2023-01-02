@@ -1,13 +1,8 @@
-﻿using MCSharp.Type.CommandArg;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static MCSharp.Cmds.Commands;
 
 namespace MCSharp.Type
 {
-    public class BlockInfo: DataArg
+    public class BlockInfo: IDataArg
     {
         Pos pos;
         public Pos Position
@@ -16,6 +11,16 @@ namespace MCSharp.Type
             {
                 return pos;
             }
+        }
+
+        public string DataCmdStr()
+        {
+            return pos.ToString();
+        }
+
+        public void Merge(NBTTag nbt)
+        {
+            DataMerge(this, nbt);
         }
     }
 }

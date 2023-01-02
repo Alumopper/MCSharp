@@ -201,7 +201,7 @@ namespace MCSharp.Cmds
         public class Store : ExecuteChildCommand
         {
             rs result_success;
-            DataArg target;
+            IDataArg target;
             string path;
             Type type;
             double scale;
@@ -232,7 +232,7 @@ namespace MCSharp.Cmds
             /// <param name="type">被存储的数据的类型。</param>
             /// <param name="scale">存储值的倍率。</param>
             /// <exception cref="ArgumentNotMatchException"></exception>
-            public Store(rs result_success, DataArg target, string path, Type type, double scale)
+            public Store(rs result_success, IDataArg target, string path, Type type, double scale)
             {
                 this.result_success = result_success;
                 this.target = target;

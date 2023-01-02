@@ -1,4 +1,5 @@
-﻿using MCSharp.Type.CommandArg;
+﻿using MCSharp.Exception;
+using MCSharp.Type.CommandArg;
 using MCSharp.Util;
 using System;
 using System.Collections.Generic;
@@ -137,6 +138,10 @@ namespace MCSharp.Type
 
         public SelectorBuilder nbt(NBTTag nbt, bool fit = true)
         {
+            if (nbt.IsDynamic)
+            {
+                throw new NBTException("目标选择器使用的NBT参数不能为动态NBT");
+            }
             return Append(new nbt(nbt, fit));
         }
 

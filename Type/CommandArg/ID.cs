@@ -12,7 +12,7 @@ namespace MCSharp.Type
     /// <summary>
     /// 一个命名空间id。也可以是标签。
     /// </summary>
-    public class ID : DataArg
+    public class ID : IDataArg
     {
         public static readonly ID tempNBT = new ID("mcsharp:temp");
 
